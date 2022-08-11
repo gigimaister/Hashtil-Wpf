@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <RootNamespace>Hashtil_Jobs_For_Drivers</RootNamespace>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\HashtilLoginVideoAndroid.mp4" />
+    <None Remove="Resources\hashtil_logo3.png" />
+    <None Remove="Resources\plant.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\HashtilLoginVideoAndroid.mp4">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Resources\hashtil_logo3.png" />
+    <Resource Include="Resources\plant.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MaterialDesignThemes" Version="4.1.0" />
+  </ItemGroup>
+
+</Project>
