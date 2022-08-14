@@ -9,12 +9,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="hashtil-job-table-wpf.json" />
     <None Remove="Resources\HashtilLoginVideoAndroid.mp4" />
     <None Remove="Resources\hashtil_logo3.png" />
     <None Remove="Resources\plant.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="hashtil-job-table-wpf.json" />
     <Content Include="Resources\HashtilLoginVideoAndroid.mp4">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
