@@ -1,4 +1,5 @@
-﻿using MaterialDesignThemes.Wpf;
+﻿using Hashtil_Jobs_For_Drivers.Heplers;
+using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,11 +24,12 @@ namespace Hashtil_Jobs_For_Drivers
     {
         public MainWindow()
         {
-            InitializeComponent();         
+            InitializeComponent();
+            HttpReq.InitializeClient();
         }
 
         public bool IsDarkTheme { get; set; }
-        private readonly PaletteHelper paletteHelper = new PaletteHelper();
+        private readonly PaletteHelper paletteHelper = new PaletteHelper();      
 
         private void toggleTheme(object sender, RoutedEventArgs e)
         {
@@ -54,6 +56,21 @@ namespace Hashtil_Jobs_For_Drivers
         {
             base.OnMouseLeftButtonDown(e);
             DragMove();
+        }
+
+        // Login Btn
+        private async void btnLogin_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var LoginUsersList = await ApiHelper.Login(txtUsername.Text, txtPassword.Password);
+                txtErrorMessage.Visibility = Visibility.Hidden;
+
+            }
+            catch
+            {
+                txtErrorMessage.Visibility = Visibility.Visible; 
+            }
         }
     }
 }

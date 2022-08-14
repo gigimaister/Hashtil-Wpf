@@ -4,6 +4,7 @@ using System.Net.Http.Headers;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System;
 
 namespace Hashtil_Jobs_For_Drivers.Heplers
 {
@@ -16,13 +17,34 @@ namespace Hashtil_Jobs_For_Drivers.Heplers
             ApiClient = new HttpClient();
             ApiClient.DefaultRequestHeaders.Accept.Clear();
             ApiClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
         }
-        public static async Task<User> Login(string username, string password)
+        public static async Task<List<User>>Login(string username, string password)
         {
-            var httpClient = new HttpClient();
-            var response = await httpClient.GetStringAsync($"{Constants.Url.Login}username={username}&password={password}");
-            return JsonConvert.DeserializeObject<User>(response);
+            string url = $"http://www.hashtildb.pe.hu/LoginMapTable.php?username={username}&password={password}";
+
+
+            using (HttpResponseMessage response = await HttpReq.ApiClient.GetAsync(url))
+            {
+                try
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var user = await response.Content.ReadAsStringAsync();
+                        var j = JsonConvert.DeserializeObject<List<User>>(user);
+                        return j;
+                    }
+                    else
+                    {
+                        throw new Exception(response.ReasonPhrase);
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    throw new Exception();
+                }
+                
+            }
         }
     }
 }

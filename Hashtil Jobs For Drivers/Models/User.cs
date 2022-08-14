@@ -8,8 +8,10 @@ namespace Hashtil_Jobs_For_Drivers.Models
 {
     public class User
     {
-        public string? UsrScreenName { get; set; }
+        public int UserId { get; set; }
+        public string UserName { get; set; }
+        public string UserNickName { get; set; }
         public int UserLevel { get; set; }
-        public DateTime LastLogin { get; set; }
+        public string LastLogin { get; set; }
     }
 }
