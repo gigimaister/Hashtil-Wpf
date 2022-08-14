@@ -16,7 +16,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="hashtil-job-table-wpf.json" />
+    <Content Include="hashtil-job-table-wpf.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\HashtilLoginVideoAndroid.mp4">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -23,6 +23,7 @@ namespace Hashtil_Jobs_For_Drivers.Views
         public MainView()
         {
             InitializeComponent();
+            Heplers.GSheetsHelper.ReadEntries();
         }
         public bool IsDarkTheme { get; set; }
         private readonly PaletteHelper paletteHelper = new PaletteHelper();
