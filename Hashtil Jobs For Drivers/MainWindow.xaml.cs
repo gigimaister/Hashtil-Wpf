@@ -1,19 +1,11 @@
 ﻿using Hashtil_Jobs_For_Drivers.Heplers;
 using MaterialDesignThemes.Wpf;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System;
+using System.Collections.ObjectModel;
+using Hashtil_Jobs_For_Drivers.Views;
 
 namespace Hashtil_Jobs_For_Drivers
 {
@@ -64,6 +56,12 @@ namespace Hashtil_Jobs_For_Drivers
             try
             {
                 var LoginUsersList = await ApiHelper.Login(txtUsername.Text, txtPassword.Password);
+                if (LoginUsersList.FirstOrDefault().UserLevel>0)
+                {
+                    MainView mainView = new MainView();
+                    this.Close();
+                    mainView.ShowDialog();
+                }
                 txtErrorMessage.Visibility = Visibility.Hidden;
 
             }
