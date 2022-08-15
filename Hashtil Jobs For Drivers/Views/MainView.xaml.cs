@@ -23,8 +23,15 @@ namespace Hashtil_Jobs_For_Drivers.Views
         public MainView()
         {
             InitializeComponent();
-            Heplers.GSheetsHelper.ReadEntries();
+            Task.Run(() => GetData());
+           
         }
+
+        private async void GetData()
+        {
+            var t = await Heplers.GSheetsHelper.ReadEntries();
+        }
+
         public bool IsDarkTheme { get; set; }
         private readonly PaletteHelper paletteHelper = new PaletteHelper();
 
@@ -69,5 +76,6 @@ namespace Hashtil_Jobs_For_Drivers.Views
                 this.WindowState = WindowState.Normal;
             }
         }
+
     }
 }
