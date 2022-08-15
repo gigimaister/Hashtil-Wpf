@@ -73,9 +73,26 @@ namespace Hashtil_Jobs_For_Drivers.Heplers
                             order.Cages = 0;
                         }
                         order.Remarks = (string)row[11];
+
                         order.HasCertificate = (string)row[12];
-                        order.CreationDate = Convert.ToDateTime(row[18]);
-                        
+
+                        if(row.Count < 14)
+                        {
+                            Orders.Add(order);
+                            continue;
+                        }
+                        else
+                        {
+                            if (!string.IsNullOrEmpty((string)row[18]))
+                            {
+                                order.CreationDate = Convert.ToDateTime(row[18]);
+                            }
+                            else
+                            {
+                                order.CreationDate = DateTime.Now.AddDays(1);
+                            }
+
+                        }
 
                         Orders.Add(order);
                     }
