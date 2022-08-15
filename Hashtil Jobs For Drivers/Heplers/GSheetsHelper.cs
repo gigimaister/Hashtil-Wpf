@@ -4,6 +4,7 @@ using Hashtil_Jobs_For_Drivers.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Hashtil_Jobs_For_Drivers.Heplers
@@ -109,6 +110,21 @@ namespace Hashtil_Jobs_For_Drivers.Heplers
                 
             }
             return Task.FromResult(Orders);
+        }
+
+        // Return DashBoard From G Sheets
+        public static  Task<DashBoardData> DashBoardData()
+        {
+            var sheet = Task.Run(() => ReadEntries());
+            DashBoardData data = new DashBoardData();
+            data.NumOfMagashForTommorrow = (int)sheet.Result.Where(x => x.Date == DateTime.Today.AddDays(1)).Sum(X => X.Magash);
+            data.NumOfPlantsForTommorrow = (int)sheet.Result.Where(x => x.Date == DateTime.Today.AddDays(1)).Sum(x => x.Plants);
+            data.NumOfCagesForTommorrow = (int)sheet.Result.Where(x => x.Date == DateTime.Today.AddDays(1)).Sum(x => x.Cages);
+            data.NumOfOrdersForTommorrow = (int)sheet.Result.Where(x => x.Date == DateTime.Today.AddDays(1)).Count();
+
+            return Task.FromResult(data);
+
+
         }
 
     }

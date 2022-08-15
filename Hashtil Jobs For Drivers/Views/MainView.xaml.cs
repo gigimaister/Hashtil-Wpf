@@ -23,13 +23,13 @@ namespace Hashtil_Jobs_For_Drivers.Views
         public MainView()
         {
             InitializeComponent();
-            Task.Run(() => GetData());
+            Task.Run(() => GetGSheetData());
            
         }
 
-        private async void GetData()
+        private async void GetGSheetData()
         {
-            var t = await Heplers.GSheetsHelper.ReadEntries();
+            var t = await Heplers.GSheetsHelper.DashBoardData();
         }
 
         public bool IsDarkTheme { get; set; }
