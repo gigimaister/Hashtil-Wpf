@@ -117,10 +117,20 @@ namespace Hashtil_Jobs_For_Drivers.Heplers
         {
             var sheet = Task.Run(() => ReadEntries());
             DashBoardData data = new DashBoardData();
+
+            // Tommorrow
             data.NumOfMagashForTommorrow = (int)sheet.Result.Where(x => x.Date == DateTime.Today.AddDays(1)).Sum(X => X.Magash);
             data.NumOfPlantsForTommorrow = (int)sheet.Result.Where(x => x.Date == DateTime.Today.AddDays(1)).Sum(x => x.Plants);
             data.NumOfCagesForTommorrow = (int)sheet.Result.Where(x => x.Date == DateTime.Today.AddDays(1)).Sum(x => x.Cages);
-            data.NumOfOrdersForTommorrow = (int)sheet.Result.Where(x => x.Date == DateTime.Today.AddDays(1)).Count();
+            data.NumOfOrdersForTommorrow = sheet.Result.Where(x => x.Date == DateTime.Today.AddDays(1)).Count();
+
+            // Today
+            data.NumOfMagashForToday = (int)sheet.Result.Where(x => x.Date == DateTime.Today).Sum(X => X.Magash);
+            data.NumOfPlantsForToday = (int)sheet.Result.Where(x => x.Date == DateTime.Today).Sum(x => x.Plants);
+            data.NumOfCagesForToday = (int)sheet.Result.Where(x => x.Date == DateTime.Today).Sum(x => x.Cages);
+            data.NumOfOrdersForToday = sheet.Result.Where(x => x.Date == DateTime.Today).Count();
+
+            data.OrdersEnteredTodayForToday = sheet.Result.Where(x => x.CreationDate == DateTime.Today).Count();
 
             return Task.FromResult(data);
 

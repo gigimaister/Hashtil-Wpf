@@ -12,5 +12,10 @@ namespace Hashtil_Jobs_For_Drivers
         {
             public static string Login = "http://www.hashtildb.pe.hu/LoginMapTable.php?";
         }
+
+        public static class Files
+        {
+            public static string Metzay = "";
+        }
     }
 }

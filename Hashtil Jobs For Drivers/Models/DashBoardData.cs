@@ -15,7 +15,7 @@ namespace Hashtil_Jobs_For_Drivers.Models
         public int NumOfOrdersForToday { get; set; }
         public int NumOfPlantsForToday { get; set; }
         public int NumOfMagashForToday { get; set; }
-        public int NumOfCagesForTToday { get; set; }
+        public int NumOfCagesForToday { get; set; }
         public int OrdersEnteredTodayForToday { get; set; }
     }
 }

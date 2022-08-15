@@ -24,12 +24,18 @@ namespace Hashtil_Jobs_For_Drivers.Views
         {
             InitializeComponent();
             Task.Run(() => GetGSheetData());
+            Task.Run(() => GetExcelData());
            
+        }
+
+        private async void GetExcelData()
+        {
+            var excelBoard = await Heplers.ExcelHelper.ReadExcel(@"C:\Users\kobi\Desktop\k.xlsx");
         }
 
         private async void GetGSheetData()
         {
-            var t = await Heplers.GSheetsHelper.DashBoardData();
+            var sheetBoard = await Heplers.GSheetsHelper.DashBoardData();
         }
 
         public bool IsDarkTheme { get; set; }
