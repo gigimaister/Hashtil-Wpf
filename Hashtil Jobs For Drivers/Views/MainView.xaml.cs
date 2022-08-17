@@ -1,4 +1,5 @@
-﻿using MaterialDesignThemes.Wpf;
+﻿using Hashtil_Jobs_For_Drivers.Heplers;
+using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,11 +29,13 @@ namespace Hashtil_Jobs_For_Drivers.Views
            
         }
 
+        // Get GreenHouse Statistics From Excel(Metzay)
         private async void GetExcelData()
         {
-            var excelBoard = await Heplers.ExcelHelper.ReadExcel(@"C:\Users\kobi\Desktop\k.xlsx");
+            var greenHouseList = await ExcelHelper.GetListOfGreenHouse();
         }
 
+        // Get Google Sheet Orders Data
         private async void GetGSheetData()
         {
             var sheetBoard = await Heplers.GSheetsHelper.DashBoardData();

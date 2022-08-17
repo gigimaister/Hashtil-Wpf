@@ -1,31 +1,80 @@
-﻿using IronXL;
+﻿using Hashtil_Jobs_For_Drivers.Models;
+using Microsoft.Office.Interop.Excel;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using _Excel = Microsoft.Office.Interop.Excel;
 
 namespace Hashtil_Jobs_For_Drivers.Heplers
 {
-    public class ExcelHelper
+    public static class ExcelHelper
     {
-        /// <summary>
-        /// this method will read the excel file and copy its data into a datatable
-        /// </summary>
-        /// <param name="fileName">name of the file</param>
-        /// <returns>DataTable</returns>
-        public  static Task<WorkSheet> ReadExcel(string fileName)
+        private static Worksheet ws;
+        private static Workbook wb;
+        
+        static ExcelHelper()
+        {           
+            _Application excel = new Application();       
+            wb = excel.Workbooks.Open(Constants.Files.WPFGreenHouseData);
+            ws = wb.Worksheets[1];         
+        }
+
+        public static Task<List<GreenHouse>> GetListOfGreenHouse()
         {
-            WorkBook workbook = WorkBook.Load(fileName);
-            //// Work with a single WorkSheet.
-            ////you can pass static sheet name like Sheet1 to get that sheet
-            ////WorkSheet sheet = workbook.GetWorkSheet("Sheet1");
-            //You can also use workbook.DefaultWorkSheet to get default in case you want to get first sheet only
-            WorkSheet sheet = workbook.DefaultWorkSheet;
-            //Convert the worksheet to System.Data.DataTable
-            //Boolean parameter sets the first row as column names of your table.
-            return Task.FromResult(sheet);
+            var greenList = new List<GreenHouse>();
+            _Excel.Range xlRange = ws.UsedRange;
+
+            // Green 1
+            var G1 = new GreenHouse
+            {
+                GreenNum = Convert.ToInt32(xlRange.Cells[1, 1].Value2),
+                CurrentMagash = Convert.ToInt32(xlRange.Cells[1, 2].Value2)
+            };
+            greenList.Add(G1);
+            // Green 2
+            var G2 = new GreenHouse
+            {
+                GreenNum = Convert.ToInt32(xlRange.Cells[2, 1].Value2),
+                CurrentMagash = Convert.ToInt32(xlRange.Cells[2, 2].Value2)
+            };
+            greenList.Add(G2);
+            // Green 3
+            var G3 = new GreenHouse
+            {
+                GreenNum = Convert.ToInt32(xlRange.Cells[3, 1].Value2),
+                CurrentMagash = Convert.ToInt32(xlRange.Cells[3, 2].Value2)
+            };
+            greenList.Add(G3);
+            // Green 4
+            var G4 = new GreenHouse
+            {
+                GreenNum = Convert.ToInt32(xlRange.Cells[4, 1].Value2),
+                CurrentMagash = Convert.ToInt32(xlRange.Cells[4, 2].Value2)
+            };
+            greenList.Add(G4);
+            // Green 5
+            var G5 = new GreenHouse
+            {
+                GreenNum = Convert.ToInt32(xlRange.Cells[5, 1].Value2),
+                CurrentMagash = Convert.ToInt32(xlRange.Cells[5, 2].Value2)
+            };
+            greenList.Add(G5);
+            // Green 6
+            var G6 = new GreenHouse
+            {
+                GreenNum = Convert.ToInt32(xlRange.Cells[6, 1].Value2),
+                CurrentMagash = Convert.ToInt32(xlRange.Cells[6, 2].Value2)
+            };
+            greenList.Add(G6);
+            // Green 7
+            var G7 = new GreenHouse
+            {
+                GreenNum = Convert.ToInt32(xlRange.Cells[7, 1].Value2),
+                CurrentMagash = Convert.ToInt32(xlRange.Cells[7, 2].Value2)
+            };
+            greenList.Add(G7);
+
+            return Task.FromResult(greenList);
         }
     }
 }
