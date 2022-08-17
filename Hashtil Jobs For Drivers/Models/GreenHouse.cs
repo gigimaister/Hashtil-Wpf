@@ -4,8 +4,7 @@
     {
         public int GreenNum { get; set; }
         public int CurrentMagash { get; set; }
-        public int CurrentThai { get; set; }
         public int MaxMagash { get; set; }
-        public int PrecentOfOcuupancy => CurrentMagash/MaxMagash;
+        public string PrecentOfOcuupancy => (CurrentMagash/MaxMagash).ToString("0.00%");
     }
 }

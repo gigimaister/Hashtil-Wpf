@@ -24,9 +24,17 @@ namespace Hashtil_Jobs_For_Drivers.Views
         public MainView()
         {
             InitializeComponent();
+            HttpReq.InitializeClient();
             Task.Run(() => GetGSheetData());
-            Task.Run(() => GetExcelData());
-           
+            Task.Run(() => GetPhpGreenHouseData());
+            Task.Run(() => GetExcelData());     
+            
+        }
+
+        // Get GreenHouse Data From PHP Server
+        private async void GetPhpGreenHouseData()
+        {
+            var phpGreedList = await ApiHelper.GetGreenHouseDataMySql();
         }
 
         // Get GreenHouse Statistics From Excel(Metzay)

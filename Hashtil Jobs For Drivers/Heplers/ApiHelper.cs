@@ -46,5 +46,31 @@ namespace Hashtil_Jobs_For_Drivers.Heplers
                 
             }
         }
+        // Get From Php Green House Data
+        public static async Task<List<DashBoardDataPhp>> GetGreenHouseDataMySql()
+        {
+            using (HttpResponseMessage response = await HttpReq.ApiClient.GetAsync(Constants.Url.PhpGreenHouseData))
+            {
+                try
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var data = await response.Content.ReadAsStringAsync();
+                        var greenData = JsonConvert.DeserializeObject<List<DashBoardDataPhp>>(data);
+                        return greenData;
+                    }
+                    else
+                    {
+                        throw new Exception(response.ReasonPhrase);
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    throw new Exception();
+                }
+
+            }
+        }
     }
 }

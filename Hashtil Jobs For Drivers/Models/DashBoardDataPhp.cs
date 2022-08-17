@@ -8,7 +8,7 @@ namespace Hashtil_Jobs_For_Drivers.Models
 {
     public class DashBoardDataPhp
     {
-        public int NumOfThaiInGreenHouse { get; set; }
-        public int NumOfDrivers { get; set; }
+        public int NumOfGreenHouse { get; set; }
+        public int NumOfThais { get; set; }
     }
 }
