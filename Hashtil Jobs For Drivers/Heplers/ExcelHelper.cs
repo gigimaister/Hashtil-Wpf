@@ -82,7 +82,12 @@ namespace Hashtil_Jobs_For_Drivers.Heplers
             G7.MaxMagash = Constants.MaxTreyCapacity(G7.GreenNum);
             greenList.Add(G7);
 
+            wb.Close();
+            
+
             return Task.FromResult(greenList);
+            
         }
+        
     }
 }

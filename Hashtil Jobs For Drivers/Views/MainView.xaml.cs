@@ -23,37 +23,14 @@ namespace Hashtil_Jobs_For_Drivers.Views
     {
         public MainView()
         {
-            InitializeComponent();
-            HttpReq.InitializeClient();
-            Task.Run(() => GetGSheetData());
-            Task.Run(() => GetPhpGreenHouseData());
-            Task.Run(() => GetExcelData());     
-            
+            InitializeComponent();                 
         }
-
-        // Get GreenHouse Data From PHP Server
-        private async void GetPhpGreenHouseData()
-        {
-            var phpGreedList = await ApiHelper.GetGreenHouseDataMySql();
-        }
-
-        // Get GreenHouse Statistics From Excel(Metzay)
-        private async void GetExcelData()
-        {
-            var greenHouseList = await ExcelHelper.GetListOfGreenHouse();
-        }
-
-        // Get Google Sheet Orders Data
-        private async void GetGSheetData()
-        {
-            var sheetBoard = await Heplers.GSheetsHelper.DashBoardData();
-        }
+    
+        // Page Style
+        #region Page Style
 
         public bool IsDarkTheme { get; set; }
         private readonly PaletteHelper paletteHelper = new PaletteHelper();
-
-        // Page Style
-        #region Page Style
         private void toggleTheme(object sender, RoutedEventArgs e)
         {
             ITheme theme = paletteHelper.GetTheme();
@@ -80,7 +57,6 @@ namespace Hashtil_Jobs_For_Drivers.Views
             base.OnMouseLeftButtonDown(e);
             DragMove();
         }
-        #endregion
         // Toggle Maximize Screen
         private void btn_fullScreen_Click(object sender, RoutedEventArgs e)
         {
@@ -94,5 +70,15 @@ namespace Hashtil_Jobs_For_Drivers.Views
             }
         }
 
+        #endregion
+
+        
+        // Log Out
+        private void btnLogOut_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainWin = new MainWindow();
+            this.Close();
+            mainWin.ShowDialog();
+        }
     }
 }

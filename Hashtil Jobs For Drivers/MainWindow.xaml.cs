@@ -6,6 +6,7 @@ using System.Windows.Input;
 using System;
 using System.Collections.ObjectModel;
 using Hashtil_Jobs_For_Drivers.Views;
+using NPOI.Util.Collections;
 
 namespace Hashtil_Jobs_For_Drivers
 {
@@ -55,11 +56,21 @@ namespace Hashtil_Jobs_For_Drivers
         {
             try
             {
+                
                 var LoginUsersList = await ApiHelper.Login(txtUsername.Text, txtPassword.Password);
                 if (LoginUsersList.FirstOrDefault().UserLevel>0)
                 {
                     MainView mainView = new MainView();
                     this.Close();
+                    mainView.txtUserName.Text = LoginUsersList.FirstOrDefault().UserNickName.ToString();
+                    try
+                    {
+                        mainView.txtLaslLogin.Text = Convert.ToDateTime(LoginUsersList.FirstOrDefault().LastLogin).AddHours(3).AddMinutes(-4).ToString();
+                    }
+                    catch
+                    {
+                        mainView.txtFixedLastLogin.Text="";
+                    }
                     mainView.ShowDialog();
                 }
                 txtErrorMessage.Visibility = Visibility.Hidden;

@@ -9,16 +9,37 @@
         WindowStartupLocation="CenterScreen"
         Title="השתיל-סידור קו" Height="950" Width="1500"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        FlowDirection="RightToLeft"
         WindowStyle="None"
         Icon="/Resources/plant.png"
         Background="{x:Null}" AllowsTransparency="True">
     
     <materialDesign:Card UniformCornerRadius="15" Background="{DynamicResource MaterialDesignPaper}"
                           Margin="25" materialDesign:ShadowAssist.ShadowDepth="Depth4">
-        <!--Screen Style Settings-->
-        <materialDesign:DialogHost CloseOnClickAway="True" x:Name="DialogHost">
-            <!--toggle btn-->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="150"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Grid.ColumnSpan="2" Background="#FF545454">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"  Background="{x:Null}" FlowDirection="RightToLeft">
+                    <Button Width="25" Height="25" x:Name="btnLogOut" Click="btnLogOut_Click" Margin="15 0 0 0" Style="{StaticResource MaterialDesignFloatingActionLightButton}">
+                        <materialDesign:PackIcon Kind="Power" />
+                    </Button>
+                    <TextBlock Text="" x:Name="txtUserName" FontSize="16" Foreground="#DDE5ECE5" Margin="15" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Arial Black"/>
+                    <TextBlock Text="חיבור אחרון: " x:Name="txtFixedLastLogin" FontSize="16" Foreground="#DDE5ECE5" Margin="15" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Arial Black"/>
+                    <TextBlock Text="" x:Name="txtLaslLogin" FontSize="15" Foreground="#DDE5ECE5" Margin="-17 0 0 -2" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Arial Black"/>
+
+                </StackPanel>
+            </Grid>
+            
+            <!--Screen Style Settings-->
+            <materialDesign:DialogHost CloseOnClickAway="True" x:Name="DialogHost">
+
+                <!--toggle btn-->
             <StackPanel>
                 <materialDesign:PopupBox HorizontalAlignment="Left" Margin="0 20 20 0"
                                          PlacementMode="BottomAndAlignRightEdges" StaysOpen="False"
@@ -39,5 +60,6 @@
                 </materialDesign:PopupBox>
             </StackPanel>
         </materialDesign:DialogHost>
+        </Grid>
     </materialDesign:Card>
 </Window>
