@@ -1,18 +1,7 @@
-﻿using Hashtil_Jobs_For_Drivers.Heplers;
+﻿using Hashtil_Jobs_For_Drivers.UserControlScreens;
 using MaterialDesignThemes.Wpf;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Hashtil_Jobs_For_Drivers.Views
 {
@@ -23,7 +12,8 @@ namespace Hashtil_Jobs_For_Drivers.Views
     {
         public MainView()
         {
-            InitializeComponent();                 
+            InitializeComponent();
+            CC.Content = new DashBoardControl();
         }
     
         // Page Style
@@ -80,5 +70,28 @@ namespace Hashtil_Jobs_For_Drivers.Views
             this.Close();
             mainWin.ShowDialog();
         }
+     
+       
+        // Btns
+        #region Btn Click
+
+        // DashBoard Btn Click
+        private void NavButton_Click(object sender, RoutedEventArgs e)
+        {
+            CC.Content = new DashBoardControl();
+        }
+
+        // Delivery Line Btn Clicked
+        private void NBtruck_Click(object sender, RoutedEventArgs e)
+        {
+            CC.Content = new DeliveryLineControl(); 
+        }
+
+        // Drivers Detail Btn Clicked
+        private void NBDriversData_Click(object sender, RoutedEventArgs e)
+        {
+            CC.Content = new DriversDetailsControl();
+        }
+        #endregion
     }
 }

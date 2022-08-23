@@ -3,8 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Hashtil_Jobs_For_Drivers.Views"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:Hashtil_Jobs_For_Drivers"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:local1="clr-namespace:Hashtil_Jobs_For_Drivers"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="השתיל-סידור קו" Height="950" Width="1500"
@@ -18,7 +18,7 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
-                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="55"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
@@ -35,6 +35,14 @@
 
                 </StackPanel>
             </Grid>
+            <!--Nav Btn Navigation-->
+            <StackPanel x:Name="sidebar" Grid.Row="1" Grid.Column="1" Margin="0 0 0 0" Background="#FF545454">
+                <local:NavButton NavLink="/Pages/DashBoard.xaml" Click="NavButton_Click" Icon="/Resources/dash.png" Margin="0 100 0 0" />
+                <local:NavButton Icon="/Resources/truck.png" Click="NBtruck_Click" Margin="0 5"/>
+                <local:NavButton Icon="/Resources/driver.png" Click="NBDriversData_Click" Margin="0 5"/>
+            </StackPanel>
+
+            <ContentControl x:Name="CC" Grid.Row="1" />
             
             <!--Screen Style Settings-->
             <materialDesign:DialogHost CloseOnClickAway="True" x:Name="DialogHost">

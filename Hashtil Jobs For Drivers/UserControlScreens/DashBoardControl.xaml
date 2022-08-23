@@ -1,0 +1,12 @@
+﻿<UserControl x:Class="Hashtil_Jobs_For_Drivers.UserControlScreens.DashBoardControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Hashtil_Jobs_For_Drivers.UserControlScreens"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="Wheat">
+        <TextBlock Text="DashBoard Page" FontSize="100"/>
+    </Grid>
+</UserControl>
