@@ -49,6 +49,10 @@
     <PackageReference Include="Google.Apis.Sheets.v4" Version="1.57.0.2727" />
     <PackageReference Include="MaterialDesignThemes" Version="4.1.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Syncfusion.Licensing" Version="20.2.0.44" />
+    <PackageReference Include="Syncfusion.SfChart.WPF" Version="20.2.0.44" />
+    <PackageReference Include="Syncfusion.SfGauge.WPF" Version="20.2.0.44" />
+    <PackageReference Include="Syncfusion.SfProgressBar.WPF" Version="20.2.0.44" />
   </ItemGroup>
 
 </Project>

@@ -9,19 +9,21 @@ namespace Hashtil_Jobs_For_Drivers.Heplers
 {
     public static class ExcelHelper
     {
-        private static Worksheet ws;
-        private static Workbook wb;
         
-        static ExcelHelper()
-        {           
-            _Application excel = new Application();       
-            wb = excel.Workbooks.Open(Constants.Files.WPFGreenHouseData);
-            ws = wb.Worksheets[1];         
-        }
+        
+        
 
         public static Task<List<GreenHouse>> GetListOfGreenHouse()
         {
+            Worksheet ws;
+            Workbook wb;
+            _Application excel = new Application();
+
+            wb = excel.Workbooks.Open(Constants.Files.WPFGreenHouseData);
+            ws = wb.Worksheets[1];
+
             var greenList = new List<GreenHouse>();
+
             _Excel.Range xlRange = ws.UsedRange;
 
             // Green 1
@@ -83,8 +85,7 @@ namespace Hashtil_Jobs_For_Drivers.Heplers
             greenList.Add(G7);
 
             wb.Close();
-            
-
+                       
             return Task.FromResult(greenList);
             
         }
