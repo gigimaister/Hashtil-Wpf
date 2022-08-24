@@ -48,8 +48,12 @@ namespace Hashtil_Jobs_For_Drivers.UserControlScreens
             await Dispatcher.BeginInvoke(new ThreadStart(() => LSpinner.Visibility = Visibility.Hidden));
             await this.Dispatcher.BeginInvoke(new ThreadStart(() =>
             {
-                CGPointerVal.Value = Convert.ToDouble(DashboardData.NumOfOrdersForTommorrow);
-                CGAnnoJFoRTommorrow.Content = DashboardData.NumOfOrdersForTommorrow.ToString();
+                // Jobs fot T
+                CPBJobsForT.Progress = Convert.ToDouble(DashboardData.NumOfOrdersForTommorrow);
+                // Treys fot T
+                CPBTreysForT.Progress = Convert.ToDouble(DashboardData.NumOfMagashForTommorrow);
+                // Plants fot T
+                CPBplantsForT.Progress = Convert.ToDouble(DashboardData.NumOfPlantsForTommorrow);
             }));
 
         }

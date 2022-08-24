@@ -1,7 +1,9 @@
-﻿using Hashtil_Jobs_For_Drivers.Models;
+﻿using Google.Apis.Sheets.v4.Data;
+using Hashtil_Jobs_For_Drivers.Models;
 using Microsoft.Office.Interop.Excel;
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using _Excel = Microsoft.Office.Interop.Excel;
 
@@ -85,7 +87,7 @@ namespace Hashtil_Jobs_For_Drivers.Heplers
             greenList.Add(G7);
 
             wb.Close();
-                       
+            Marshal.ReleaseComObject(wb);
             return Task.FromResult(greenList);
             
         }
