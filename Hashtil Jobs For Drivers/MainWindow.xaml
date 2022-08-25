@@ -18,7 +18,7 @@
                          Margin="25" materialDesign:ShadowAssist.ShadowDepth="Depth4">
         <materialDesign:DialogHost CloseOnClickAway="True" x:Name="DialogHost">
             <StackPanel>
-                <materialDesign:PopupBox HorizontalAlignment="Left" Margin="0 20 20 0"
+                <materialDesign:PopupBox HorizontalAlignment="Right" Margin="0 20 20 0"
                                          PlacementMode="BottomAndAlignRightEdges" StaysOpen="False"
                                          Height="25">
                     <StackPanel>
