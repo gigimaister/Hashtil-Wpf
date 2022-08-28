@@ -77,7 +77,7 @@ namespace Hashtil_Jobs_For_Drivers.Heplers
 
                         order.HasCertificate = (string)row[12];
 
-                        if(row.Count < 14)
+                        if(row.Count < 18)
                         {
                             Orders.Add(order);
                             continue;
@@ -125,6 +125,7 @@ namespace Hashtil_Jobs_For_Drivers.Heplers
             data.NumOfOrdersForTommorrow = sheet.Result.Where(x => x.Date == DateTime.Today.AddDays(1)).Count();
 
             // Today
+            var r = sheet.Result.Where(x => x.Date == DateTime.Today.AddDays(1));
             data.NumOfMagashForToday = (int)sheet.Result.Where(x => x.Date == DateTime.Today).Sum(X => X.Magash);
             data.NumOfPlantsForToday = (int)sheet.Result.Where(x => x.Date == DateTime.Today).Sum(x => x.Plants);
             data.NumOfCagesForToday = (int)sheet.Result.Where(x => x.Date == DateTime.Today).Sum(x => x.Cages);

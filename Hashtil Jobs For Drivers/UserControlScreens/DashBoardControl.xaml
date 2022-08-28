@@ -4,11 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:Syncfusion="http://schemas.syncfusion.com/wpf"
+             xmlns:local="clr-namespace:Hashtil_Jobs_For_Drivers.UserControlScreens"
+             xmlns:gauge ="clr-namespace:Syncfusion.UI.Xaml.Gauges;assembly=Syncfusion.SfGauge.Wpf"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
     
     <Grid Background="{DynamicResource MaterialDesignPaper}">
+        
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -23,6 +26,7 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+        <!--Loading Spinner-->
         <Syncfusion:SfCircularProgressBar Background="DarkSlateGray" Visibility="Hidden" Grid.RowSpan="5" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" x:Name="LSpinner"
     Width="800"
     Height="450"    
@@ -30,14 +34,166 @@
     IsIndeterminate="True"
     Progress="50"
     ShowProgressValue="False" SecondaryProgressColor="#FF87EC79" ProgressColor="#FF34ED25" TrackColor="#FFAFAFAF" />
+        <!--Jobs Treys For Tommorrow Gauge + Plants Col 4(3)-->
+
+        <StackPanel Orientation="Vertical" Grid.Column="3">
+            
+        </StackPanel>
+            <!--Treys-->
+        <gauge:SfCircularGauge  Grid.Column="3"              
+                       HeaderAlignment="Custom" Margin="0 5 0 0"
+                       GaugeHeaderPosition="0.66,0.88">
+
+            <gauge:SfCircularGauge.GaugeHeader>
+                <TextBlock Text="מגשים למחר"
+                   Height="40"
+                   Width="140"
+                   FontSize="13"
+                   Foreground="Green"
+                   FontWeight="SemiBold" />
+            </gauge:SfCircularGauge.GaugeHeader>
+
+            <gauge:SfCircularGauge.Scales>
+                <gauge:CircularScale ShowRim="True" StartValue="0" EndValue="12000" 
+                             RimStroke="Green"
+                             RimStrokeThickness="3"
+                             LabelOffset="0.1" EnableSmartLabels="True" NumericScaleType="Thousands" LabelStroke="#FF38A000" TickStroke="#FF13B925" SmallTickStroke="#FF28C12B" Foreground="Black">
+
+                    <gauge:CircularScale.MajorTickSettings>
+                        <gauge:MajorTickSetting Length="10"
+                                        StrokeThickness="1" />
+                    </gauge:CircularScale.MajorTickSettings>
+
+                    <gauge:CircularScale.MinorTickSettings>
+                        <gauge:MinorTickSetting Length="5"
+                                        StrokeThickness="1" />
+                    </gauge:CircularScale.MinorTickSettings>
+
+                    <gauge:CircularScale.Ranges>
+                        <gauge:CircularRange StartValue="0"
+                                     EndValue="2500"
+                                     Stroke="ForestGreen" />
+                        <gauge:CircularRange StartValue="2500"
+                                     EndValue="4800"
+                                     Stroke="Yellow" />
+                        <gauge:CircularRange StartValue="4800"
+                                     EndValue="8750"
+                                     Stroke="DarkOrange" />
+                        <gauge:CircularRange StartValue="8750"
+                                     EndValue="12000"
+                                     Stroke="OrangeRed" />
+                    </gauge:CircularScale.Ranges>
+                    <gauge:CircularScale.Pointers>
+                        <gauge:CircularPointer PointerType="NeedlePointer" x:Name="CGNiddleTreys"
+                                       Value="0"
+                                       NeedleLengthFactor="0.5"
+                                       NeedlePointerType="Triangle"
+                                       PointerCapDiameter="12"
+                                       NeedlePointerStroke="#FF35CA00"
+                                       KnobFill="#FF1AA71C"
+                                       KnobStroke="#FF38A919"
+                                       NeedlePointerStrokeThickness="7" TailStroke="#FF0BD80E" TailFill="#FF0EA52C" />
+                     
+                        <gauge:CircularPointer PointerType="SymbolPointer"
+                                       Value="70"
+                                       SymbolPointerHeight="12"
+                                       SymbolPointerWidth="12"
+                                       Symbol="InvertedTriangle"
+                                       SymbolPointerStroke="#757575" />
+                    </gauge:CircularScale.Pointers>
+                </gauge:CircularScale>
+            </gauge:SfCircularGauge.Scales>
+            <gauge:SfCircularGauge.Annotations>
+                <gauge:GaugeAnnotation Offset="0.3" Angle="270">
+                    <TextBlock Text="" FontSize="15" x:Name="CGTexttreys"
+                               Foreground="SeaGreen" FontWeight="Bold"
+                               HorizontalAlignment="Center" />
+                </gauge:GaugeAnnotation>
+            </gauge:SfCircularGauge.Annotations>
+        </gauge:SfCircularGauge>
+
+        <!--Plants-->
+        <gauge:SfCircularGauge  Grid.Column="2" Margin=" 0 5 0 0"                    
+                       HeaderAlignment="Custom"
+                       GaugeHeaderPosition="0.66,0.88">
+
+            <gauge:SfCircularGauge.GaugeHeader>
+                <TextBlock Text="שתילים למחר"
+                   Height="40"
+                   Width="140"
+                   FontSize="13"
+                   Foreground="Green"
+                   FontWeight="SemiBold" />
+            </gauge:SfCircularGauge.GaugeHeader>
+
+            <gauge:SfCircularGauge.Scales>
+                <gauge:CircularScale ShowRim="True" StartValue="0" EndValue="5000000" 
+                             RimStroke="Green"
+                             RimStrokeThickness="3"
+                             LabelOffset="0.1" EnableSmartLabels="True" NumericScaleType="Millions" LabelStroke="#FF38A000" TickStroke="#FF13B925" SmallTickStroke="#FF28C12B" Foreground="Black">
+
+                    <gauge:CircularScale.MajorTickSettings>
+                        <gauge:MajorTickSetting Length="10"
+                                        StrokeThickness="1" />
+                    </gauge:CircularScale.MajorTickSettings>
+
+                    <gauge:CircularScale.MinorTickSettings>
+                        <gauge:MinorTickSetting Length="5"
+                                        StrokeThickness="1" />
+                    </gauge:CircularScale.MinorTickSettings>
+
+                    <gauge:CircularScale.Ranges>
+                        <gauge:CircularRange StartValue="0"
+                                     EndValue="1000000"
+                                     Stroke="ForestGreen" />
+                        <gauge:CircularRange StartValue="1000000"
+                                     EndValue="1920000"
+                                     Stroke="Yellow" />
+                        <gauge:CircularRange StartValue="1920000"
+                                     EndValue="3500000"
+                                     Stroke="DarkOrange" />
+                        <gauge:CircularRange StartValue="3500000"
+                                     EndValue="5000000"
+                                     Stroke="OrangeRed" />
+                    </gauge:CircularScale.Ranges>
+                    <gauge:CircularScale.Pointers>
+                        <gauge:CircularPointer PointerType="NeedlePointer" x:Name="CGNiddlePlants" 
+                                       Value="0"
+                                       NeedleLengthFactor="0.5"
+                                       NeedlePointerType="Triangle"
+                                       PointerCapDiameter="12"
+                                       NeedlePointerStroke="#FF35CA00"
+                                       KnobFill="#FF1AA71C"
+                                       KnobStroke="#FF38A919"
+                                       NeedlePointerStrokeThickness="7" TailStroke="#FF0BD80E" TailFill="#FF0EA52C" />
+                       
+                        <gauge:CircularPointer PointerType="SymbolPointer"
+                                       Value="70"
+                                       SymbolPointerHeight="12"
+                                       SymbolPointerWidth="12"
+                                       Symbol="InvertedTriangle"
+                                       SymbolPointerStroke="#757575" />
+                    </gauge:CircularScale.Pointers>
+                </gauge:CircularScale>
+            </gauge:SfCircularGauge.Scales>
+            <gauge:SfCircularGauge.Annotations>
+                <gauge:GaugeAnnotation Offset="0.3" Angle="270">
+                    <TextBlock Text="" FontSize="15" x:Name="CGTextplants"
+                               Foreground="SeaGreen" FontWeight="Bold"
+                               HorizontalAlignment="Center" />
+                </gauge:GaugeAnnotation>
+            </gauge:SfCircularGauge.Annotations>
+        </gauge:SfCircularGauge>
+
         <!--GreenHouses Occupancy Treys-->
-        <Grid Grid.Column="2" Grid.ColumnSpan="2">
+        <Grid Grid.Column="0" Grid.ColumnSpan="2">
             <TextBlock Text="תפוסה בחממות"  HorizontalAlignment="Center" Margin="0 5 0 0" FontSize="18" FontWeight="Heavy"/>
             <StackPanel Orientation="Horizontal" Margin="0 40 0 0" >
+                
                 <!--G1-->
                 <StackPanel Orientation="Vertical">
                     <TextBlock Text="חממה 1" HorizontalAlignment="Center" FontFamily="Arial Black"/>
-                    <Syncfusion:SfCircularProgressBar x:Name="CPBG1"  Progress="80"  FontWeight="Bold" ProgressColor="#FF09AF32" TrackColor="#FF5A5A5A">
+                    <Syncfusion:SfCircularProgressBar x:Name="CPBG1"  Progress="0"  FontWeight="Bold" ProgressColor="#FF09AF32" TrackColor="#FF5A5A5A">
                         <Syncfusion:SfCircularProgressBar.SecondaryProgressColor>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="Black"/>
@@ -46,7 +202,7 @@
                         </Syncfusion:SfCircularProgressBar.SecondaryProgressColor>
                         <Syncfusion:SfCircularProgressBar.ProgressContent>
                             <StackPanel>
-                                <TextBlock Text="{Binding Progress,StringFormat={}{0}%}" TextAlignment="Center" DataContext="CPBG1">
+                                <TextBlock Text="{Binding Progress,StringFormat={}{0}%}" TextAlignment="Center" DataContext="{x:Reference CPBG1}">
                                 </TextBlock>
                             </StackPanel>
                         </Syncfusion:SfCircularProgressBar.ProgressContent>
@@ -64,7 +220,7 @@
                         </Syncfusion:SfCircularProgressBar.SecondaryProgressColor>
                         <Syncfusion:SfCircularProgressBar.ProgressContent>
                             <StackPanel>
-                                <TextBlock Text="{Binding Progress,StringFormat={}{0}%}" TextAlignment="Center" DataContext="CPBG1">
+                                <TextBlock Text="{Binding Progress,StringFormat={}{0}%}" TextAlignment="Center" DataContext="{x:Reference CPBG2}">
                                 </TextBlock>
                             </StackPanel>
                         </Syncfusion:SfCircularProgressBar.ProgressContent>
@@ -80,6 +236,12 @@
                                 <GradientStop Color="#FF0C0B0B" Offset="1"/>
                             </LinearGradientBrush>
                         </Syncfusion:SfCircularProgressBar.SecondaryProgressColor>
+                        <Syncfusion:SfCircularProgressBar.ProgressContent>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Progress,StringFormat={}{0}%}" TextAlignment="Center" DataContext="{x:Reference CPBG3}">
+                                </TextBlock>
+                            </StackPanel>
+                        </Syncfusion:SfCircularProgressBar.ProgressContent>
 
                     </Syncfusion:SfCircularProgressBar>
                 </StackPanel>
@@ -93,6 +255,12 @@
                                 <GradientStop Color="#FF0C0B0B" Offset="1"/>
                             </LinearGradientBrush>
                         </Syncfusion:SfCircularProgressBar.SecondaryProgressColor>
+                        <Syncfusion:SfCircularProgressBar.ProgressContent>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Progress,StringFormat={}{0}%}" TextAlignment="Center" DataContext="{x:Reference CPBG4}">
+                                </TextBlock>
+                            </StackPanel>
+                        </Syncfusion:SfCircularProgressBar.ProgressContent>
                     </Syncfusion:SfCircularProgressBar>
                 </StackPanel>
                 <!--G5-->
@@ -105,6 +273,12 @@
                                 <GradientStop Color="#FF0C0B0B" Offset="1"/>
                             </LinearGradientBrush>
                         </Syncfusion:SfCircularProgressBar.SecondaryProgressColor>
+                        <Syncfusion:SfCircularProgressBar.ProgressContent>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Progress,StringFormat={}{0}%}" TextAlignment="Center" DataContext="{x:Reference CPBG5}">
+                                </TextBlock>
+                            </StackPanel>
+                        </Syncfusion:SfCircularProgressBar.ProgressContent>
                     </Syncfusion:SfCircularProgressBar>
                 </StackPanel>
                 <!--G6-->
@@ -117,6 +291,12 @@
                                 <GradientStop Color="#FF0C0B0B" Offset="1"/>
                             </LinearGradientBrush>
                         </Syncfusion:SfCircularProgressBar.SecondaryProgressColor>
+                        <Syncfusion:SfCircularProgressBar.ProgressContent>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Progress,StringFormat={}{0}%}" TextAlignment="Center" DataContext="{x:Reference CPBG6}">
+                                </TextBlock>
+                            </StackPanel>
+                        </Syncfusion:SfCircularProgressBar.ProgressContent>
 
                     </Syncfusion:SfCircularProgressBar>
                 </StackPanel>
@@ -130,6 +310,12 @@
                                 <GradientStop Color="#FF0C0B0B" Offset="1"/>
                             </LinearGradientBrush>
                         </Syncfusion:SfCircularProgressBar.SecondaryProgressColor>
+                        <Syncfusion:SfCircularProgressBar.ProgressContent>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Progress,StringFormat={}{0}%}" TextAlignment="Center" DataContext="{x:Reference CPBG7}">
+                                </TextBlock>
+                            </StackPanel>
+                        </Syncfusion:SfCircularProgressBar.ProgressContent>
 
                     </Syncfusion:SfCircularProgressBar>
                 </StackPanel>
