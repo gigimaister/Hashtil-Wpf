@@ -72,5 +72,32 @@ namespace Hashtil_Jobs_For_Drivers.Heplers
 
             }
         }
+
+        // Get Drivers Info
+        public static async Task<List<Driver>> GetDrivers()
+        {
+            using (HttpResponseMessage response = await HttpReq.ApiClient.GetAsync(Constants.Url.PhpDriversData))
+            {
+                try
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var data = await response.Content.ReadAsStringAsync();
+                        var drivers = JsonConvert.DeserializeObject<List<Driver>>(data);
+                        return drivers;
+                    }
+                    else
+                    {
+                        throw new Exception(response.ReasonPhrase);
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    throw new Exception();
+                }
+
+            }
+        }
     }
 }

@@ -12,6 +12,7 @@ namespace Hashtil_Jobs_For_Drivers
         {
             public static string Login = "http://www.hashtildb.pe.hu/LoginMapTable.php?";
             public static string PhpGreenHouseData = "http://www.hashtildb.pe.hu/GreenHouseDataJson.php";
+            public static string PhpDriversData = "http://www.hashtildb.pe.hu/DriversDataJson.php";
         }
 
         public static class Files

@@ -26,6 +26,8 @@ namespace Hashtil_Jobs_For_Drivers.UserControlScreens
         DashBoardData DashboardData = new DashBoardData();
         List<DashBoardDataPhp> DashboardDataPhp = new List<DashBoardDataPhp>();
         List<GreenHouse> GreenHouseExcelList = new List<GreenHouse>();
+        List<Driver> Drivers = new List<Driver>();
+
         public DashBoardControl()
         {
             InitializeComponent();
@@ -47,6 +49,8 @@ namespace Hashtil_Jobs_For_Drivers.UserControlScreens
             DashboardDataPhp = await ApiHelper.GetGreenHouseDataMySql();
             GreenHouseExcelList = await ExcelHelper.GetListOfGreenHouse();
             DashboardData = await Heplers.GSheetsHelper.DashBoardData();
+            Drivers = await ApiHelper.GetDrivers();
+
             await Dispatcher.BeginInvoke(new ThreadStart(() => LSpinner.Visibility = Visibility.Hidden));
             await this.Dispatcher.BeginInvoke(new ThreadStart(() =>
             {
@@ -70,6 +74,15 @@ namespace Hashtil_Jobs_For_Drivers.UserControlScreens
                 CGNiddlePlants.Value = DashboardData.NumOfPlantsForTommorrow;
                 CGTexttreys.Text =  DashboardData.NumOfMagashForTommorrow.ToString("#,0");
                 CGTextplants.Text = $"{(Convert.ToDouble(DashboardData.NumOfPlantsForTommorrow)/1000000).ToString("N2")}M";
+
+                // Thai In Green House Chart Source
+                CHartThaiGreenhouse.ItemsSource = DashboardDataPhp;
+                // Thai In Green House Chart Source
+                CHartThaiGreenhouse.Label = $"סהכ - {DashboardDataPhp.Sum(x => x.NumOfThais)}";
+
+                // Circular Progress Bar Total Drivers
+                CPBDrivers.Progress = Drivers.Count;
+                CPBDrivers.SegmentCount = Drivers.Count;
             }));
 
         }
