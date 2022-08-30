@@ -48,7 +48,9 @@ namespace Hashtil_Jobs_For_Drivers.UserControlScreens
         {
             DashboardDataPhp = await ApiHelper.GetGreenHouseDataMySql();
             GreenHouseExcelList = await ExcelHelper.GetListOfGreenHouse();
-            DashboardData = await Heplers.GSheetsHelper.DashBoardData();
+
+            var yt = await GSheetsHelper.ReadEntries();
+            DashboardData = await GSheetsHelper.DashBoardData(yt);
             Drivers = await ApiHelper.GetDrivers();
 
             await Dispatcher.BeginInvoke(new ThreadStart(() => LSpinner.Visibility = Visibility.Hidden));
