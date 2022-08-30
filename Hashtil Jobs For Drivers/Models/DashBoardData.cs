@@ -17,5 +17,6 @@ namespace Hashtil_Jobs_For_Drivers.Models
         public int NumOfMagashForToday { get; set; }
         public int NumOfCagesForToday { get; set; }
         public int OrdersEnteredTodayForToday { get; set; }
+        public List<DailyJobsChart>? DailyJobsChartList { get; set; }
     }
 }

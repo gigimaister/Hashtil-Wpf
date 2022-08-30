@@ -51,9 +51,10 @@ namespace Hashtil_Jobs_For_Drivers.Heplers
                 // In Every Row Make Obj And Add To Order List For More Operetions
                 foreach (var row in values)
                 {
+                    Order order = new Order();
                     try
                     {
-                        Order order = new Order();
+                        
 
                         order.Date = Convert.ToDateTime(row[0]);
                         order.Driver = (string)row[1];
@@ -75,8 +76,19 @@ namespace Hashtil_Jobs_For_Drivers.Heplers
                         }
                         order.Remarks = (string)row[11];
 
-                        order.HasCertificate = (string)row[12];
-
+                        // If Remarks Null
+                        if (row.Count < 12)
+                        {
+                            Orders.Add(order);
+                            continue;
+                        }
+                        else
+                        {
+                            order.HasCertificate = (string)row[12];
+                        }
+                       
+                        
+                        // If Timestamp Is Null
                         if(row.Count < 18)
                         {
                             Orders.Add(order);
@@ -97,6 +109,7 @@ namespace Hashtil_Jobs_For_Drivers.Heplers
 
                         Orders.Add(order);
                     }
+                   
                     catch
                     {
                         continue;
