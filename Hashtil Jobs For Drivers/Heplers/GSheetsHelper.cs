@@ -36,6 +36,10 @@ namespace Hashtil_Jobs_For_Drivers.Heplers
         }
 
         // Read Sheet 
+        /// <summary>
+        /// Read Google Sheet And Return List Of Orders Objects
+        /// </summary>
+        /// <returns></returns>
         public static Task<List<Order>> ReadEntries()
         {
             List<Order> Orders = new List<Order>();
@@ -127,10 +131,15 @@ namespace Hashtil_Jobs_For_Drivers.Heplers
         }
 
         // Return DashBoard From G Sheets
+        /// <summary>
+        /// return DashBoardData object
+        /// </summary>
+        /// <param name="orders"></param>
+        /// <returns></returns>
         public static  Task<DashBoardData> DashBoardData(List<Order> orders)
         {
-            var sheet = Task.Run(() => ReadEntries());
             DashBoardData data = new DashBoardData();
+            data.DailyJobsChartList = new List<DailyJobsChart>();
 
             // Tommorrow
             data.NumOfMagashForTommorrow = (int)orders.Where(x => x.Date == DateTime.Today.AddDays(1)).Sum(X => X.Magash);
@@ -144,10 +153,17 @@ namespace Hashtil_Jobs_For_Drivers.Heplers
             data.NumOfCagesForToday = (int)orders.Where(x => x.Date == DateTime.Today).Sum(x => x.Cages);
             data.NumOfOrdersForToday = orders.Where(x => x.Date == DateTime.Today).Count();
 
-            data.OrdersEnteredTodayForToday = sheet.Result.Where(x => x.CreationDate == DateTime.Today).Count();
+            data.OrdersEnteredTodayForToday = orders.Where(x => x.CreationDate == DateTime.Today).Count();
 
             // DailyJobs List
-            
+            var ordersByDate = orders.GroupBy(x => x.Date);
+            foreach(var order in ordersByDate.ToList())
+            {
+                var dailyJobchrt = new DailyJobsChart();
+                dailyJobchrt.DayOfWeek = TranslationHelper.GethebrewDayOfTheWeek(order.FirstOrDefault().Date);
+                dailyJobchrt.Treys = (int)order.Sum(x => x.Magash);
+                data.DailyJobsChartList.Add(dailyJobchrt);
+            }
 
             return Task.FromResult(data);
 

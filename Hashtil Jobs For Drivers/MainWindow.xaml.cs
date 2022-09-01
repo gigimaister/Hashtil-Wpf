@@ -62,6 +62,8 @@ namespace Hashtil_Jobs_For_Drivers
                 {
                     MainView mainView = new MainView();
                     this.Close();
+                    mainView.ShowDialog();
+                    
                     mainView.txtUserName.Text = LoginUsersList.FirstOrDefault().UserNickName.ToString();
                     try
                     {
@@ -71,7 +73,7 @@ namespace Hashtil_Jobs_For_Drivers
                     {
                         mainView.txtFixedLastLogin.Text="";
                     }
-                    mainView.ShowDialog();
+                   
                 }
                 txtErrorMessage.Visibility = Visibility.Hidden;
 

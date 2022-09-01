@@ -35,25 +35,20 @@ namespace Hashtil_Jobs_For_Drivers.UserControlScreens
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("NzAyMzcyQDMyMzAyZTMyMmUzMGtiVTBoVW0rV0twVmV2RWxNaWprblZRclZKbWNHR3ZrcnZmM3JERWJGVkk9");
 
             HttpReq.InitializeClient();
-            GetAllData();                 
+            Task.Run(() => GetExcel());
+            Task.Run(() => GetGSheet());
+            Task.Run(() => GetPhpHttp());
         }
 
-        private void GetAllData()
-        {
-            Task.Run(() => GetAllDataAsync());
-            
-        }
+        
+        
+       
 
-        private async void GetAllDataAsync()
+        // Get Excel Data 
+        private async void GetExcel()
         {
-            DashboardDataPhp = await ApiHelper.GetGreenHouseDataMySql();
             GreenHouseExcelList = await ExcelHelper.GetListOfGreenHouse();
-
-            var yt = await GSheetsHelper.ReadEntries();
-            DashboardData = await GSheetsHelper.DashBoardData(yt);
-            Drivers = await ApiHelper.GetDrivers();
-
-            await Dispatcher.BeginInvoke(new ThreadStart(() => LSpinner.Visibility = Visibility.Hidden));
+            // Green Houses Occupancy
             await this.Dispatcher.BeginInvoke(new ThreadStart(() =>
             {
                 // G1 Occupancy Treys
@@ -71,20 +66,57 @@ namespace Hashtil_Jobs_For_Drivers.UserControlScreens
                 // G7 Occupancy Treys
                 CPBG7.Progress = Convert.ToDouble(GreenHouseExcelList.FirstOrDefault(x => x.GreenNum == 7).PrecentOfOcuupancy);
 
-                //Jobs && Plants Circular Gauge
-                CGNiddleTreys.Value = DashboardData.NumOfMagashForTommorrow;
-                CGNiddlePlants.Value = DashboardData.NumOfPlantsForTommorrow;
-                CGTexttreys.Text =  DashboardData.NumOfMagashForTommorrow.ToString("#,0");
-                CGTextplants.Text = $"{(Convert.ToDouble(DashboardData.NumOfPlantsForTommorrow)/1000000).ToString("N2")}M";
+            }));
+        }
+
+        // Get Php MYsql Data
+        private async void GetPhpHttp()
+        {
+            DashboardDataPhp = await ApiHelper.GetGreenHouseDataMySql();
+            Drivers = await ApiHelper.GetDrivers();
+
+            await this.Dispatcher.BeginInvoke(new ThreadStart(() =>
+            {          
 
                 // Thai In Green House Chart Source
                 CHartThaiGreenhouse.ItemsSource = DashboardDataPhp;
                 // Thai In Green House Chart Source
                 CHartThaiGreenhouse.Label = $"סהכ - {DashboardDataPhp.Sum(x => x.NumOfThais)}";
 
+                // Total Treys Of Week Chart
+                LinechrtTotalJobs.ItemsSource = DashboardData.DailyJobsChartList;
+
                 // Circular Progress Bar Total Drivers
                 CPBDrivers.Progress = Drivers.Count;
                 CPBDrivers.SegmentCount = Drivers.Count;
+               
+            }));
+        }
+
+       
+        // Get Google Sheet Data
+        private async void GetGSheet()
+        {
+            var googleSheetsEntries = await GSheetsHelper.ReadEntries();
+
+            DashboardData = await GSheetsHelper.DashBoardData(googleSheetsEntries);
+                       
+            await this.Dispatcher.BeginInvoke(new ThreadStart(() =>
+            {
+               
+
+                //Jobs && Plants Circular Gauge
+                CGNiddleTreys.Value = DashboardData.NumOfMagashForTommorrow;
+                CGNiddlePlants.Value = DashboardData.NumOfPlantsForTommorrow;
+                CGTexttreys.Text =  DashboardData.NumOfMagashForTommorrow.ToString("#,0");
+                CGTextplants.Text = $"{(Convert.ToDouble(DashboardData.NumOfPlantsForTommorrow)/1000000).ToString("N2")}M";
+
+
+
+                // Total Treys Of Week Chart
+                LinechrtTotalJobs.ItemsSource = DashboardData.DailyJobsChartList;
+
+               
             }));
 
         }
