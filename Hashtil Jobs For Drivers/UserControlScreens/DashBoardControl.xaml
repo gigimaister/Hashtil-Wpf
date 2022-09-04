@@ -29,7 +29,9 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <!--Loading Spinner-->
-        <Syncfusion:SfCircularProgressBar Background="DarkSlateGray" Visibility="Hidden" Grid.RowSpan="5" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" x:Name="LSpinner"
+        <Syncfusion:SfCircularProgressBar Background="DarkSlateGray"
+                                          Visibility="Visible" Grid.RowSpan="5" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" 
+                                          x:Name="LSpinner"
     Width="800"
     Height="450"    
     AnimationDuration="00:00:02"

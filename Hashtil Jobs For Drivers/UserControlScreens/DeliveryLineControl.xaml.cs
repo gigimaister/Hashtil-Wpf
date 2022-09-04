@@ -24,5 +24,10 @@ namespace Hashtil_Jobs_For_Drivers.UserControlScreens
         {
             InitializeComponent();
         }
+
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            BorderJob.ToolTip = "מה המצב";
+        }
     }
 }

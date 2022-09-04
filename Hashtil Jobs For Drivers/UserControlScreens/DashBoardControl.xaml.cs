@@ -38,6 +38,7 @@ namespace Hashtil_Jobs_For_Drivers.UserControlScreens
             Task.Run(() => GetExcel());
             Task.Run(() => GetGSheet());
             Task.Run(() => GetPhpHttp());
+           
         }
 
         
@@ -47,26 +48,33 @@ namespace Hashtil_Jobs_For_Drivers.UserControlScreens
         // Get Excel Data 
         private async void GetExcel()
         {
-            GreenHouseExcelList = await ExcelHelper.GetListOfGreenHouse();
-            // Green Houses Occupancy
-            await this.Dispatcher.BeginInvoke(new ThreadStart(() =>
+            try
             {
-                // G1 Occupancy Treys
-                CPBG1.Progress = Convert.ToDouble(GreenHouseExcelList.FirstOrDefault(x => x.GreenNum == 1).PrecentOfOcuupancy);
-                // G2 Occupancy Treys
-                CPBG2.Progress = Convert.ToDouble(GreenHouseExcelList.FirstOrDefault(x => x.GreenNum == 2).PrecentOfOcuupancy);
-                // G3 Occupancy Treys
-                CPBG3.Progress = Convert.ToDouble(GreenHouseExcelList.FirstOrDefault(x => x.GreenNum == 3).PrecentOfOcuupancy);
-                // G4 Occupancy Treys
-                CPBG4.Progress = Convert.ToDouble(GreenHouseExcelList.FirstOrDefault(x => x.GreenNum == 4).PrecentOfOcuupancy);
-                // G5 Occupancy Treys
-                CPBG5.Progress = Convert.ToDouble(GreenHouseExcelList.FirstOrDefault(x => x.GreenNum == 5).PrecentOfOcuupancy);
-                // G6 Occupancy Treys
-                CPBG6.Progress = Convert.ToDouble(GreenHouseExcelList.FirstOrDefault(x => x.GreenNum == 6).PrecentOfOcuupancy);
-                // G7 Occupancy Treys
-                CPBG7.Progress = Convert.ToDouble(GreenHouseExcelList.FirstOrDefault(x => x.GreenNum == 7).PrecentOfOcuupancy);
+                GreenHouseExcelList = await ExcelHelper.GetListOfGreenHouse();
+                // Green Houses Occupancy
+                await this.Dispatcher.BeginInvoke(new ThreadStart(() =>
+                {
+                    // G1 Occupancy Treys
+                    CPBG1.Progress = Convert.ToDouble(GreenHouseExcelList.FirstOrDefault(x => x.GreenNum == 1).PrecentOfOcuupancy);
+                    // G2 Occupancy Treys
+                    CPBG2.Progress = Convert.ToDouble(GreenHouseExcelList.FirstOrDefault(x => x.GreenNum == 2).PrecentOfOcuupancy);
+                    // G3 Occupancy Treys
+                    CPBG3.Progress = Convert.ToDouble(GreenHouseExcelList.FirstOrDefault(x => x.GreenNum == 3).PrecentOfOcuupancy);
+                    // G4 Occupancy Treys
+                    CPBG4.Progress = Convert.ToDouble(GreenHouseExcelList.FirstOrDefault(x => x.GreenNum == 4).PrecentOfOcuupancy);
+                    // G5 Occupancy Treys
+                    CPBG5.Progress = Convert.ToDouble(GreenHouseExcelList.FirstOrDefault(x => x.GreenNum == 5).PrecentOfOcuupancy);
+                    // G6 Occupancy Treys
+                    CPBG6.Progress = Convert.ToDouble(GreenHouseExcelList.FirstOrDefault(x => x.GreenNum == 6).PrecentOfOcuupancy);
+                    // G7 Occupancy Treys
+                    CPBG7.Progress = Convert.ToDouble(GreenHouseExcelList.FirstOrDefault(x => x.GreenNum == 7).PrecentOfOcuupancy);
 
-            }));
+                }));
+            }
+            catch
+            {
+
+            }
         }
 
         // Get Php MYsql Data
@@ -89,7 +97,9 @@ namespace Hashtil_Jobs_For_Drivers.UserControlScreens
                 // Circular Progress Bar Total Drivers
                 CPBDrivers.Progress = Drivers.Count;
                 CPBDrivers.SegmentCount = Drivers.Count;
-               
+                LSpinner.Visibility = Visibility.Hidden;
+
+
             }));
         }
 
