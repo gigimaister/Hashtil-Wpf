@@ -1,17 +1,10 @@
-﻿using System;
+﻿using Hashtil_Jobs_For_Drivers.Heplers;
+using Hashtil_Jobs_For_Drivers.Models;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Hashtil_Jobs_For_Drivers.UserControlScreens
 {
@@ -20,14 +13,24 @@ namespace Hashtil_Jobs_For_Drivers.UserControlScreens
     /// </summary>
     public partial class DeliveryLineControl : UserControl
     {
+        List<Order> Orders = new List<Order>();
         public DeliveryLineControl()
         {
             InitializeComponent();
+            Task.Run(() => GetLines());
+        }
+
+       
+
+        private async void GetLines()
+        {
+            Orders = await GSheetsHelper.ReadEntries();
+            await GSheetsHelper.GetLinesSumUp(Orders);
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            BorderJob.ToolTip = "מה המצב";
+           
         }
     }
 }

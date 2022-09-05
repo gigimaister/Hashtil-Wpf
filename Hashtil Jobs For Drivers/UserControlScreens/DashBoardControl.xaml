@@ -357,8 +357,7 @@
         </StackPanel>
         <!--Total Orders Per Week-->
         <syncfusion:SfChart Header=""  Grid.Row="3" Grid.Column="0" Grid.RowSpan="2"
-                            Grid.ColumnSpan="2" Margin="14 0 0 0"
-                           >
+                            Grid.ColumnSpan="2" Margin="14 0 0 0">
 
             <!--Initialize the horizontal axis for SfChart-->
             <syncfusion:SfChart.PrimaryAxis>
@@ -373,11 +372,9 @@
             </syncfusion:SfChart.SecondaryAxis>
 
             <!--Adding Legend to the SfChart-->
-            <syncfusion:SfChart.Legend>
-                <syncfusion:ChartLegend/>
-            </syncfusion:SfChart.Legend>
+          
             
-            <syncfusion:LineSeries x:Name="LinechrtTotalJobs" Palette="BlueChrome" 
+            <syncfusion:LineSeries x:Name="LinechrtTotalJobs" Palette="GreenChrome" 
                                    XBindingPath="DayOfWeek"
                                    YBindingPath="Treys" />
 

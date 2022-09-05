@@ -170,5 +170,44 @@ namespace Hashtil_Jobs_For_Drivers.Heplers
 
         }
 
+        // Return Delivery Line Sum Up  From G Sheets
+        /// <summary>
+        /// Return Delivery Line Sum Up  From G Sheets
+        /// </summary>
+        /// <param name="orders"></param>
+        /// <returns>
+        /// List<DeliveryLineStatus>
+        /// </returns>
+        public static Task<List<DeliveryLineStatus>> GetLinesSumUp(List<Order> orders)
+        {
+            var delLineList = new List<DeliveryLineStatus>();
+            orders = orders.Where(x => x.Date == DateTime.Today.AddDays(1)).ToList();
+
+            // Get Total Line By Grouping
+            var totalOfLines = orders.GroupBy(x => x.Driver).ToList();
+
+            foreach(var line in totalOfLines) 
+            {
+                try
+                {
+                    var dLine = new DeliveryLineStatus();
+                    dLine.LineNum = Convert.ToInt32(line.FirstOrDefault().Driver);
+                    dLine.NumOfCx = orders.Where(x => x.Driver == dLine.LineNum.ToString()).ToList().Count();
+                    dLine.Orders = orders.Where(x => x.Driver == dLine.LineNum.ToString()).ToList();
+                    dLine.NumOfCages = orders.Sum(x => Convert.ToInt32(x.Cages));
+                    delLineList.Add(dLine);
+                }
+                catch
+                {
+                    continue;
+                }
+              
+            }
+
+
+
+            return Task.FromResult(delLineList);
+        }
+
     }
 }
