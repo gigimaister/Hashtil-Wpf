@@ -15,6 +15,7 @@ namespace Hashtil_Jobs_For_Drivers.Heplers
         static readonly string ApplicationName = "JobsForDrivers";
         static readonly string SpreadsheetId = "1OW516xac_aL82ecobJSq5Xmmo09UQ6jzptTIHehJuYY";
         static readonly string Sheet = "טבלת הוצאות";
+        static readonly string RoiSheet = "ROI";
         static SheetsService SheetsService;
 
 
@@ -125,6 +126,33 @@ namespace Hashtil_Jobs_For_Drivers.Heplers
             else
             {
                 
+            }
+
+            return Task.FromResult(Orders);
+        }
+
+        // Read Sheet 
+        /// <summary>
+        /// Read Google Sheet And Return List Of Orders Objects
+        /// </summary>
+        /// <returns></returns>
+        public static Task<List<Order>> ReadLineSheet()
+        {
+            List<Order> Orders = new List<Order>();
+            var range = $"{RoiSheet}!A:C";
+            var request = SheetsService.Spreadsheets.Values.Get(SpreadsheetId, range);
+
+            var response = request.Execute();
+            var values = response.Values;
+            if (values != null && values.Count > 0)
+            {
+
+
+              
+            }
+            else
+            {
+
             }
 
             return Task.FromResult(Orders);
