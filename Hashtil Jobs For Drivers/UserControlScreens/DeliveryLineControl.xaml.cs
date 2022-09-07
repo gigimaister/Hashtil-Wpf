@@ -14,6 +14,8 @@ namespace Hashtil_Jobs_For_Drivers.UserControlScreens
     public partial class DeliveryLineControl : UserControl
     {
         List<Order> Orders = new List<Order>();
+        List<DeliveryLineStatus> DeliveryLineStatuses = new List<DeliveryLineStatus>();
+        List<Driver> Drivers = new List<Driver>();
         public DeliveryLineControl()
         {
             InitializeComponent();
@@ -24,8 +26,10 @@ namespace Hashtil_Jobs_For_Drivers.UserControlScreens
 
         private async void GetLines()
         {
+            Drivers = await ApiHelper.GetDrivers();
+            DeliveryLineStatuses = await GSheetsHelper.ReadLineSheet();
             Orders = await GSheetsHelper.ReadEntries();
-            await GSheetsHelper.GetLinesSumUp(Orders);
+            var delLine = await GSheetsHelper.GetLinesSumUp(Orders, DeliveryLineStatuses, Drivers);
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)

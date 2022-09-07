@@ -28,6 +28,10 @@ namespace Hashtil_Jobs_For_Drivers
             public static int Pas = 8;
             public static int Mag = 10;
         }
+        public static class Hebrew
+        {
+            public static string LineTodaysName = "נכנס היום";           
+        }
 
         // Return Max Num Of Treys Inside GreenHouse
         public static int MaxTreyCapacity(int greenNum)

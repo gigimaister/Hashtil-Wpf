@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Hashtil_Jobs_For_Drivers.Heplers
@@ -131,14 +132,16 @@ namespace Hashtil_Jobs_For_Drivers.Heplers
             return Task.FromResult(Orders);
         }
 
-        // Read Sheet 
+        // Read Roi Line Sheet 
         /// <summary>
-        /// Read Google Sheet And Return List Of Orders Objects
+        /// Read Google Sheet And Return List Of DeliveryLineStatus object
         /// </summary>
         /// <returns></returns>
-        public static Task<List<Order>> ReadLineSheet()
+        public static Task<List<DeliveryLineStatus>> ReadLineSheet()
         {
-            List<Order> Orders = new List<Order>();
+            List<DeliveryLineStatus> Orders = new List<DeliveryLineStatus>();
+            List<Driver> Drivers = new List<Driver>();
+
             var range = $"{RoiSheet}!A:C";
             var request = SheetsService.Spreadsheets.Values.Get(SpreadsheetId, range);
 
@@ -146,9 +149,24 @@ namespace Hashtil_Jobs_For_Drivers.Heplers
             var values = response.Values;
             if (values != null && values.Count > 0)
             {
-
-
-              
+               
+                // In Every Row Make Obj And Add To Order List For More Operetions
+                foreach (var row in values)
+                {
+                    DeliveryLineStatus deliveryLineStatus = new DeliveryLineStatus();
+                    try
+                    {
+                        deliveryLineStatus.LineNum = Convert.ToInt32(row[1]);
+                        deliveryLineStatus.DeliveryDate = Convert.ToDateTime(row[0]);
+                        deliveryLineStatus.Driver = new Driver();
+                        deliveryLineStatus.Driver.FullName = row[2].ToString();
+                        Orders.Add(deliveryLineStatus);
+                    }
+                    catch
+                    {
+                        continue;
+                    }
+                }              
             }
             else
             {
@@ -198,6 +216,8 @@ namespace Hashtil_Jobs_For_Drivers.Heplers
 
         }
 
+
+
         // Return Delivery Line Sum Up  From G Sheets
         /// <summary>
         /// Return Delivery Line Sum Up  From G Sheets
@@ -206,36 +226,116 @@ namespace Hashtil_Jobs_For_Drivers.Heplers
         /// <returns>
         /// List<DeliveryLineStatus>
         /// </returns>
-        public static Task<List<DeliveryLineStatus>> GetLinesSumUp(List<Order> orders)
+        public static Task<List<DeliveryLineStatus>> GetLinesSumUp(List<Order> orders, List<DeliveryLineStatus> deliveryLineStatuses, List<Driver> drivers)
         {
-            var delLineList = new List<DeliveryLineStatus>();
+            // Get Todays Jobs To Later Analyze
+            var todaysOrders = orders.Where(x => x.Date == DateTime.Today);
+
+            // Get Only Tommorows Jobs
             orders = orders.Where(x => x.Date == DateTime.Today.AddDays(1)).ToList();
 
-            // Get Total Line By Grouping
-            var totalOfLines = orders.GroupBy(x => x.Driver).ToList();
+            // Group By Line Num
+            var ordersByline = orders.GroupBy(x => x.Driver).ToList();
 
-            foreach(var line in totalOfLines) 
+            // List Of Lines To Store The Created Lines
+            var tempLines = new List<DeliveryLineStatus>();
+
+            // In Every Line
+            foreach(var order in ordersByline)
             {
                 try
                 {
-                    var dLine = new DeliveryLineStatus();
-                    dLine.LineNum = Convert.ToInt32(line.FirstOrDefault().Driver);
-                    dLine.NumOfCx = orders.Where(x => x.Driver == dLine.LineNum.ToString()).ToList().Count();
-                    dLine.Orders = orders.Where(x => x.Driver == dLine.LineNum.ToString()).ToList();
-                    dLine.NumOfCages = orders.Sum(x => Convert.ToInt32(x.Cages));
-                    delLineList.Add(dLine);
+                    var delLine = new DeliveryLineStatus();
+
+                    delLine.LineNum = Convert.ToInt32(order.FirstOrDefault().Driver);
+                    delLine.Orders = order.ToList();
+                    delLine.DeliveryDate = DateTime.Today.AddDays(1);
+                    delLine.NumOfCages = order.Sum(x => Convert.ToInt32(x.Cages));
+                    delLine.NumOfCx = order.GroupBy(x => x.Cx).Count();
+
+                    tempLines.Add(delLine);
+
                 }
                 catch
                 {
                     continue;
                 }
-              
             }
 
+            // Check If We Have Any Data In Roi's Sheet
+            //If DeliveryLineStatus != Null
+            if (deliveryLineStatuses is not null || deliveryLineStatuses.Count() > 0)
+            {
+                foreach(var line in deliveryLineStatuses)
+                {
+                    try
+                    {
+                        // If Date == Today
+                        if (line.DeliveryDate == DateTime.Today)
+                        {
+                            //If Line == 0
+                            if (line.LineNum == 0)
+                            {
+                                // get driver
+                                var driver = drivers.Where(x => x.FullName == line.Driver.FullName).FirstOrDefault();
+                                //set line driver to full driver object
+                                line.Driver = driver;
+                                // todays orders only with this driver name
+                                var combinedLineorders = todaysOrders.Where(x => x.Driver == line.Driver.TableName).ToList();
+                                // add new Line 
+                                var newLine = new DeliveryLineStatus();
+                                newLine.Driver = driver;
+                                newLine.DeliveryDate = DateTime.Today;
+                                newLine.Orders = combinedLineorders;
+                                newLine.LineName = Constants.Hebrew.LineTodaysName;
+                                newLine.NumOfCx = combinedLineorders.GroupBy(x => x.Cx).Count();
+                                newLine.NumOfCages = combinedLineorders.Sum(x => Convert.ToInt32(x.Cages));
+                                tempLines.Add(newLine);
+                            }
+                            // if joined line for today
+                            else
+                            {
+                                // get driver
+                                var driver = drivers.Where(x => x.FullName == line.Driver.FullName).FirstOrDefault();
+                                //set line driver to full driver object
+                                line.Driver = driver;
+                                // find the line group and add the order to orders                              
+                                var combinedLineorders = todaysOrders.Where(x => x.Driver == line.Driver.TableName).ToList(); ;
+                                foreach(var templine in tempLines)
+                                {
+                                    if(templine.LineNum == line.LineNum)
+                                    {
+                                        foreach(var combLine in combinedLineorders)
+                                        {
+                                            templine.Orders.Add(combLine);
+                                        }                                       
+                                    }
+                                }
+                                
+                            }
+                        }
+                        // if date == tommorrow
+                        if (line.DeliveryDate == DateTime.Today.AddDays(1))
+                        {
+                            foreach(var templine in tempLines)
+                            {
+                                if(templine.LineNum == line.LineNum)
+                                {
+                                    // get driver
+                                    var driver = drivers.Where(x => x.FullName == line.Driver.FullName).FirstOrDefault();
+                                    //set line driver to full driver object
+                                    templine.Driver = driver;
+                                }
+                            }
+                        }
+                    }
+                    catch
+                    {
 
-
-            return Task.FromResult(delLineList);
+                    }
+                }
+            }
+            return Task.FromResult(tempLines);
         }
-
     }
 }
