@@ -142,7 +142,7 @@ namespace Hashtil_Jobs_For_Drivers.Heplers
             List<DeliveryLineStatus> Orders = new List<DeliveryLineStatus>();
             List<Driver> Drivers = new List<Driver>();
 
-            var range = $"{RoiSheet}!A:C";
+            var range = $"{RoiSheet}!A:M";
             var request = SheetsService.Spreadsheets.Values.Get(SpreadsheetId, range);
 
             var response = request.Execute();

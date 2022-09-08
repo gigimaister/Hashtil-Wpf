@@ -2,6 +2,7 @@
 using Hashtil_Jobs_For_Drivers.Models;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -30,6 +31,11 @@ namespace Hashtil_Jobs_For_Drivers.UserControlScreens
             DeliveryLineStatuses = await GSheetsHelper.ReadLineSheet();
             Orders = await GSheetsHelper.ReadEntries();
             var delLine = await GSheetsHelper.GetLinesSumUp(Orders, DeliveryLineStatuses, Drivers);
+            await this.Dispatcher.BeginInvoke(new ThreadStart(() =>
+            {
+                icDeliveryLine.ItemsSource = delLine;
+            }));
+           
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
