@@ -30,7 +30,8 @@ namespace Hashtil_Jobs_For_Drivers
         }
         public static class Hebrew
         {
-            public static string LineTodaysName = "נכנס היום";           
+            public static string LineTodaysName = "נכנס היום";
+            public static string IsSplitLine = "מפוצל!";
         }
 
         // Return Max Num Of Treys Inside GreenHouse

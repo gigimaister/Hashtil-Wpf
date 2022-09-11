@@ -18,6 +18,10 @@ namespace Hashtil_Jobs_For_Drivers.Models
         public string? Remarks { get; set; }
         public string? HasCertificate { get; set; }
         public DateTime CreationDate { get; set; }
+
+        // For Split Job
+        public int SplitMagash { get; set; }
+        public int SplitCages { get; set; }
     }
 
 

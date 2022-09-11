@@ -18,10 +18,10 @@ namespace Hashtil_Jobs_For_Drivers
         public MainWindow()
         {
             InitializeComponent();
-            HttpReq.InitializeClient();
+            HttpReq.InitializeClient();         
         }
 
-        public bool IsDarkTheme { get; set; }
+        public bool IsDarkTheme { get; set; } = true;
         private readonly PaletteHelper paletteHelper = new PaletteHelper();      
 
         private void toggleTheme(object sender, RoutedEventArgs e)

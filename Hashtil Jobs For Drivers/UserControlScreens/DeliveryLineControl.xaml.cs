@@ -26,10 +26,10 @@ namespace Hashtil_Jobs_For_Drivers.UserControlScreens
        
 
         private async void GetLines()
-        {
-            Drivers = await ApiHelper.GetDrivers();
+        {          
             DeliveryLineStatuses = await GSheetsHelper.ReadLineSheet();
             Orders = await GSheetsHelper.ReadEntries();
+            Drivers = await ApiHelper.GetDrivers();
             var delLine = await GSheetsHelper.GetLinesSumUp(Orders, DeliveryLineStatuses, Drivers);
             await this.Dispatcher.BeginInvoke(new ThreadStart(() =>
             {

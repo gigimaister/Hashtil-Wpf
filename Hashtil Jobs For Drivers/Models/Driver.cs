@@ -9,5 +9,9 @@ namespace Hashtil_Jobs_For_Drivers.Models
         public string? Contrcator { get; set; }
         public string? PhoneNum { get; set; }
         List<Order> Orders { get; set; }
+
+        // For Split Jobs      
+        public int SplitMagash { get; set; }
+        public int SplitCage { get; set; }         
     }
 }

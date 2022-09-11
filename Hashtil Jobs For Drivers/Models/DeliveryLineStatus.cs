@@ -13,8 +13,8 @@ namespace Hashtil_Jobs_For_Drivers.Models
         public int NumOfCages { get; set; }
         public string? LineName { get; set; }
         public DateTime DeliveryDate { get; set; }
-        public Driver? Driver { get; set; }
+        public List<Driver>? Driver { get; set; }
         public List<Order>? Orders { get; set; }
-
+        public string? SplitLineAlert { get; set; }
     }
 }

@@ -19,7 +19,6 @@ namespace Hashtil_Jobs_For_Drivers.UserControlScreens
         List<DashBoardDataPhp> DashboardDataPhp = new List<DashBoardDataPhp>();
         List<GreenHouse> GreenHouseExcelList = new List<GreenHouse>();
         List<Driver> Drivers = new List<Driver>();
-
         public DashBoardControl()
         {
             InitializeComponent();
@@ -31,11 +30,7 @@ namespace Hashtil_Jobs_For_Drivers.UserControlScreens
             Task.Run(() => GetGSheet());
             Task.Run(() => GetPhpHttp());
            
-        }
-
-        
-        
-       
+        }            
 
         // Get Excel Data 
         private async void GetExcel()
@@ -88,14 +83,10 @@ namespace Hashtil_Jobs_For_Drivers.UserControlScreens
 
                 // Circular Progress Bar Total Drivers
                 CPBDrivers.Progress = Drivers.Count;
-                CPBDrivers.SegmentCount = Drivers.Count;
-                LSpinner.Visibility = Visibility.Hidden;
-
-
+                CPBDrivers.SegmentCount = Drivers.Count;              
             }));
         }
-
-       
+      
         // Get Google Sheet Data
         private async void GetGSheet()
         {
@@ -104,21 +95,19 @@ namespace Hashtil_Jobs_For_Drivers.UserControlScreens
             DashboardData = await GSheetsHelper.DashBoardData(googleSheetsEntries);
                        
             await this.Dispatcher.BeginInvoke(new ThreadStart(() =>
-            {
-               
-
+            {       
                 //Jobs && Plants Circular Gauge
                 CGNiddleTreys.Value = DashboardData.NumOfMagashForTommorrow;
                 CGNiddlePlants.Value = DashboardData.NumOfPlantsForTommorrow;
                 CGTexttreys.Text =  DashboardData.NumOfMagashForTommorrow.ToString("#,0");
                 CGTextplants.Text = $"{(Convert.ToDouble(DashboardData.NumOfPlantsForTommorrow)/1000000).ToString("N2")}M";
 
-
-
                 // Total Treys Of Week Chart
                 LinechrtTotalJobs.ItemsSource = DashboardData.DailyJobsChartList;
 
-               
+                // Loading Spinner Off
+                LSpinner.Visibility = Visibility.Hidden;
+
             }));
 
         }

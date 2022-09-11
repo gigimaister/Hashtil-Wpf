@@ -72,18 +72,27 @@ namespace Hashtil_Jobs_For_Drivers.Heplers
                         order.Passport = (string)(row[7]);
                         order.Avarage = Convert.ToDouble(row[8]);
                         order.Status = (string)row[9];
-                        if(!string.IsNullOrEmpty((string)row[10])) 
-                        { 
-                            order.Cages = Convert.ToDouble(row[10]);
+                        // Prevent Exception When Len Of Row Is 9
+                        if(row.Count < 11)
+                        {
+                            if (!string.IsNullOrEmpty((string)row[10]))
+                            {
+                                order.Cages = Convert.ToDouble(row[10]);
+                            }
+                            else
+                            {
+                                order.Cages = 0;
+                            }
                         }
                         else
                         {
-                            order.Cages = 0;
+                            Orders.Add(order);
+                            continue;
                         }
                         order.Remarks = (string)row[11];
 
                         // If Remarks Null
-                        if (row.Count < 12)
+                        if (row.Count < 13)
                         {
                             Orders.Add(order);
                             continue;
@@ -153,19 +162,100 @@ namespace Hashtil_Jobs_For_Drivers.Heplers
                 // In Every Row Make Obj And Add To Order List For More Operetions
                 foreach (var row in values)
                 {
-                    DeliveryLineStatus deliveryLineStatus = new DeliveryLineStatus();
                     try
                     {
-                        deliveryLineStatus.LineNum = Convert.ToInt32(row[1]);
-                        deliveryLineStatus.DeliveryDate = Convert.ToDateTime(row[0]);
-                        deliveryLineStatus.Driver = new Driver();
-                        deliveryLineStatus.Driver.FullName = row[2].ToString();
-                        Orders.Add(deliveryLineStatus);
+                        // If We Have Split Job
+                        if (row.Count > 3)
+                        {
+                            if ((string)row[3] == "TRUE")
+                            {
+                                DeliveryLineStatus deliveryLineStatus = new DeliveryLineStatus();
+
+                                switch (row.Count)
+                                {
+                                    // 2 Drivers
+                                    case 10:
+                                        
+                                        try
+                                        {
+                                            deliveryLineStatus.LineNum = Convert.ToInt32(row[1]);
+                                            deliveryLineStatus.DeliveryDate = Convert.ToDateTime(row[0]);
+                                            deliveryLineStatus.Driver = new List<Driver>();
+                                            // Driver 1
+                                            var driver = new Driver();
+                                            driver.FullName = (string?)row[4];
+                                            driver.SplitMagash = Convert.ToInt32(row[5]);
+                                            driver.SplitCage = Convert.ToInt32(row[6]);
+                                            deliveryLineStatus.Driver.Add(driver);
+                                            // Driver 2
+                                            var driver2 = new Driver();
+                                            driver2.FullName = (string?)row[7];
+                                            driver2.SplitMagash = Convert.ToInt32(row[8]);
+                                            driver2.SplitCage =  Convert.ToInt32(row[9]);
+                                            deliveryLineStatus.Driver.Add(driver2);
+                                            Orders.Add(deliveryLineStatus);
+                                        }
+                                        catch
+                                        {
+                                            continue;
+                                        }
+                                        break;
+                                    // 3 Drivers
+                                    case 13:
+                                        try
+                                        {
+                                            // Driver 1
+                                            var driver = new Driver();
+                                            driver.FullName = (string?)row[7];
+                                            driver.SplitMagash =  Convert.ToInt32(row[8]);
+                                            driver.SplitCage =  Convert.ToInt32(row[9]);
+                                            deliveryLineStatus.Driver.Add(driver);
+                                            // Driver 2
+                                            var driver2 = new Driver();
+                                            driver2.FullName = (string?)row[10];
+                                            driver2.SplitMagash =  Convert.ToInt32(row[11]);
+                                            driver2.SplitCage =  Convert.ToInt32(row[12]);
+                                            deliveryLineStatus.Driver.Add(driver2);
+                                            Orders.Add(deliveryLineStatus);
+                                            // Driver 3
+                                            var driver3 = new Driver();
+                                            driver2.FullName = (string?)row[10];
+                                            driver2.SplitMagash = (int)row[11];
+                                            driver2.SplitCage = (int)row[12];
+                                            deliveryLineStatus.Driver.Add(driver3);
+                                            Orders.Add(deliveryLineStatus);
+                                        }
+                                        catch
+                                        {
+                                            continue;
+                                        }
+                                        break;
+                                }
+                            }
+                        }
+                        // If NO SPLIT JOB
+                        else
+                        {
+                            DeliveryLineStatus deliveryLineStatus = new DeliveryLineStatus();
+                            try
+                            {
+                                deliveryLineStatus.LineNum = Convert.ToInt32(row[1]);
+                                deliveryLineStatus.DeliveryDate = Convert.ToDateTime(row[0]);
+                                deliveryLineStatus.Driver = new List<Driver>();
+                                deliveryLineStatus.Driver.FirstOrDefault().FullName = row[2].ToString();
+                                Orders.Add(deliveryLineStatus);
+                            }
+                            catch
+                            {
+                                continue;
+                            }
+                        }
                     }
                     catch
                     {
                         continue;
                     }
+                                
                 }              
             }
             else
@@ -268,71 +358,250 @@ namespace Hashtil_Jobs_For_Drivers.Heplers
             {
                 foreach(var line in deliveryLineStatuses)
                 {
-                    try
+                    // If We Have Split Line/Job
+                    if (line.Driver.Count > 1)
                     {
-                        // If Date == Today
-                        if (line.DeliveryDate == DateTime.Today)
+                        try
                         {
-                            //If Line == 0
-                            if (line.LineNum == 0)
+                            // If Date == Today
+                            if (line.DeliveryDate == DateTime.Today)
                             {
-                                // get driver
-                                var driver = drivers.Where(x => x.FullName == line.Driver.FullName).FirstOrDefault();
-                                //set line driver to full driver object
-                                line.Driver = driver;
-                                // todays orders only with this driver name
-                                var combinedLineorders = todaysOrders.Where(x => x.Driver == line.Driver.TableName).ToList();
-                                // add new Line 
-                                var newLine = new DeliveryLineStatus();
-                                newLine.Driver = driver;
-                                newLine.DeliveryDate = DateTime.Today;
-                                newLine.Orders = combinedLineorders;
-                                newLine.LineName = Constants.Hebrew.LineTodaysName;
-                                newLine.NumOfCx = combinedLineorders.GroupBy(x => x.Cx).Count();
-                                newLine.NumOfCages = combinedLineorders.Sum(x => Convert.ToInt32(x.Cages));
-                                tempLines.Add(newLine);
-                            }
-                            // if joined line for today
-                            else
-                            {
-                                // get driver
-                                var driver = drivers.Where(x => x.FullName == line.Driver.FullName).FirstOrDefault();
-                                //set line driver to full driver object
-                                line.Driver = driver;
-                                // find the line group and add the order to orders                              
-                                var combinedLineorders = todaysOrders.Where(x => x.Driver == line.Driver.TableName).ToList(); ;
-                                foreach(var templine in tempLines)
+                                //If Line == 0
+                                if (line.LineNum == 0)
                                 {
-                                    if(templine.LineNum == line.LineNum)
+                                    var driver = new Driver();
+                                    // get driver
+                                    foreach (var dr in drivers)
                                     {
-                                        foreach(var combLine in combinedLineorders)
+                                        foreach(var dr2 in line.Driver)
                                         {
-                                            templine.Orders.Add(combLine);
-                                        }                                       
+                                            if(dr.FullName == dr2.FullName)
+                                            {
+                                                dr.SplitMagash = dr2.SplitMagash;
+                                                dr.SplitCage = dr2.SplitCage;
+                                                driver = dr;
+                                            }
+                                        }
+                                    }
+                                    //set line driver to full driver object
+                                    line.Driver.Add(driver);
+                                    // todays orders only with this driver name
+                                    var combinedLineorders = todaysOrders.Where(x => x.Driver == driver.TableName).ToList();
+                                    // add new Line 
+                                    var newLine = new DeliveryLineStatus();
+                                    newLine.Driver = new List<Driver>();
+                                    newLine.Driver.Add(driver);
+
+                                    newLine.DeliveryDate = DateTime.Today;
+                                    newLine.Orders = combinedLineorders;
+                                    newLine.LineName = Constants.Hebrew.LineTodaysName;
+                                    newLine.SplitLineAlert = Constants.Hebrew.IsSplitLine;
+                                    newLine.NumOfCx = combinedLineorders.GroupBy(x => x.Cx).Count();
+                                    newLine.NumOfCages = combinedLineorders.Sum(x => Convert.ToInt32(x.Cages));
+                                    tempLines.Add(newLine);
+                                }
+                                // if joined line for today
+                                else
+                                {
+                                    var driver = new Driver();
+                                    // get driver
+                                    foreach (var dr in drivers)
+                                    {
+                                        foreach (var dr2 in line.Driver)
+                                        {
+                                            if (dr.FullName == dr2.FullName)
+                                            {
+                                                dr.SplitMagash = dr2.SplitMagash;
+                                                dr.SplitCage = dr2.SplitCage;
+                                                driver = dr;
+                                            }
+                                        }
+                                    }
+                                    //set line driver to full driver object
+                                    line.Driver.Add(driver);
+                                    // find the line group and add the order to orders                              
+                                    var combinedLineorders = todaysOrders.Where(x => x.Driver == driver.TableName).ToList(); ;
+                                    foreach (var templine in tempLines)
+                                    {
+                                        if (templine.LineNum == line.LineNum)
+                                        {
+                                            foreach (var combLine in combinedLineorders)
+                                            {
+                                                templine.Orders.Add(combLine);
+                                            }
+                                        }
+                                    }
+
+                                }
+                            }
+                            // if date == tommorrow
+                            if (line.DeliveryDate == DateTime.Today.AddDays(1))
+                            {
+                                foreach (var templine in tempLines)
+                                {
+                                    if (templine.LineNum == line.LineNum)
+                                    {
+                                        var driver = new Driver();
+                                        templine.Driver = new List<Driver>();
+                                        // get driver
+                                        foreach (var dr in drivers)
+                                        {
+                                            foreach (var dr2 in line.Driver)
+                                            {
+                                                if (dr.FullName == dr2.FullName)
+                                                {
+                                                    dr.SplitMagash = dr2.SplitMagash;
+                                                    dr.SplitCage = dr2.SplitCage;
+                                                    dr2.TableName = dr.TableName;
+                                                    dr2.PhoneNum = dr.PhoneNum;
+                                                    driver = dr;
+                                                    //set line driver to full driver object
+                                                    templine.Driver.Add(driver);
+                                                }
+                                            }
+                                        }
+                                        
+                                                 
+                                    }                                 
+                                }
+                                // Create Duplicate Line For Every Driver
+                               // 2 Driver
+                               if(line.Driver.Count == 2)
+                                {
+                                    foreach(var dr in line.Driver)
+                                    {
+                                        // add new Line 
+                                        var newLine = new DeliveryLineStatus();
+                                        newLine.Driver = new List<Driver>();
+                                        newLine.Driver.Add(drivers.Where(x=>x.FullName == line.Driver.FirstOrDefault().FullName).FirstOrDefault());
+                                        newLine.LineNum = line.LineNum;
+                                        newLine.DeliveryDate = DateTime.Today.AddDays(1);
+                                        newLine.Orders = orders.Where(x => x.Driver == line.LineNum.ToString()).ToList();
+                                        //newLine.LineName = Constants.Hebrew.LineTodaysName;
+                                        newLine.SplitLineAlert = Constants.Hebrew.IsSplitLine;
+                                        newLine.NumOfCx = newLine.Orders.GroupBy(x => x.Cx).Count();
+                                        newLine.NumOfCages = newLine.Orders.Sum(x => Convert.ToInt32(x.Cages));
+                                        tempLines.Where(x => x.LineNum == newLine.LineNum).FirstOrDefault().Driver.RemoveAll(x => x.FullName == newLine.Driver.FirstOrDefault().FullName);
+                                        tempLines.Add(newLine);
+                                        break;
                                     }
                                 }
-                                
-                            }
-                        }
-                        // if date == tommorrow
-                        if (line.DeliveryDate == DateTime.Today.AddDays(1))
-                        {
-                            foreach(var templine in tempLines)
-                            {
-                                if(templine.LineNum == line.LineNum)
+                                // 3 Drivers
+                                if (line.Driver.Count == 3)
                                 {
-                                    // get driver
-                                    var driver = drivers.Where(x => x.FullName == line.Driver.FullName).FirstOrDefault();
-                                    //set line driver to full driver object
-                                    templine.Driver = driver;
+                                    foreach (var dr in line.Driver)
+                                    {
+                                        // add new Line 
+                                        var newLine = new DeliveryLineStatus();
+                                        newLine.Driver = new List<Driver>();
+                                        newLine.Driver.Add(line.Driver.FirstOrDefault());
+
+                                        newLine.DeliveryDate = DateTime.Today;
+                                        newLine.Orders = orders.Where(x => x.Driver == line.LineNum.ToString()).ToList();
+                                        newLine.LineName = Constants.Hebrew.LineTodaysName;
+                                        newLine.SplitLineAlert = Constants.Hebrew.IsSplitLine;
+                                        newLine.NumOfCx = newLine.Orders.GroupBy(x => x.Cx).Count();
+                                        newLine.NumOfCages = newLine.Orders.Sum(x => Convert.ToInt32(x.Cages));
+                                        tempLines.Add(newLine);
+                                        line.Driver.Remove(newLine.Driver.FirstOrDefault());
+                                        break;
+                                    }
+                                    foreach (var dr in line.Driver)
+                                    {
+                                        // add new Line 
+                                        var newLine = new DeliveryLineStatus();
+                                        newLine.Driver = new List<Driver>();
+                                        newLine.Driver.Add(line.Driver.FirstOrDefault());
+
+                                        newLine.DeliveryDate = DateTime.Today;
+                                        newLine.Orders = line.Orders;
+                                        newLine.LineName = Constants.Hebrew.LineTodaysName;
+                                        newLine.SplitLineAlert = Constants.Hebrew.IsSplitLine;
+                                        newLine.NumOfCx = newLine.Orders.GroupBy(x => x.Cx).Count();
+                                        newLine.NumOfCages = newLine.Orders.Sum(x => Convert.ToInt32(x.Cages));
+                                        tempLines.Add(newLine);
+                                        line.Driver.Remove(newLine.Driver.FirstOrDefault());
+                                        break;
+                                    }
+
                                 }
                             }
                         }
-                    }
-                    catch
-                    {
+                        catch
+                        {
 
+                        }
                     }
+                    // If Regular Line
+                    else
+                    {
+                        try
+                        {
+                            // If Date == Today
+                            if (line.DeliveryDate == DateTime.Today)
+                            {
+                                //If Line == 0
+                                if (line.LineNum == 0)
+                                {
+                                    // get driver
+                                    var driver = drivers.Where(x => x.FullName == line.Driver.FirstOrDefault().FullName).ToList();
+                                    //set line driver to full driver object
+                                    line.Driver = driver;
+                                    // todays orders only with this driver name
+                                    var combinedLineorders = todaysOrders.Where(x => x.Driver == line.Driver.FirstOrDefault().TableName).ToList();
+                                    // add new Line 
+                                    var newLine = new DeliveryLineStatus();
+                                    newLine.Driver = driver;
+                                    newLine.DeliveryDate = DateTime.Today;
+                                    newLine.Orders = combinedLineorders;
+                                    newLine.LineName = Constants.Hebrew.LineTodaysName;
+                                    newLine.NumOfCx = combinedLineorders.GroupBy(x => x.Cx).Count();
+                                    newLine.NumOfCages = combinedLineorders.Sum(x => Convert.ToInt32(x.Cages));
+                                    tempLines.Add(newLine);
+                                }
+                                // if joined line for Tommorrow
+                                else
+                                {
+                                    // get driver
+                                    var driver = drivers.Where(x => x.FullName == line.Driver.FirstOrDefault().FullName).ToList();
+                                    //set line driver to full driver object
+                                    line.Driver = driver;
+                                    // find the line group and add the order to orders                              
+                                    var combinedLineorders = todaysOrders.Where(x => x.Driver == line.Driver.FirstOrDefault().TableName).ToList(); ;
+                                    foreach (var templine in tempLines)
+                                    {
+                                        if (templine.LineNum == line.LineNum)
+                                        {
+                                            foreach (var combLine in combinedLineorders)
+                                            {
+                                                templine.Orders.Add(combLine);
+                                            }
+                                        }
+                                    }
+
+                                }
+                            }
+                            // if date == tommorrow
+                            if (line.DeliveryDate == DateTime.Today.AddDays(1))
+                            {
+                                foreach (var templine in tempLines)
+                                {
+                                    if (templine.LineNum == line.LineNum)
+                                    {
+                                        // get driver
+                                        var driver = drivers.Where(x => x.FullName == line.Driver.FirstOrDefault().FullName).ToList();
+                                        //set line driver to full driver object
+                                        templine.Driver = driver;
+                                    }
+                                }
+                            }
+                        }
+                        catch
+                        {
+
+                        }
+                    }
+                    
                 }
             }
             return Task.FromResult(tempLines);
