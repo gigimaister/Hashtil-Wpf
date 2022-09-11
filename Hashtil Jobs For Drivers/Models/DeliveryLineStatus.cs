@@ -16,5 +16,6 @@ namespace Hashtil_Jobs_For_Drivers.Models
         public List<Driver>? Driver { get; set; }
         public List<Order>? Orders { get; set; }
         public string? SplitLineAlert { get; set; }
+        //public string? DriversFullName => Driver.FirstOrDefault().FullName ?? "";
     }
 }

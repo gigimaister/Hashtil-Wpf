@@ -34,6 +34,7 @@ namespace Hashtil_Jobs_For_Drivers.UserControlScreens
             await this.Dispatcher.BeginInvoke(new ThreadStart(() =>
             {
                 icDeliveryLine.ItemsSource = delLine;
+                
             }));
            
         }
