@@ -2,6 +2,7 @@
 using Hashtil_Jobs_For_Drivers.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -31,10 +32,11 @@ namespace Hashtil_Jobs_For_Drivers.UserControlScreens
             Orders = await GSheetsHelper.ReadEntries();
             Drivers = await ApiHelper.GetDrivers();
             var delLine = await GSheetsHelper.GetLinesSumUp(Orders, DeliveryLineStatuses, Drivers);
+            delLine.OrderByDescending(x => x.LineNum);
             await this.Dispatcher.BeginInvoke(new ThreadStart(() =>
             {
-                icDeliveryLine.ItemsSource = delLine;
-                
+                icDeliveryLine.ItemsSource = delLine;             
+
             }));
            
         }

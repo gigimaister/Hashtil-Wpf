@@ -11,56 +11,58 @@
             <ColumnDefinition/>
             <ColumnDefinition Width="100"/>
         </Grid.ColumnDefinitions>
-        <ScrollViewer>
-            <ItemsControl Grid.Column="0" x:Name="icDeliveryLine">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Border x:Name="BorderJob" Margin="20"
+      
+        <ItemsControl Grid.Column="0" x:Name="icDeliveryLine">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border x:Name="BorderJob" Margin="20"
                                 MouseDown="Border_MouseDown" 
-                                Width="150" Height="100" CornerRadius="30" >
-                            <Border.Background>
-                                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                    <GradientStop Color="#FF8AA574"/>
-                                    <GradientStop Color="#FF797053" Offset="1"/>
-                                </LinearGradientBrush>
-                            </Border.Background>
-                            <!--Border Data-->
-                            <StackPanel>
-                                <!--Line Num-->
-                                <TextBlock x:Name="txtLineNum" Text="{Binding LineNum}" HorizontalAlignment="Center" FontWeight="Bold"
+                                Width="150" Height="200" CornerRadius="30" >
+                        <Border.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FF8AA574"/>
+                                <GradientStop Color="#FF797053" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <!--Border Data-->
+                        <StackPanel>
+                            <!--Line Num-->
+                            <TextBlock x:Name="txtLineNum" Text="{Binding LineNum}" HorizontalAlignment="Center" FontWeight="Bold"
                            FontSize="18" Margin="0 5"/>
-                                <!--Split Text-->
-                                <TextBlock x:Name="txtLineIsSplit" Text="" FlowDirection="RightToLeft" HorizontalAlignment="Center" FontWeight="Bold"
+                            <!--Split Text-->
+                            <TextBlock x:Name="txtLineIsSplit" Text="" FlowDirection="RightToLeft" HorizontalAlignment="Center" FontWeight="Bold"
                            FontSize="18" Margin="0 5"/>
-                                <!--driver-->
-                                <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
-                                    <TextBlock Text="נהג:" Margin="20 0 0 0"/>
-                                    <TextBlock x:Name="txtDriver" Text="{Binding DriversFullName}" Margin="10 0 0 0"/>
-                                </StackPanel>
-                                <!--num of cages-->
-                                <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
-                                    <TextBlock Text="כלובים:" Margin="20 0 0 0"/>
-                                    <TextBlock x:Name="txtCages" Text="{Binding NumOfCages}" Margin="10 0 0 0"/>
-                                </StackPanel>
-                                <!--num of cx-->
-                                <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
-                                    <TextBlock Text="לקוחות:" Margin="20 0 0 0"/>
-                                    <TextBlock x:Name="txtCx" Text="{Binding NumOfCx}" Margin="10 0 0 0"/>
-                                </StackPanel>
-                                <!--cx list view-->
-                                <StackPanel Orientation="Vertical">
-                                    <ListView x:Name="lvordersPerLine"/>
-                                </StackPanel>
-
-
+                            <!--driver-->
+                            <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
+                                <TextBlock Text="נהג:" Margin="20 0 0 0"/>
+                                <TextBlock x:Name="txtDriver" Text="{Binding DriversFullName}" Margin="10 0 0 0"/>
                             </StackPanel>
-                        </Border>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-
-            </ItemsControl>
-        </ScrollViewer>
-        
+                            <!--num of cages-->
+                            <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
+                                <TextBlock Text="כלובים:" Margin="20 0 0 0"/>
+                                <TextBlock x:Name="txtCages" Text="{Binding NumOfCages}" Margin="10 0 0 0"/>
+                            </StackPanel>
+                            <!--num of cx-->
+                            <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
+                                <TextBlock Text="לקוחות:" Margin="20 0 0 0"/>
+                                <TextBlock x:Name="txtCx" Text="{Binding NumOfCx}" Margin="10 0 0 0"/>
+                            </StackPanel>
+                            <!--cx list view-->
+                            <StackPanel Orientation="Vertical">
+                                <ListView x:Name="lvordersPerLine">
+                                    <ListViewItem Content="{Binding Orders.Cx}"/>
+                                </ListView>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
        
     </Grid>
 </UserControl>

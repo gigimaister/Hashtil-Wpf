@@ -32,6 +32,7 @@ namespace Hashtil_Jobs_For_Drivers
         {
             public static string LineTodaysName = "נכנס היום";
             public static string IsSplitLine = "מפוצל!";
+            public static string StillNoDriver = "עדיין לא שובץ";
         }
 
         // Return Max Num Of Treys Inside GreenHouse
