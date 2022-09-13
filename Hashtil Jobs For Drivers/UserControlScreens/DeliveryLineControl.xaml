@@ -22,7 +22,7 @@
                 <DataTemplate>
                     <Border x:Name="BorderJob" Margin="20"
                                 MouseDown="Border_MouseDown" 
-                                Width="150" Height="200" CornerRadius="30" >
+                                Width="150" Height="250" CornerRadius="30" >
                         <Border.Background>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="#FF8AA574"/>
@@ -53,11 +53,18 @@
                                 <TextBlock x:Name="txtCx" Text="{Binding NumOfCx}" Margin="10 0 0 0"/>
                             </StackPanel>
                             <!--cx list view-->
-                            <StackPanel Orientation="Vertical">
-                                <ListView x:Name="lvordersPerLine">
-                                    <ListViewItem Content="{Binding Orders.Cx}"/>
-                                </ListView>
-                            </StackPanel>
+                            <ScrollViewer>
+                                <StackPanel Orientation="Vertical" FlowDirection="RightToLeft" >
+                                    <ListBox Name="lbTodoList" ItemsSource="{Binding Orders}" HorizontalContentAlignment="Stretch">
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Cx}" />
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                </StackPanel>
+                            </ScrollViewer>
+                           
                         </StackPanel>
                     </Border>
                 </DataTemplate>

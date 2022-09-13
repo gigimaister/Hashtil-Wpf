@@ -174,8 +174,7 @@ namespace Hashtil_Jobs_For_Drivers.Heplers
                                 switch (row.Count)
                                 {
                                     // 2 Drivers
-                                    case 10:
-                                        
+                                    case 10:                                       
                                         try
                                         {
                                             deliveryLineStatus.LineNum = Convert.ToInt32(row[1]);
@@ -242,6 +241,8 @@ namespace Hashtil_Jobs_For_Drivers.Heplers
                                 deliveryLineStatus.LineNum = Convert.ToInt32(row[1]);
                                 deliveryLineStatus.DeliveryDate = Convert.ToDateTime(row[0]);
                                 deliveryLineStatus.Driver = new List<Driver>();
+                                var d = new Driver();
+                                deliveryLineStatus.Driver.Add(d);
                                 deliveryLineStatus.Driver.FirstOrDefault().FullName = row[2].ToString();
                                 Orders.Add(deliveryLineStatus);
                             }

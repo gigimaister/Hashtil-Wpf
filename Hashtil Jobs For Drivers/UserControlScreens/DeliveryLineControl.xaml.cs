@@ -22,6 +22,8 @@ namespace Hashtil_Jobs_For_Drivers.UserControlScreens
         {
             InitializeComponent();
             Task.Run(() => GetLines());
+            
+            
         }
 
        
@@ -35,7 +37,8 @@ namespace Hashtil_Jobs_For_Drivers.UserControlScreens
             delLine.OrderByDescending(x => x.LineNum);
             await this.Dispatcher.BeginInvoke(new ThreadStart(() =>
             {
-                icDeliveryLine.ItemsSource = delLine;             
+                icDeliveryLine.ItemsSource = delLine;
+                
 
             }));
            
