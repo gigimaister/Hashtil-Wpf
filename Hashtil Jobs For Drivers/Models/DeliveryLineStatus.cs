@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NPOI.SS.Formula.Functions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,6 +14,7 @@ namespace Hashtil_Jobs_For_Drivers.Models
         public DateTime DeliveryDate { get; set; }
         public List<Driver>? Driver { get; set; } = new List<Driver>();
         public List<Order>? Orders { get; set; }
+        public List<Order>? OrdersGroup { get; set; } = new List<Order>();
         public string? SplitLineAlert { get; set; }
         public string? DriversFullName
         {

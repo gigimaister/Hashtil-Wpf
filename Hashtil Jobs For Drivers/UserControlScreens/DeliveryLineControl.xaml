@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Hashtil_Jobs_For_Drivers.UserControlScreens"
+             xmlns:syncfusion="clr-namespace:Syncfusion.UI.Xaml.Charts;assembly=Syncfusion.SfChart.WPF"
+             xmlns:Syncfusion="http://schemas.syncfusion.com/wpf"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Background="{DynamicResource MaterialDesignPaper}">
@@ -11,7 +13,17 @@
             <ColumnDefinition/>
             <ColumnDefinition Width="100"/>
         </Grid.ColumnDefinitions>
-      
+        <!--Loading Spinner-->
+        <Syncfusion:SfCircularProgressBar Background="DarkSlateGray"
+                                          Visibility="Visible" Grid.RowSpan="5" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" 
+                                          x:Name="LSpinner"
+    Width="800"
+    Height="450"    
+    AnimationDuration="00:00:02"
+    IsIndeterminate="True"
+    Progress="50"
+    ShowProgressValue="False" SecondaryProgressColor="#FF87EC79" ProgressColor="#FF34ED25" TrackColor="#FFAFAFAF" />
+      <!--Item Control-->
         <ItemsControl Grid.Column="0" x:Name="icDeliveryLine">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -55,7 +67,7 @@
                             <!--cx list view-->
                             <ScrollViewer>
                                 <StackPanel Orientation="Vertical" FlowDirection="RightToLeft" >
-                                    <ListBox Name="lbTodoList" ItemsSource="{Binding Orders}" HorizontalContentAlignment="Stretch">
+                                    <ListBox Name="lbTodoList" ItemsSource="{Binding OrdersGroup}" HorizontalContentAlignment="Stretch">
                                         <ListBox.ItemTemplate>
                                             <DataTemplate>
                                                 <TextBlock Text="{Binding Cx}" />

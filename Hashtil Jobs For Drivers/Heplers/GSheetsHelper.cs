@@ -73,7 +73,7 @@ namespace Hashtil_Jobs_For_Drivers.Heplers
                         order.Avarage = Convert.ToDouble(row[8]);
                         order.Status = (string)row[9];
                         // Prevent Exception When Len Of Row Is 9
-                        if(row.Count < 11)
+                        if(row.Count > 11)
                         {
                             if (!string.IsNullOrEmpty((string)row[10]))
                             {
@@ -341,7 +341,7 @@ namespace Hashtil_Jobs_For_Drivers.Heplers
                     delLine.LineNum = Convert.ToInt32(order.FirstOrDefault().Driver);
                     delLine.Orders = order.ToList();
                     delLine.DeliveryDate = DateTime.Today.AddDays(1);
-                    delLine.NumOfCages = order.Sum(x => Convert.ToInt32(x.Cages));
+                    delLine.NumOfCages = order.Select(x=>x).ToList().Sum(x=> Convert.ToInt32(x.Cages));
                     delLine.NumOfCx = order.GroupBy(x => x.Cx).Count();
 
                     tempLines.Add(delLine);

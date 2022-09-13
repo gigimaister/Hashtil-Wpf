@@ -31,15 +31,27 @@ namespace Hashtil_Jobs_For_Drivers.UserControlScreens
         private async void GetLines()
         {          
             DeliveryLineStatuses = await GSheetsHelper.ReadLineSheet();
-            Orders = await GSheetsHelper.ReadEntries();
-            Drivers = await ApiHelper.GetDrivers();
+            Orders = await GSheetsHelper.ReadEntries();            
+            Drivers = await ApiHelper.GetDrivers();          
             var delLine = await GSheetsHelper.GetLinesSumUp(Orders, DeliveryLineStatuses, Drivers);
+            // Get cx From Orders By Group For List View
+           
+            foreach (var line in delLine)
+            {
+                var ordersGroup = line.Orders.GroupBy(x => x.Cx).ToList();
+                foreach(var order in ordersGroup)
+                {
+                    var o = new Order();
+                    o.Cx = order.Key;
+                    line.OrdersGroup.Add(o);
+                }
+            }
             delLine.OrderByDescending(x => x.LineNum);
             await this.Dispatcher.BeginInvoke(new ThreadStart(() =>
             {
                 icDeliveryLine.ItemsSource = delLine;
-                
 
+                LSpinner.Visibility = System.Windows.Visibility.Hidden;
             }));
            
         }
