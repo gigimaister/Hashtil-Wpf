@@ -1,4 +1,5 @@
-﻿using Hashtil_Jobs_For_Drivers.UserControlScreens;
+﻿using Hashtil_Jobs_For_Drivers.Models;
+using Hashtil_Jobs_For_Drivers.UserControlScreens;
 using MaterialDesignThemes.Wpf;
 using System.Threading.Tasks;
 using System.Windows;

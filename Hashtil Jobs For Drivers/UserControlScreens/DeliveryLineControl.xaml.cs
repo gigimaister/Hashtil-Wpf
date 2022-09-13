@@ -58,7 +58,10 @@ namespace Hashtil_Jobs_For_Drivers.UserControlScreens
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
-           
+            var y = e;
+            var yy = icDeliveryLine;
+
+            CC.Content = new LineBreakDownControl();
         }
     }
 }
