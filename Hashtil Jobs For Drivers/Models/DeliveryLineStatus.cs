@@ -1,4 +1,5 @@
-﻿using NPOI.SS.Formula.Functions;
+﻿using Hashtil_Jobs_For_Drivers.Heplers;
+using NPOI.SS.Formula.Functions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,5 +28,7 @@ namespace Hashtil_Jobs_For_Drivers.Models
                 return Constants.Hebrew.StillNoDriver;
             }
         }
+
+        public string? GetHebrewDay => TranslationHelper.GethebrewDayOfTheWeek(DeliveryDate) ??  "";
     }
 }

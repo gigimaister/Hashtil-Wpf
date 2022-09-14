@@ -1,17 +1,7 @@
-﻿using System;
+﻿using Hashtil_Jobs_For_Drivers.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Hashtil_Jobs_For_Drivers.UserControlScreens
 {
@@ -20,9 +10,16 @@ namespace Hashtil_Jobs_For_Drivers.UserControlScreens
     /// </summary>
     public partial class LineBreakDownControl : UserControl
     {
-        public LineBreakDownControl()
+        DeliveryLineStatus SelectedDeliveryLine = new DeliveryLineStatus();
+
+        public LineBreakDownControl(DeliveryLineStatus deliveryLineStatus=null)
         {
             InitializeComponent();
+
+            txtHebrewDate.Text = deliveryLineStatus.GetHebrewDay.ToString();
+            txtCages.Text = deliveryLineStatus.NumOfCages.ToString();
+            txtDriver.Text = deliveryLineStatus.DriversFullName;
+            txtCx.Text = deliveryLineStatus.NumOfCx.ToString();
         }
     }
 }

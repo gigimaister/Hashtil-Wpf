@@ -24,18 +24,17 @@
     Progress="50"
     ShowProgressValue="False" SecondaryProgressColor="#FF87EC79" ProgressColor="#FF34ED25" TrackColor="#FFAFAFAF" />
       <!--Item Control-->
-        <ItemsControl Grid.Column="0" x:Name="icDeliveryLine">
-            <ItemsControl.ItemsPanel>
+        <ListBox Grid.Column="0" x:Name="icDeliveryLine" SelectionChanged="lbTodoList_SelectionChanged">
+            <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel />
                 </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            
-            <ItemsControl.ItemTemplate>
+            </ListBox.ItemsPanel>
+
+            <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Border x:Name="BorderJob" Margin="20"
-                                MouseDown="Border_MouseDown" 
-                                Width="150" Height="250" CornerRadius="30" >
+                    <Border x:Name="BorderJob" Margin="20"  
+                                Width="150" Height="350" CornerRadius="30" >
                         <Border.Background>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="#FF8AA574"/>
@@ -66,23 +65,26 @@
                                 <TextBlock x:Name="txtCx" Text="{Binding NumOfCx}" Margin="10 0 0 0"/>
                             </StackPanel>
                             <!--cx list view-->
-                            <ScrollViewer>
+                            
                                 <StackPanel Orientation="Vertical" FlowDirection="RightToLeft" >
-                                    <ListBox Name="lbTodoList" ItemsSource="{Binding OrdersGroup}" HorizontalContentAlignment="Stretch">
+                                <ScrollViewer>
+                                    <ListBox ItemsSource="{Binding OrdersGroup}" HorizontalContentAlignment="Stretch">
                                         <ListBox.ItemTemplate>
                                             <DataTemplate>
+
                                                 <TextBlock Text="{Binding Cx}" />
+
                                             </DataTemplate>
                                         </ListBox.ItemTemplate>
                                     </ListBox>
-                                </StackPanel>
-                            </ScrollViewer>
+                                </ScrollViewer>
+                            </StackPanel>
                            
                         </StackPanel>
                     </Border>
                 </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+            </ListBox.ItemTemplate>
+        </ListBox>
         <ContentControl x:Name="CC"   Grid.ColumnSpan="2"/>
     </Grid>
 </UserControl>

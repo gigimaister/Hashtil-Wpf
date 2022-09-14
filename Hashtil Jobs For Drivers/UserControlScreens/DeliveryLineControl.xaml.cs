@@ -17,6 +17,8 @@ namespace Hashtil_Jobs_For_Drivers.UserControlScreens
     {
         List<Order> Orders = new List<Order>();
         List<DeliveryLineStatus> DeliveryLineStatuses = new List<DeliveryLineStatus>();
+        List<DeliveryLineStatus> DeliveryLineControls = new List<DeliveryLineStatus>();
+        DeliveryLineStatus DelLineForControl = new DeliveryLineStatus();
         List<Driver> Drivers = new List<Driver>();
         public DeliveryLineControl()
         {
@@ -32,11 +34,11 @@ namespace Hashtil_Jobs_For_Drivers.UserControlScreens
         {          
             DeliveryLineStatuses = await GSheetsHelper.ReadLineSheet();
             Orders = await GSheetsHelper.ReadEntries();            
-            Drivers = await ApiHelper.GetDrivers();          
-            var delLine = await GSheetsHelper.GetLinesSumUp(Orders, DeliveryLineStatuses, Drivers);
+            Drivers = await ApiHelper.GetDrivers();
+            DeliveryLineControls = await GSheetsHelper.GetLinesSumUp(Orders, DeliveryLineStatuses, Drivers);
             // Get cx From Orders By Group For List View
            
-            foreach (var line in delLine)
+            foreach (var line in DeliveryLineControls)
             {
                 var ordersGroup = line.Orders.GroupBy(x => x.Cx).ToList();
                 foreach(var order in ordersGroup)
@@ -46,22 +48,28 @@ namespace Hashtil_Jobs_For_Drivers.UserControlScreens
                     line.OrdersGroup.Add(o);
                 }
             }
-            delLine.OrderByDescending(x => x.LineNum);
+            DeliveryLineControls.OrderByDescending(x => x.LineNum);
             await this.Dispatcher.BeginInvoke(new ThreadStart(() =>
             {
-                icDeliveryLine.ItemsSource = delLine;
-
+                icDeliveryLine.ItemsSource = DeliveryLineControls;
+                
                 LSpinner.Visibility = System.Windows.Visibility.Hidden;
             }));
            
         }
 
-        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        // List Box Selected
+        private void lbTodoList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var y = e;
-            var yy = icDeliveryLine;
+            if (icDeliveryLine.SelectedItem != null)
+            {
+                DelLineForControl = icDeliveryLine.SelectedItem as DeliveryLineStatus;
+            }
+                
 
-            CC.Content = new LineBreakDownControl();
+
+
+            CC.Content = new LineBreakDownControl(DelLineForControl);
         }
     }
 }

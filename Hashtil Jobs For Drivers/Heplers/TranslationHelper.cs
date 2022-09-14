@@ -12,22 +12,22 @@ namespace Hashtil_Jobs_For_Drivers.Heplers
             switch (stringDay)
             {
                 case DayOfWeek.Sunday:
-                    hebDate = $"ראשון\n{date.ToString("yy-MM-dd")}";
+                    hebDate = $"ראשון\n{date.ToString("dd-MM-yy")}";
                     break;
                 case DayOfWeek.Monday:
-                    hebDate =  $"שני\n{date.ToString("yy-MM-dd")}";
+                    hebDate =  $"שני\n{date.ToString("dd-MM-yy")}";
                     break;
                 case DayOfWeek.Tuesday:
-                    hebDate =  $"שלישי\n{date.ToString("yy-MM-dd")}";
+                    hebDate =  $"שלישי\n{date.ToString("dd-MM-yy")}";
                     break;
                 case DayOfWeek.Wednesday:
-                    hebDate =  $"רביעי\n{date.ToString("yy-MM-dd")}";
+                    hebDate =  $"רביעי\n{date.ToString("dd-MM-yy")}";
                     break;
                 case DayOfWeek.Thursday:
-                    hebDate =  $"חמישי\n{date.ToString("yy-MM-dd")}";
+                    hebDate =  $"חמישי\n{date.ToString("dd-MM-yy")}";
                     break;
                 case DayOfWeek.Friday:
-                    hebDate =  $"שישי\n{date.ToString("yy-MM-dd")}";
+                    hebDate =  $"שישי\n{date.ToString("dd-MM-yy")}";
                     break;
             }
          

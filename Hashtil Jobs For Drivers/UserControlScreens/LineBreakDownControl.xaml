@@ -22,23 +22,23 @@
                 <TextBlock Text="1" FontSize="22" FontWeight="Bold" HorizontalAlignment="Center"/>
                 <!--Date-->
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="15/10/2022" FontSize="18" FontWeight="Bold"/>
-                    <TextBlock Text="יום שני" FontSize="18" Margin="25 0 0 0" FontWeight="Bold"/>
+                    <TextBlock Text="" x:Name="txtHebrewDate" FontSize="18" FontWeight="Bold"/>
+                    <TextBlock Text="" FontSize="18" Margin="25 0 0 0" FontWeight="Bold"/>
                 </StackPanel>
                 <!--Driver-->
                 <StackPanel Orientation="Horizontal" Margin="0 25 0 0">
                     <TextBlock Text="נהג:" FontSize="18" FontWeight="Bold"/>
-                    <TextBlock Text="טל מונטין" FontSize="18" Margin="25 0 0 0" FontWeight="Bold"/>
+                    <TextBlock Text="" x:Name="txtDriver" FontSize="18" Margin="25 0 0 0" FontWeight="Bold"/>
                 </StackPanel>
                 <!--Cages-->
                 <StackPanel Orientation="Horizontal" Margin="0 25 0 0">
                     <TextBlock Text="כלובים:" FontSize="18" FontWeight="Bold"/>
-                    <TextBlock Text="18" FontSize="18" Margin="25 0 0 0" FontWeight="Bold"/>
+                    <TextBlock Text="" x:Name="txtCages" FontSize="18" Margin="25 0 0 0" FontWeight="Bold"/>
                 </StackPanel>
                 <!--Cx-->
                 <StackPanel Orientation="Horizontal" Margin="0 25 0 0">
                     <TextBlock Text="לקוחות:" FontSize="18" FontWeight="Bold"/>
-                    <TextBlock Text="4" FontSize="18" Margin="25 0 0 0" FontWeight="Bold"/>
+                    <TextBlock Text="" x:Name="txtCx" FontSize="18" Margin="25 0 0 0" FontWeight="Bold"/>
                 </StackPanel>
             </StackPanel>
         </StackPanel>
