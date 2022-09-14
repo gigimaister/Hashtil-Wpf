@@ -64,12 +64,9 @@ namespace Hashtil_Jobs_For_Drivers.UserControlScreens
             if (icDeliveryLine.SelectedItem != null)
             {
                 DelLineForControl = icDeliveryLine.SelectedItem as DeliveryLineStatus;
+                CC.Content = new LineBreakDownControl(DelLineForControl);
             }
-                
-
-
-
-            CC.Content = new LineBreakDownControl(DelLineForControl);
+         
         }
     }
 }
