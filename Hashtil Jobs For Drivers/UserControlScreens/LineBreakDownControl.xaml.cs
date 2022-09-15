@@ -15,7 +15,7 @@ namespace Hashtil_Jobs_For_Drivers.UserControlScreens
         public LineBreakDownControl(DeliveryLineStatus deliveryLineStatus=null)
         {
             InitializeComponent();
-            lbDeliveryLine.ItemsSource = deliveryLineStatus.Orders;
+            lbDeliveryLine.ItemsSource = deliveryLineStatus.OrdersGroup;
             txtLineNum.Text = deliveryLineStatus.LineNum.ToString();
             txtHebrewDate.Text = deliveryLineStatus.GetHebrewDay.ToString();
             txtCages.Text = deliveryLineStatus.NumOfCages.ToString();
