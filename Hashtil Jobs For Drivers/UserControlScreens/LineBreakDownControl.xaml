@@ -19,7 +19,7 @@
         <!--Header-->
         <StackPanel Grid.Column="1">
             <StackPanel FlowDirection="RightToLeft" Margin="0 20 15 0">
-                <TextBlock Text="1" FontSize="22" FontWeight="Bold" HorizontalAlignment="Center"/>
+                <TextBlock Text="" x:Name="txtLineNum" FontSize="22" FontWeight="Bold" HorizontalAlignment="Center"/>
                 <!--Date-->
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="" x:Name="txtHebrewDate" FontSize="18" FontWeight="Bold"/>
@@ -40,6 +40,18 @@
                     <TextBlock Text="לקוחות:" FontSize="18" FontWeight="Bold"/>
                     <TextBlock Text="" x:Name="txtCx" FontSize="18" Margin="25 0 0 0" FontWeight="Bold"/>
                 </StackPanel>
+                <ListBox x:Name="lbDeliveryLine">
+                   
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="לקוח:"/>
+                                <TextBlock Text="{Binding Cx}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+
             </StackPanel>
         </StackPanel>
 
