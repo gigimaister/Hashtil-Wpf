@@ -45,7 +45,10 @@ namespace Hashtil_Jobs_For_Drivers.UserControlScreens
                 {
                     var o = new Order();
                     o.Cx = order.Key;
+                    o.CxCages = Convert.ToInt32(Orders.Where(x => x.Cx == order.Key).Sum(x => x.Cages));
+                    o.InnerOrders = line.Orders.Where(x => x.Cx == order.Key).ToList();
                     line.OrdersGroup.Add(o);
+                    
                 }
             }
             DeliveryLineControls.OrderByDescending(x => x.LineNum);
@@ -59,6 +62,7 @@ namespace Hashtil_Jobs_For_Drivers.UserControlScreens
         }
 
         // List Box Selected
+        // Move To Line BreakDown Control
         private void lbTodoList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (icDeliveryLine.SelectedItem != null)

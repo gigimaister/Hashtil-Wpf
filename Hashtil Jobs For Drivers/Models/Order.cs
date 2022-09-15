@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Windows.Documents;
 
 namespace Hashtil_Jobs_For_Drivers.Models
 {
@@ -7,6 +9,9 @@ namespace Hashtil_Jobs_For_Drivers.Models
         public DateTime Date { get; set; }
         public string? Driver { get; set; }
         public string? Cx { get; set; }
+        public string? CxPhone1 { get; set; }
+        public string? CxPhone2 { get; set; }
+        public int CxCages { get; set; }
         public string? Gidul { get; set; }
         public string? Zan { get; set; }
         public double Plants { get; set; }
@@ -22,6 +27,9 @@ namespace Hashtil_Jobs_For_Drivers.Models
         // For Split Job
         public int SplitMagash { get; set; }
         public int SplitCages { get; set; }
+
+        // For Line Breake Down Control
+        public List<Order>? InnerOrders { get; set; }
     }
 
 

@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Hashtil_Jobs_For_Drivers.UserControlScreens"
              mc:Ignorable="d" 
+             xmlns:syncfusion="http://schemas.syncfusion.com/wpf" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid  Background="{DynamicResource MaterialDesignPaper}">
 
@@ -36,6 +37,7 @@
                     <TextBlock Text="" x:Name="txtCages" FontSize="18" Margin="25 0 0 0" FontWeight="Bold"/>
                 </StackPanel>
                 <!--Cx-->
+                
                 <StackPanel Orientation="Horizontal" Margin="0 25 0 0">
                     <TextBlock Text="לקוחות:" FontSize="18" FontWeight="Bold"/>
                     <TextBlock Text="" x:Name="txtCx" FontSize="18" Margin="25 0 0 0" FontWeight="Bold"/>
@@ -44,14 +46,45 @@
                    
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="לקוח:"/>
-                                <TextBlock Text="{Binding Cx}"/>
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="לקוח:" Margin="0 0 0 0"/>
+                                <TextBlock Text="{Binding Cx}" Margin="0 0 0 0"/>
+                                <TextBlock Text="כלובים:" />
+                                <TextBlock Text="{Binding CxCages}"/>
+                                <TextBlock Text="טלפון 1:"/>
+                                <TextBlock Text="{Binding CxPhone1}"/>
+                                <TextBlock Text="טלפון 2:"/>
+                                <TextBlock Text="{Binding CxPhone2}"/>
+                            </StackPanel>
+                                <syncfusion:SfDataGrid  x:Name="dataGrid"
+                                                        ItemsSource="{Binding InnerOrders}">
+                                    <syncfusion:SfDataGrid.Columns>
+                                        <syncfusion:GridTextColumn  HeaderText="תאריך" IsHidden="False" MappingName="Date"/>
+                                        <syncfusion:GridTextColumn  HeaderText="נהג/קו" IsHidden="True" MappingName="Driver"/>
+                                        <syncfusion:GridTextColumn  HeaderText="לקוח" IsHidden="False" MappingName="Cx"/>
+                                        <syncfusion:GridTextColumn  HeaderText="גידול" IsHidden="False" MappingName="Gidul"/>
+                                        <syncfusion:GridTextColumn  HeaderText="זן" IsHidden="False" MappingName="Zan"/>
+                                        <syncfusion:GridTextColumn  HeaderText="שתילים" IsHidden="True" MappingName="Plants"/>
+                                        <syncfusion:GridTextColumn  HeaderText="מגשים" IsHidden="False" MappingName="Magash"/>
+                                        <syncfusion:GridTextColumn  HeaderText="פספורט" IsHidden="False" MappingName="Passport"/>
+                                        <syncfusion:GridTextColumn  HeaderText="פספורט" IsHidden="True" MappingName="CxPhone1"/>
+                                        <syncfusion:GridTextColumn  HeaderText="פספורט" IsHidden="True" MappingName="CxPhone2"/>
+                                        <syncfusion:GridTextColumn  HeaderText="פספורט" IsHidden="True" MappingName="CreationDate"/>
+                                        <syncfusion:GridTextColumn  HeaderText="" IsHidden="True" MappingName="CxCages"/>
+                                        <syncfusion:GridTextColumn  HeaderText="" IsHidden="True" MappingName="Avarage"/>
+                                        <syncfusion:GridTextColumn  HeaderText="" IsHidden="True" MappingName="Status"/>
+                                        <syncfusion:GridTextColumn  HeaderText="" IsHidden="True" MappingName="Cages"/>
+                                        <syncfusion:GridTextColumn  HeaderText="הערות" IsHidden="False" MappingName="Remarks"/>
+                                        <syncfusion:GridTextColumn  HeaderText="" IsHidden="True" MappingName="HasCertificate"/>
+                                        <syncfusion:GridTextColumn  HeaderText="" IsHidden="True" MappingName="SplitMagash"/>
+                                        <syncfusion:GridTextColumn  HeaderText="" IsHidden="True" MappingName="SplitCages"/>
+                                    </syncfusion:SfDataGrid.Columns>
+                                </syncfusion:SfDataGrid>
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-
             </StackPanel>
         </StackPanel>
 

@@ -52,7 +52,9 @@
     <PackageReference Include="Syncfusion.Licensing" Version="20.2.0.44" />
     <PackageReference Include="Syncfusion.SfChart.WPF" Version="20.2.0.44" />
     <PackageReference Include="Syncfusion.SfGauge.WPF" Version="20.2.0.44" />
+    <PackageReference Include="Syncfusion.SfGrid.WPF" Version="20.2.0.44" />
     <PackageReference Include="Syncfusion.SfProgressBar.WPF" Version="20.2.0.44" />
+    <PackageReference Include="Syncfusion.Shared.WPF" Version="20.2.0.44" />
   </ItemGroup>
 
 </Project>
