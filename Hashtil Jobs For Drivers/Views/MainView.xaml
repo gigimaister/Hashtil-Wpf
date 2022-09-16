@@ -40,6 +40,8 @@
                 <local:NavButton NavLink="/Pages/DashBoard.xaml" Click="NavButton_Click" Icon="/Resources/dash.png" Margin="0 100 0 0" />
                 <local:NavButton Icon="/Resources/truck.png" Click="NBtruck_Click" Margin="0 5"/>
                 <local:NavButton Icon="/Resources/driver.png" Click="NBDriversData_Click" Margin="0 5"/>
+                <local:NavButton Icon="/Resources/workers.png" Click="NBDriversData_Click" Margin="0 5"/>
+
             </StackPanel>
 
             <ContentControl x:Name="CC" Grid.Row="1" />

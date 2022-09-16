@@ -5,8 +5,52 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Hashtil_Jobs_For_Drivers.UserControlScreens"
              mc:Ignorable="d" 
+             xmlns:Syncfusion="http://schemas.syncfusion.com/wpf"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+    <Grid Background="{DynamicResource MaterialDesignPaper}">
+        <!--Loading Spinner-->
+        <Syncfusion:SfCircularProgressBar Background="DarkSlateGray"
+                                          Visibility="Visible" Grid.RowSpan="5" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" 
+                                          x:Name="LSpinner"
+    Width="800"
+    Height="450"    
+    AnimationDuration="00:00:02"
+    IsIndeterminate="True"
+    Progress="50"
+    ShowProgressValue="False" SecondaryProgressColor="#FF87EC79" ProgressColor="#FF34ED25" TrackColor="#FFAFAFAF" />
+        <!--Item Control-->
+        <ItemsControl Grid.Column="0" x:Name="icDrivers"  Background="Transparent">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border x:Name="BorderJob" Margin="20"  
+                                Width="250" Height="300" CornerRadius="30" >
+                        <Border.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FF868A83"/>
+                                <GradientStop Color="#FFCAC8C0" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <!--Border Data-->
+                        <StackPanel>
+                            <Image Source="{Binding DriverPhoto}"/>
+                            <TextBlock Text="{Binding FullName}" 
+                                       Margin="0 15 0 0" 
+                                       FontSize="25" FontWeight="ExtraBold"
+                                       HorizontalAlignment="Center"/>
+                            <TextBlock Text="{Binding PhoneNum}"  Margin="0 15 0 0" 
+                                       FontSize="25" FontWeight="DemiBold"
+                                       HorizontalAlignment="Center"/>
+                            <TextBlock Text="{Binding NumOfUpLoads}"/>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </Grid>
 </UserControl>
