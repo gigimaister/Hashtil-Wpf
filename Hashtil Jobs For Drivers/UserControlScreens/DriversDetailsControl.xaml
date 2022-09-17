@@ -38,7 +38,7 @@
                         </Border.Background>
                         <!--Border Data-->
                         <StackPanel>
-                            <Image Source="{Binding DriverPhoto}"/>
+                            <Image Source="{Binding FullPhotoUrl}" Width="100"/>
                             <TextBlock Text="{Binding FullName}" 
                                        Margin="0 15 0 0" 
                                        FontSize="25" FontWeight="ExtraBold"
