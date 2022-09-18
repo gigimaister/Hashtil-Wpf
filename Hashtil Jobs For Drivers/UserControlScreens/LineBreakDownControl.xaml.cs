@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Printing;
 
 namespace Hashtil_Jobs_For_Drivers.UserControlScreens
 {
@@ -21,6 +23,15 @@ namespace Hashtil_Jobs_For_Drivers.UserControlScreens
             txtCages.Text = deliveryLineStatus.NumOfCages.ToString();
             txtDriver.Text = deliveryLineStatus.DriversFullName;
             txtCx.Text = deliveryLineStatus.NumOfCx.ToString();
+        }
+
+    
+        // Print Line Btn
+        private void btnPrintLine_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            PrintDialog printDlg = new PrintDialog();
+            printDlg.PrintVisual(spLineBreak, "");
+
         }
     }
 }
