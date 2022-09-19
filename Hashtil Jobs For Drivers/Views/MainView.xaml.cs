@@ -94,6 +94,13 @@ namespace Hashtil_Jobs_For_Drivers.Views
         {
             CC.Content = new DriversDetailsControl();
         }
+        // Cages On Map Control Page
+        private void NBCagesOnMap_Click(object sender, RoutedEventArgs e)
+        {
+            CC.Content = new CagesOnMapControl();
+        }
         #endregion
+
+
     }
 }

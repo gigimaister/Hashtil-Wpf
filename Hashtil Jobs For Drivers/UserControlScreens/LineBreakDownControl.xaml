@@ -71,7 +71,7 @@
                                         <syncfusion:SfDataGrid  x:Name="dataGrid"
                                                         ItemsSource="{Binding InnerOrders}">
                                             <syncfusion:SfDataGrid.Columns>
-                                                <syncfusion:GridTextColumn  HeaderText="תאריך" IsHidden="False" MappingName="Date"/>
+                                                <syncfusion:GridDateTimeColumn  HeaderText="תאריך" IsHidden="False"  MappingName="Date"/>
                                                 <syncfusion:GridTextColumn  HeaderText="נהג/קו" IsHidden="True" MappingName="Driver"/>
                                                 <syncfusion:GridTextColumn  HeaderText="לקוח" IsHidden="False" MappingName="Cx"/>
                                                 <syncfusion:GridTextColumn  HeaderText="גידול" IsHidden="False" MappingName="Gidul"/>

@@ -14,6 +14,7 @@
     <None Remove="Resources\driver.png" />
     <None Remove="Resources\HashtilLoginVideoAndroid.mp4" />
     <None Remove="Resources\hashtil_logo3.png" />
+    <None Remove="Resources\map.png" />
     <None Remove="Resources\plant.png" />
     <None Remove="Resources\truck.png" />
     <None Remove="Resources\workers.png" />
@@ -38,6 +39,9 @@
     <Content Include="Resources\HashtilLoginVideoAndroid.mp4">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\map.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\workers.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -52,6 +56,8 @@
     <PackageReference Include="ExcelMapper" Version="5.2.415" />
     <PackageReference Include="Google.Apis.Sheets.v4" Version="1.57.0.2727" />
     <PackageReference Include="MaterialDesignThemes" Version="4.1.0" />
+    <PackageReference Include="Microsoft.Maps.MapControl.WPF" Version="1.0.0.3" />
+    <PackageReference Include="MySql.Data" Version="8.0.30" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Syncfusion.Licensing" Version="20.2.0.44" />
     <PackageReference Include="Syncfusion.SfChart.WPF" Version="20.2.0.44" />

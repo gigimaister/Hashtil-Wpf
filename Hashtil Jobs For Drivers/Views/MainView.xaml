@@ -37,10 +37,13 @@
             </Grid>
             <!--Nav Btn Navigation-->
             <StackPanel x:Name="sidebar" Grid.Row="1" Grid.Column="1" Margin="0 0 0 0" Background="#FF545454">
-                <local:NavButton NavLink="/Pages/DashBoard.xaml" Click="NavButton_Click" Icon="/Resources/dash.png" Margin="0 100 0 0" />
-                <local:NavButton Icon="/Resources/truck.png" Click="NBtruck_Click" Margin="0 5"/>
-                <local:NavButton Icon="/Resources/driver.png" Click="NBDriversData_Click" Margin="0 5"/>
-                <local:NavButton Icon="/Resources/workers.png" Click="NBDriversData_Click" Margin="0 5"/>
+                <local:NavButton NavLink="/Pages/DashBoard.xaml" 
+                                 ToolTip="כללי"
+                                 Click="NavButton_Click" Icon="/Resources/dash.png" Margin="0 100 0 0" />
+                <local:NavButton ToolTip="סידור קו" Icon="/Resources/truck.png" Click="NBtruck_Click" Margin="0 5"/>
+                <local:NavButton ToolTip="פרטי נהגים" Icon="/Resources/driver.png" Click="NBDriversData_Click" Margin="0 5"/>
+                <local:NavButton ToolTip="כלובים על המפה" Icon="/Resources/map.png" Click="NBCagesOnMap_Click" Margin="0 5"/>
+                <local:NavButton ToolTip="פרטי תאילנדים" Icon="/Resources/workers.png" Click="NBDriversData_Click" Margin="0 5"/>
 
             </StackPanel>
 

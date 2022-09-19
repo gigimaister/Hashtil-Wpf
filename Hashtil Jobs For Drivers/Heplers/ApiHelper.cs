@@ -10,7 +10,7 @@ namespace Hashtil_Jobs_For_Drivers.Heplers
 {
     public class ApiHelper
     {
-        public static HttpClient? ApiClient { get; set; }
+        public static HttpClient? ApiClient { get; set; } = new HttpClient();
 
         public static void InitializeClient()
         {
