@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -19,6 +20,7 @@ namespace Hashtil_Jobs_For_Drivers.UserControlScreens
         List<DashBoardDataPhp> DashboardDataPhp = new List<DashBoardDataPhp>();
         List<GreenHouse> GreenHouseExcelList = new List<GreenHouse>();
         List<Driver> Drivers = new List<Driver>();
+        private static System.Timers.Timer timer;
         public DashBoardControl()
         {
             InitializeComponent();
@@ -29,8 +31,24 @@ namespace Hashtil_Jobs_For_Drivers.UserControlScreens
             Task.Run(() => GetExcel());
             Task.Run(() => GetGSheet());
             Task.Run(() => GetPhpHttp());
-           
-        }            
+
+            // For aoto refresh
+            timer = new System.Timers.Timer();
+            timer.Interval = 120000;
+
+            timer.Elapsed += OnTimedEvent;
+            timer.AutoReset = true;
+            timer.Enabled = true;
+
+        }
+
+        // Auto Refresh
+        private void OnTimedEvent(object sender, ElapsedEventArgs e)
+        {
+            Task.Run(() => GetExcel());
+            Task.Run(() => GetGSheet());
+            Task.Run(() => GetPhpHttp());
+        }
 
         // Get Excel Data 
         private async void GetExcel()

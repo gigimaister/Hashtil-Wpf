@@ -18,6 +18,17 @@
             <RowDefinition Height="5*"/>
             <RowDefinition Height="15*"/>
         </Grid.RowDefinitions>
+        <!--Loading Spinner-->
+        <syncfusion:SfCircularProgressBar Background="DarkSlateGray"
+                                          Visibility="Visible" Grid.RowSpan="5" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" 
+                                          x:Name="LSpinner"
+    Width="800"
+    Height="450"    
+    AnimationDuration="00:00:02"
+    IsIndeterminate="True"
+    Progress="50"
+    ShowProgressValue="False" SecondaryProgressColor="#FF87EC79" ProgressColor="#FF34ED25" TrackColor="#FFAFAFAF" />
+
         <Button Content="רענן" Grid.Column="1"
                         Grid.Row="0"
                 HorizontalAlignment="Right" 

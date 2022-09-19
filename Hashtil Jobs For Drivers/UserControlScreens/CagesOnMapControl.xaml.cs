@@ -7,8 +7,11 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reflection;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Hashtil_Jobs_For_Drivers.UserControlScreens
 {
@@ -24,8 +27,23 @@ namespace Hashtil_Jobs_For_Drivers.UserControlScreens
         {
             InitializeComponent();
             PopulateMainGrid();
+            // For aoto refresh
+            timer = new System.Timers.Timer();
+            timer.Interval = 120000;
+
+            timer.Elapsed += OnTimedEvent;
+            timer.AutoReset = true;
+            timer.Enabled = true;
         }
 
+        // Auto Refresh
+        private void OnTimedEvent(object sender, ElapsedEventArgs e)
+        {
+            PopulateMainGrid();
+        }
+
+
+        // Fill Data Grid With Data
         private async void PopulateMainGrid()
         {
             try
@@ -57,8 +75,13 @@ namespace Hashtil_Jobs_For_Drivers.UserControlScreens
 
                 }
            );
-
-
+                await this.Dispatcher.BeginInvoke(new ThreadStart(() =>
+                {
+                    // Loading Spinner Off
+                    LSpinner.Visibility = Visibility.Hidden;
+                }));
+                
+               
             }
             catch (Exception e)
             {

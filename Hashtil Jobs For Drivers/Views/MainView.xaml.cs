@@ -99,6 +99,11 @@ namespace Hashtil_Jobs_For_Drivers.Views
         {
             CC.Content = new CagesOnMapControl();
         }
+        // Go To Metzay Control
+        private void NBDMetzayControl_Click(object sender, RoutedEventArgs e)
+        {
+            CC.Content = new MetzayControl();
+        }
         #endregion
 
 

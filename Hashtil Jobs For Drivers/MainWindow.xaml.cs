@@ -18,7 +18,12 @@ namespace Hashtil_Jobs_For_Drivers
         public MainWindow()
         {
             InitializeComponent();
-            HttpReq.InitializeClient();         
+            HttpReq.InitializeClient();
+            if (Properties.Settings.Default.Uname != string.Empty)
+            {
+                txtUsername.Text = Properties.Settings.Default.Uname;
+                txtPassword.Password = Properties.Settings.Default.Upwd;
+            }
         }
 
         public bool IsDarkTheme { get; set; } = true;
@@ -56,7 +61,11 @@ namespace Hashtil_Jobs_For_Drivers
         {
             try
             {
-                
+                // Save To Properties
+                Properties.Settings.Default.Uname = txtUsername.Text;
+                Properties.Settings.Default.Upwd = txtPassword.Password;
+                Properties.Settings.Default.Save();
+
                 var LoginUsersList = await ApiHelper.Login(txtUsername.Text, txtPassword.Password);
                 if (LoginUsersList.FirstOrDefault().UserLevel>0)
                 {

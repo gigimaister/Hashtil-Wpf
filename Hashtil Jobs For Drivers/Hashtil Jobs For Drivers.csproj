@@ -15,6 +15,7 @@
     <None Remove="Resources\HashtilLoginVideoAndroid.mp4" />
     <None Remove="Resources\hashtil_logo3.png" />
     <None Remove="Resources\map.png" />
+    <None Remove="Resources\metzay.png" />
     <None Remove="Resources\plant.png" />
     <None Remove="Resources\truck.png" />
     <None Remove="Resources\workers.png" />
@@ -42,6 +43,9 @@
     <Resource Include="Resources\map.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\metzay.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\workers.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
@@ -65,6 +69,21 @@
     <PackageReference Include="Syncfusion.SfGrid.WPF" Version="20.2.0.44" />
     <PackageReference Include="Syncfusion.SfProgressBar.WPF" Version="20.2.0.44" />
     <PackageReference Include="Syncfusion.Shared.WPF" Version="20.2.0.44" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
 </Project>
