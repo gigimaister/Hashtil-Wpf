@@ -34,7 +34,7 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Border x:Name="BorderJob" Margin="20"  
-                                Width="150" Height="450" CornerRadius="30" >
+                                Width="250" Height="450" CornerRadius="30" >
                         <Border.Background>
                             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                                 <GradientStop Color="#FF8AA574"/>
@@ -44,37 +44,40 @@
                         <!--Border Data-->
                         <StackPanel>
                             <!--Line Num-->
-                            <TextBlock x:Name="txtLineNum" Text="{Binding LineNum}" HorizontalAlignment="Center" FontWeight="Bold"
-                           FontSize="18" Margin="0 5"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" FlowDirection="RightToLeft">
+                                <TextBlock Text="קו:" HorizontalAlignment="Center" FontWeight="Bold" Margin="0 5"  FontSize="30"/>
+                                <TextBlock x:Name="txtLineNum" Text="{Binding LineNum}" HorizontalAlignment="Center" FontWeight="Bold"
+                           FontSize="30" Margin="5 5"/>
+                            </StackPanel>
                             <!--Split Text-->
                             <TextBlock x:Name="txtLineIsSplit" Text="" FlowDirection="RightToLeft" HorizontalAlignment="Center" FontWeight="Bold"
                            FontSize="18" Margin="0 5"/>
                             <!--driver-->
                             <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
-                                <TextBlock Text="נהג:" Margin="20 0 0 0" />
-                                <TextBlock x:Name="txtDriver" Text="{Binding DriversFullName}" Margin="10 0 0 0"/>
+                                <TextBlock Text="נהג:" Margin="20 0 0 0" FontSize="18"/>
+                                <TextBlock x:Name="txtDriver" Text="{Binding DriversFullName}" FontSize="18" FontWeight="Bold" Margin="10 0 0 0"/>
                             </StackPanel>
                             <!--num of cages-->
                             <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
-                                <TextBlock Text="כלובים:" Margin="20 0 0 0"/>
-                                <TextBlock x:Name="txtCages" Text="{Binding NumOfCages}" Margin="10 0 0 0"/>
+                                <TextBlock Text="כלובים:" Margin="20 0 0 0" FontSize="18"/>
+                                <TextBlock x:Name="txtCages" Text="{Binding NumOfCages}" Margin="10 0 0 0" FontSize="18" FontWeight="Bold"/>
                             </StackPanel>
                             <!--num of cx-->
                             <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
-                                <TextBlock Text="לקוחות:" Margin="20 0 0 0"/>
-                                <TextBlock x:Name="txtCx" Text="{Binding NumOfCx}" Margin="10 0 0 0"/>
+                                <TextBlock Text="לקוחות:" Margin="20 0 0 0" FontSize="18" />
+                                <TextBlock x:Name="txtCx" Text="{Binding NumOfCx}" Margin="10 0 0 0" FontSize="18" FontWeight="Bold"/>
                             </StackPanel>
                             <!--cx list view-->
                             
                                 <StackPanel Orientation="Vertical" FlowDirection="RightToLeft" >
                             
                                     <ListBox ItemsSource="{Binding OrdersGroup}"  
-                                             HorizontalContentAlignment="Stretch"
+                                             HorizontalContentAlignment="Center"
                                              ScrollViewer.VerticalScrollBarVisibility="Visible">
                                         <ListBox.ItemTemplate>
                                             <DataTemplate>
 
-                                                <TextBlock Text="{Binding Cx}" />
+                                                <TextBlock Text="{Binding Cx}" FontSize="14" FontWeight="DemiBold" Width="auto"/>
 
                                             </DataTemplate>
                                         </ListBox.ItemTemplate>

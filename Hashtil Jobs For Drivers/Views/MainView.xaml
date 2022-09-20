@@ -25,11 +25,13 @@
                 <RowDefinition/>
                 <RowDefinition Height="25"/>
             </Grid.RowDefinitions>
-            <StackPanel Orientation="Horizontal" Grid.Row="2" Background="#FF545454">
-                <TextBlock Text="Created By Kobi Gigi" FontSize="16" Foreground="#DDE5ECE5" HorizontalAlignment="Center" 
+            <Grid Grid.Row="2" Background="#FF545454" Grid.ColumnSpan="2">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"  >
+                    <TextBlock Text="Created By Kobi Gigi" FontSize="16" Foreground="#DDE5ECE5" 
                            Margin="5 0 0 0"
                            VerticalAlignment="Center" FontFamily="Arial Black"/>
-            </StackPanel>
+                </StackPanel>
+            </Grid>
             <Grid Grid.ColumnSpan="2" Background="#FF545454">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"  Background="{x:Null}" FlowDirection="RightToLeft">
                     <Button Width="25" Height="25" x:Name="btnLogOut" Click="btnLogOut_Click" Margin="15 0 0 0" Style="{StaticResource MaterialDesignFloatingActionLightButton}">
@@ -49,7 +51,6 @@
                 <local:NavButton ToolTip="סידור קו" Icon="/Resources/truck.png" Click="NBtruck_Click" Margin="0 5"/>
                 <local:NavButton ToolTip="פרטי נהגים" Icon="/Resources/driver.png" Click="NBDriversData_Click" Margin="0 5"/>
                 <local:NavButton ToolTip="כלובים על המפה" Icon="/Resources/map.png" Click="NBCagesOnMap_Click" Margin="0 5"/>
-                <local:NavButton ToolTip="מצאי" Icon="/Resources/metzay.png" Click="NBDMetzayControl_Click" Margin="0 5"/>
 
             </StackPanel>
 

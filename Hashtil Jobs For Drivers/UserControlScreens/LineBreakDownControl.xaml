@@ -7,8 +7,8 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              xmlns:syncfusion="http://schemas.syncfusion.com/wpf" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid  Background="{DynamicResource MaterialDesignPaper}" x:Name="spLineBreak">
+             d:DesignHeight="450" d:DesignWidth="800" x:Name="ucLineBreak">
+    <Grid  Background="{DynamicResource MaterialDesignPaper}" >
 
 
         <Grid.ColumnDefinitions>
@@ -20,7 +20,7 @@
         
         <!--Header-->
         <ScrollViewer Grid.Column="1" >
-            <StackPanel FlowDirection="RightToLeft" Margin="0 20 15 0">
+            <StackPanel FlowDirection="RightToLeft" Margin="0 20 15 0" x:Name="spLineBreak">
                 <!--Print Btn-->
                 <Button Style="{StaticResource MaterialDesignFlatMidBgButton}" x:Name="btnPrintLine"
                         materialDesign:ShadowAssist.ShadowDepth="Depth0" Click="btnPrintLine_Click"
@@ -62,11 +62,12 @@
                                         <TextBlock Text="{Binding Cx}" FontSize="16" Margin="5 0 0 0" FontWeight="Bold"/>
                                         <TextBlock Text="כלובים:" FontSize="16"  Margin="5 0 0 0"/>
                                         <TextBlock Text="{Binding CxCages}" FontSize="16" Margin="5 0 0 0" FontWeight="Bold"/>
-                                        <TextBlock Text="טלפון 1:" FontSize="16"  Margin="5 0 0 0"/>
-                                        <TextBlock Text="{Binding CxPhone1}" FontSize="16"  Margin="5 0 0 0"/>
-                                        <TextBlock Text="טלפון 2:" FontSize="16"  Margin="5 0 0 0"/>
-                                        <TextBlock Text="{Binding CxPhone2}" FontSize="16"  Margin="5 0 0 0"/>
-                                        </StackPanel>
+                                        <TextBlock Text="טלפון 1:" FontSize="16"  Margin="10 0 0 0"/>
+                                        <TextBlock Text="{Binding CxPhone1}" FontSize="16"  Margin="5 0 0 0" FontWeight="Bold"/>
+                                        <TextBlock Text="טלפון 2:" FontSize="16"  Margin="10 0 0 0"/>
+                                        <TextBlock Text="{Binding CxPhone2}" FontSize="16"  Margin="5 0 0 0" FontWeight="Bold"/>
+                                        <TextBlock Text="{Binding ErrorMessage}" FontSize="16"  Margin="5 0 0 0" FontWeight="Bold"/>
+                                    </StackPanel>
 
                                         <syncfusion:SfDataGrid  x:Name="dataGrid"
                                                         ItemsSource="{Binding InnerOrders}">
@@ -90,7 +91,8 @@
                                                 <syncfusion:GridTextColumn  HeaderText="" IsHidden="True" MappingName="HasCertificate"/>
                                                 <syncfusion:GridTextColumn  HeaderText="" IsHidden="True" MappingName="SplitMagash"/>
                                                 <syncfusion:GridTextColumn  HeaderText="" IsHidden="True" MappingName="SplitCages"/>
-                                            </syncfusion:SfDataGrid.Columns>
+                                                <syncfusion:GridTextColumn  HeaderText="" IsHidden="True" MappingName="ErrorMessage"/>
+                                        </syncfusion:SfDataGrid.Columns>
                                         </syncfusion:SfDataGrid>
                                     </StackPanel>
                                 </DataTemplate>

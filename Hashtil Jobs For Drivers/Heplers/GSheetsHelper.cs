@@ -47,96 +47,102 @@ namespace Hashtil_Jobs_For_Drivers.Heplers
             List<Order> Orders = new List<Order>();
             var range = $"{Sheet}!A:S";
             var request =  SheetsService.Spreadsheets.Values.Get(SpreadsheetId, range);
-
-            var response = request.Execute();
-            var values = response.Values;
-            if(values != null && values.Count > 0)
+            try
             {
-                
-
-                // In Every Row Make Obj And Add To Order List For More Operetions
-                foreach (var row in values)
+                var response = request.Execute();
+                var values = response.Values;
+                if (values != null && values.Count > 0)
                 {
-                    Order order = new Order();
-                    try
-                    {
-                        
 
-                        order.Date = Convert.ToDateTime(row[0]);
-                        order.Driver = (string)row[1];
-                        order.Cx = (string)row[2];
-                        order.Gidul = (string)row[3];
-                        order.Zan = (string)row[4];
-                        order.Plants = Convert.ToDouble(row[5]);
-                        order.Magash = Convert.ToDouble(row[6]);
-                        order.Passport = (string)(row[7]);
-                        order.Avarage = Convert.ToDouble(row[8]);
-                        order.Status = (string)row[9];
-                        // Prevent Exception When Len Of Row Is 9
-                        if(row.Count > 11)
+
+                    // In Every Row Make Obj And Add To Order List For More Operetions
+                    foreach (var row in values)
+                    {
+                        Order order = new Order();
+                        try
                         {
-                            if (!string.IsNullOrEmpty((string)row[10]))
+                            order.Date = Convert.ToDateTime(row[0]);
+                            order.Driver = (string)row[1];
+                            order.Cx = (string)row[2];
+                            order.Gidul = (string)row[3];
+                            order.Zan = (string)row[4];
+                            order.Plants = Convert.ToDouble(row[5]);
+                            order.Magash = Convert.ToDouble(row[6]);
+                            order.Passport = (string)(row[7]);
+                            order.Avarage = Convert.ToDouble(row[8]);
+                            order.Status = (string)row[9];
+                            // Prevent Exception When Len Of Row Is 9
+                            if (row.Count > 11)
                             {
-                                order.Cages = Convert.ToDouble(row[10]);
+                                if (!string.IsNullOrEmpty((string)row[10]))
+                                {
+                                    order.Cages = Convert.ToDouble(row[10]);
+                                }
+                                else
+                                {
+                                    order.Cages = 0;
+                                }
                             }
                             else
                             {
-                                order.Cages = 0;
+                                Orders.Add(order);
+                                continue;
                             }
-                        }
-                        else
-                        {
-                            Orders.Add(order);
-                            continue;
-                        }
-                        order.Remarks = (string)row[11];
+                            order.Remarks = (string)row[11];
 
-                        // If Remarks Null
-                        if (row.Count < 13)
-                        {
-                            Orders.Add(order);
-                            continue;
-                        }
-                        else
-                        {
-                            order.HasCertificate = (string)row[12];
-                        }
-                       
-                        
-                        // If Timestamp Is Null
-                        if(row.Count < 18)
-                        {
-                            Orders.Add(order);
-                            continue;
-                        }
-                        else
-                        {
-                            if (!string.IsNullOrEmpty((string)row[18]))
+                            // If Remarks Null
+                            if (row.Count < 13)
                             {
-                                order.CreationDate = Convert.ToDateTime(row[18]);
+                                Orders.Add(order);
+                                continue;
                             }
                             else
                             {
-                                order.CreationDate = DateTime.Now.AddDays(1);
+                                order.HasCertificate = (string)row[12];
                             }
 
+
+                            // If Timestamp Is Null
+                            if (row.Count < 18)
+                            {
+                                Orders.Add(order);
+                                continue;
+                            }
+                            else
+                            {
+                                if (!string.IsNullOrEmpty((string)row[18]))
+                                {
+                                    order.CreationDate = Convert.ToDateTime(row[18]);
+                                }
+                                else
+                                {
+                                    order.CreationDate = DateTime.Now.AddDays(1);
+                                }
+
+                            }
+
+                            Orders.Add(order);
                         }
 
-                        Orders.Add(order);
-                    }
-                   
-                    catch
-                    {
-                        continue;
-                    }
-                   
+                        catch
+                        {
+                            continue;
+                        }
 
-                }               
+
+                    }
+                }
+                else
+                {
+
+                }
             }
-            else
+            catch
             {
-                
+                ReadEntries();
             }
+            
+          
 
             return Task.FromResult(Orders);
         }
@@ -148,121 +154,129 @@ namespace Hashtil_Jobs_For_Drivers.Heplers
         /// <returns></returns>
         public static Task<List<DeliveryLineStatus>> ReadLineSheet()
         {
+
             List<DeliveryLineStatus> Orders = new List<DeliveryLineStatus>();
             List<Driver> Drivers = new List<Driver>();
 
             var range = $"{RoiSheet}!A:M";
             var request = SheetsService.Spreadsheets.Values.Get(SpreadsheetId, range);
-
-            var response = request.Execute();
-            var values = response.Values;
-            if (values != null && values.Count > 0)
+            try
             {
-               
-                // In Every Row Make Obj And Add To Order List For More Operetions
-                foreach (var row in values)
+                var response = request.Execute();
+                var values = response.Values;
+                if (values != null && values.Count > 0)
                 {
-                    try
+
+                    // In Every Row Make Obj And Add To Order List For More Operetions
+                    foreach (var row in values)
                     {
-                        // If We Have Split Job
-                        if (row.Count > 3)
+                        try
                         {
-                            if ((string)row[3] == "TRUE")
+                            // If We Have Split Job
+                            if (row.Count > 3)
+                            {
+                                if ((string)row[3] == "TRUE")
+                                {
+                                    DeliveryLineStatus deliveryLineStatus = new DeliveryLineStatus();
+
+                                    switch (row.Count)
+                                    {
+                                        // 2 Drivers
+                                        case 10:
+                                            try
+                                            {
+                                                deliveryLineStatus.LineNum = Convert.ToInt32(row[1]);
+                                                deliveryLineStatus.DeliveryDate = Convert.ToDateTime(row[0]);
+                                                deliveryLineStatus.Driver = new List<Driver>();
+                                                // Driver 1
+                                                var driver = new Driver();
+                                                driver.FullName = (string?)row[4];
+                                                driver.SplitMagash = Convert.ToInt32(row[5]);
+                                                driver.SplitCage = Convert.ToInt32(row[6]);
+                                                deliveryLineStatus.Driver.Add(driver);
+                                                // Driver 2
+                                                var driver2 = new Driver();
+                                                driver2.FullName = (string?)row[7];
+                                                driver2.SplitMagash = Convert.ToInt32(row[8]);
+                                                driver2.SplitCage =  Convert.ToInt32(row[9]);
+                                                deliveryLineStatus.Driver.Add(driver2);
+                                                Orders.Add(deliveryLineStatus);
+                                            }
+                                            catch
+                                            {
+                                                continue;
+                                            }
+                                            break;
+                                        // 3 Drivers
+                                        case 13:
+                                            try
+                                            {
+                                                // Driver 1
+                                                var driver = new Driver();
+                                                driver.FullName = (string?)row[7];
+                                                driver.SplitMagash =  Convert.ToInt32(row[8]);
+                                                driver.SplitCage =  Convert.ToInt32(row[9]);
+                                                deliveryLineStatus.Driver.Add(driver);
+                                                // Driver 2
+                                                var driver2 = new Driver();
+                                                driver2.FullName = (string?)row[10];
+                                                driver2.SplitMagash =  Convert.ToInt32(row[11]);
+                                                driver2.SplitCage =  Convert.ToInt32(row[12]);
+                                                deliveryLineStatus.Driver.Add(driver2);
+                                                Orders.Add(deliveryLineStatus);
+                                                // Driver 3
+                                                var driver3 = new Driver();
+                                                driver2.FullName = (string?)row[10];
+                                                driver2.SplitMagash = (int)row[11];
+                                                driver2.SplitCage = (int)row[12];
+                                                deliveryLineStatus.Driver.Add(driver3);
+                                                Orders.Add(deliveryLineStatus);
+                                            }
+                                            catch
+                                            {
+                                                continue;
+                                            }
+                                            break;
+                                    }
+                                }
+                            }
+                            // If NO SPLIT JOB
+                            else
                             {
                                 DeliveryLineStatus deliveryLineStatus = new DeliveryLineStatus();
-
-                                switch (row.Count)
+                                try
                                 {
-                                    // 2 Drivers
-                                    case 10:                                       
-                                        try
-                                        {
-                                            deliveryLineStatus.LineNum = Convert.ToInt32(row[1]);
-                                            deliveryLineStatus.DeliveryDate = Convert.ToDateTime(row[0]);
-                                            deliveryLineStatus.Driver = new List<Driver>();
-                                            // Driver 1
-                                            var driver = new Driver();
-                                            driver.FullName = (string?)row[4];
-                                            driver.SplitMagash = Convert.ToInt32(row[5]);
-                                            driver.SplitCage = Convert.ToInt32(row[6]);
-                                            deliveryLineStatus.Driver.Add(driver);
-                                            // Driver 2
-                                            var driver2 = new Driver();
-                                            driver2.FullName = (string?)row[7];
-                                            driver2.SplitMagash = Convert.ToInt32(row[8]);
-                                            driver2.SplitCage =  Convert.ToInt32(row[9]);
-                                            deliveryLineStatus.Driver.Add(driver2);
-                                            Orders.Add(deliveryLineStatus);
-                                        }
-                                        catch
-                                        {
-                                            continue;
-                                        }
-                                        break;
-                                    // 3 Drivers
-                                    case 13:
-                                        try
-                                        {
-                                            // Driver 1
-                                            var driver = new Driver();
-                                            driver.FullName = (string?)row[7];
-                                            driver.SplitMagash =  Convert.ToInt32(row[8]);
-                                            driver.SplitCage =  Convert.ToInt32(row[9]);
-                                            deliveryLineStatus.Driver.Add(driver);
-                                            // Driver 2
-                                            var driver2 = new Driver();
-                                            driver2.FullName = (string?)row[10];
-                                            driver2.SplitMagash =  Convert.ToInt32(row[11]);
-                                            driver2.SplitCage =  Convert.ToInt32(row[12]);
-                                            deliveryLineStatus.Driver.Add(driver2);
-                                            Orders.Add(deliveryLineStatus);
-                                            // Driver 3
-                                            var driver3 = new Driver();
-                                            driver2.FullName = (string?)row[10];
-                                            driver2.SplitMagash = (int)row[11];
-                                            driver2.SplitCage = (int)row[12];
-                                            deliveryLineStatus.Driver.Add(driver3);
-                                            Orders.Add(deliveryLineStatus);
-                                        }
-                                        catch
-                                        {
-                                            continue;
-                                        }
-                                        break;
+                                    deliveryLineStatus.LineNum = Convert.ToInt32(row[1]);
+                                    deliveryLineStatus.DeliveryDate = Convert.ToDateTime(row[0]);
+                                    deliveryLineStatus.Driver = new List<Driver>();
+                                    var d = new Driver();
+                                    deliveryLineStatus.Driver.Add(d);
+                                    deliveryLineStatus.Driver.FirstOrDefault().FullName = row[2].ToString();
+                                    Orders.Add(deliveryLineStatus);
+                                }
+                                catch
+                                {
+                                    continue;
                                 }
                             }
                         }
-                        // If NO SPLIT JOB
-                        else
+                        catch
                         {
-                            DeliveryLineStatus deliveryLineStatus = new DeliveryLineStatus();
-                            try
-                            {
-                                deliveryLineStatus.LineNum = Convert.ToInt32(row[1]);
-                                deliveryLineStatus.DeliveryDate = Convert.ToDateTime(row[0]);
-                                deliveryLineStatus.Driver = new List<Driver>();
-                                var d = new Driver();
-                                deliveryLineStatus.Driver.Add(d);
-                                deliveryLineStatus.Driver.FirstOrDefault().FullName = row[2].ToString();
-                                Orders.Add(deliveryLineStatus);
-                            }
-                            catch
-                            {
-                                continue;
-                            }
+                            continue;
                         }
-                    }
-                    catch
-                    {
-                        continue;
-                    }
-                                
-                }              
-            }
-            else
-            {
 
+                    }
+                }
+                else
+                {
+
+                }
             }
+            catch
+            {
+                ReadLineSheet();
+            }
+           
 
             return Task.FromResult(Orders);
         }

@@ -23,6 +23,13 @@ namespace Hashtil_Jobs_For_Drivers.UserControlScreens
             txtCages.Text = deliveryLineStatus.NumOfCages.ToString();
             txtDriver.Text = deliveryLineStatus.DriversFullName;
             txtCx.Text = deliveryLineStatus.NumOfCx.ToString();
+            foreach(var order in deliveryLineStatus.OrdersGroup)
+            {
+                if(order.SapCxes.Count > 0)
+                {
+                    order.ErrorMessage = "";
+                }
+            }
         }
 
     
@@ -30,7 +37,7 @@ namespace Hashtil_Jobs_For_Drivers.UserControlScreens
         private void btnPrintLine_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             PrintDialog printDlg = new PrintDialog();
-            printDlg.PrintVisual(spLineBreak, "");
+            printDlg.PrintVisual(ucLineBreak, "");
 
         }
     }

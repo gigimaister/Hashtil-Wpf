@@ -33,11 +33,15 @@ namespace Hashtil_Jobs_For_Drivers.UserControlScreens
         private async void GetLines()
         {          
             DeliveryLineStatuses = await GSheetsHelper.ReadLineSheet();
-            Orders = await GSheetsHelper.ReadEntries();            
+            Orders = await GSheetsHelper.ReadEntries();
+
+          
+
             Drivers = await ApiHelper.GetDrivers();
             DeliveryLineControls = await GSheetsHelper.GetLinesSumUp(Orders, DeliveryLineStatuses, Drivers);
-            // Get cx From Orders By Group For List View
+
            
+            // Get cx From Orders By Group For List View
             foreach (var line in DeliveryLineControls)
             {
                 var ordersGroup = line.Orders.GroupBy(x => x.Cx).ToList();
@@ -45,6 +49,8 @@ namespace Hashtil_Jobs_For_Drivers.UserControlScreens
                 {
                     var o = new Order();
                     o.Cx = order.Key;
+                    o.SapCxes = await MsqlHeleper.GetCxPhonesFromSap(o.Cx);
+                    o.GetNumOfCxPhonesList();
                     o.CxCages = Convert.ToInt32(Orders.Where(x => x.Cx == order.Key).Sum(x => x.Cages));
                     o.InnerOrders = line.Orders.Where(x => x.Cx == order.Key).ToList();
                     line.OrdersGroup.Add(o);
@@ -71,6 +77,28 @@ namespace Hashtil_Jobs_For_Drivers.UserControlScreens
                 CC.Content = new LineBreakDownControl(DelLineForControl);
             }
          
+        }
+
+        // Cx Phone From SAP
+        // Not In Use For Now
+         async Task SetCxPhoneFromSap(List<DeliveryLineStatus> deliveryLineStatuses)
+        {
+            foreach(var dline in deliveryLineStatuses)
+            {
+                try
+                {
+                    foreach (var order in dline.Orders)
+                    {
+                        order.SapCxes = await MsqlHeleper.GetCxPhonesFromSap(order.Cx);
+                        order.GetNumOfCxPhonesList();
+                    }
+                }
+                catch
+                {
+                    continue;
+                }
+              
+            }
         }
     }
 }

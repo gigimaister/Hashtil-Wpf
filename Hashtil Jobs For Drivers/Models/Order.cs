@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Hashtil_Jobs_For_Drivers.Heplers;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Documents;
 
 namespace Hashtil_Jobs_For_Drivers.Models
@@ -30,7 +32,31 @@ namespace Hashtil_Jobs_For_Drivers.Models
 
         // For Line Breake Down Control
         public List<Order>? InnerOrders { get; set; }
+
+        // For SAP Cx Phon Num
+        public List<SapCx> SapCxes { get; set; } = new List<SapCx>();
+        public string? ErrorMessage { get; set; }
+        
+        public void GetNumOfCxPhonesList()
+        {
+            if(SapCxes.Count == 1)
+            {
+                CxPhone1 = SapCxes.FirstOrDefault().SapCxP1;
+                CxPhone2 = SapCxes.FirstOrDefault().SapCxP2;
+            }
+            if(SapCxes.Count > 1)
+            {
+                CxPhone1 = SapCxes.FirstOrDefault().SapCxP1;
+                CxPhone2 = SapCxes.FirstOrDefault().SapCxP2;
+                ErrorMessage = Constants.Hebrew.ManySapMatch;
+            }
+            else
+            {
+                ErrorMessage = Constants.Hebrew.NoSapMatch;
+            }
+        }
     }
 
+    
 
 }
