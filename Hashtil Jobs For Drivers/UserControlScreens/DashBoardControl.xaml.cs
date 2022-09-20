@@ -1,5 +1,6 @@
 ﻿using Hashtil_Jobs_For_Drivers.Heplers;
 using Hashtil_Jobs_For_Drivers.Models;
+using Hashtil_Jobs_For_Drivers.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,10 +32,10 @@ namespace Hashtil_Jobs_For_Drivers.UserControlScreens
             Task.Run(() => GetExcel());
             Task.Run(() => GetGSheet());
             Task.Run(() => GetPhpHttp());
-
+           
             // For aoto refresh
             timer = new System.Timers.Timer();
-            timer.Interval = 120000;
+            timer.Interval = 2*60*1000;
 
             timer.Elapsed += OnTimedEvent;
             timer.AutoReset = true;
@@ -44,7 +45,7 @@ namespace Hashtil_Jobs_For_Drivers.UserControlScreens
 
         // Auto Refresh
         private void OnTimedEvent(object sender, ElapsedEventArgs e)
-        {
+        {           
             Task.Run(() => GetExcel());
             Task.Run(() => GetGSheet());
             Task.Run(() => GetPhpHttp());

@@ -1,7 +1,10 @@
 ﻿using Hashtil_Jobs_For_Drivers.Models;
 using Hashtil_Jobs_For_Drivers.UserControlScreens;
 using MaterialDesignThemes.Wpf;
+using System;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using System.Windows.Input;
 
@@ -12,12 +15,38 @@ namespace Hashtil_Jobs_For_Drivers.Views
     /// </summary>
     public partial class MainView : Window
     {
+        private static System.Timers.Timer timer;
         public MainView()
         {
             InitializeComponent();
             CC.Content = new DashBoardControl();
+
+            // For aoto timer scheduled
+            timer = new System.Timers.Timer();
+            timer.Interval = 5*60*1000;
+
+            timer.Elapsed += OnTimedEvent;
+            timer.AutoReset = true;
+            timer.Enabled = true;
         }
-    
+        // Timer 
+        private void OnTimedEvent(object sender, ElapsedEventArgs e)
+        {
+            Task.Run(() => CheckLoginSession());
+        }
+        // If User Left Screen Running Go Back To Login
+        async Task CheckLoginSession()
+        {
+            await this.Dispatcher.BeginInvoke(new ThreadStart(() =>
+            {
+                if (DateTime.Now > Convert.ToDateTime("23:50"))
+                {                    
+                    this.Close();                
+                }
+
+            }));
+           
+        }
         // Page Style
         #region Page Style
 
@@ -73,12 +102,13 @@ namespace Hashtil_Jobs_For_Drivers.Views
             mainWin.ShowDialog();
         }
      
-       
-        // Btns
-        #region Btn Click
 
-        // DashBoard Btn Click
-        private void NavButton_Click(object sender, RoutedEventArgs e)
+
+    // Btns
+    #region Btn Click
+
+    // DashBoard Btn Click
+    private void NavButton_Click(object sender, RoutedEventArgs e)
         {
             CC.Content = new DashBoardControl();
         }
