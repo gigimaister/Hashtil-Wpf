@@ -382,6 +382,24 @@
 
 
         </syncfusion:SfChart>
-
+<!--Num Of Jobs-->
+        <StackPanel FlowDirection="RightToLeft" Orientation="Vertical" Grid.Row="2"
+                    Grid.RowSpan="2" Grid.Column="2" Grid.ColumnSpan="2"
+                    Margin="0 0 150 0">
+            <StackPanel Orientation="Horizontal" Margin="0 0 0 25">
+                <TextBlock Text="עבודות למחר:" Margin="0 0 87 0" FontFamily="Agency FB" 
+                           FontSize="28"/>
+                <TextBlock Text="" x:Name="txtjobsforTommorrow"  FontSize="28" FontFamily="Agency FB"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0 0 0 25">
+                <TextBlock Text="עבודות למחר מוכנות:" Margin="0 0 50 0" FontSize="28" FontFamily="Agency FB"/>
+                <TextBlock Text="" x:Name="txtfinishJobs" FontSize="28" FontFamily="Agency FB" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="כלובים למחר:" Margin="0 0 88 0" FontSize="28" FontFamily="Agency FB"/>
+                <TextBlock Text="" x:Name="txtcagesforTommorrw" FontSize="28" FontFamily="Agency FB"/>
+            </StackPanel>
+        </StackPanel>
+        
     </Grid>
 </UserControl>

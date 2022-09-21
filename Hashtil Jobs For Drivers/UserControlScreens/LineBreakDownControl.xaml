@@ -8,105 +8,115 @@
              mc:Ignorable="d" 
              xmlns:syncfusion="http://schemas.syncfusion.com/wpf" 
              d:DesignHeight="450" d:DesignWidth="800" x:Name="ucLineBreak">
-    <Grid  Background="{DynamicResource MaterialDesignPaper}" >
+    
+        <Grid  Background="{DynamicResource MaterialDesignPaper}" x:Name="gridprint" >
 
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="6*"/>
-            <ColumnDefinition Width="1*"/>
-            
-        </Grid.ColumnDefinitions>
-        
-        <!--Header-->
-        <ScrollViewer Grid.Column="1" x:Name="svforprint">
-            <StackPanel FlowDirection="RightToLeft" Margin="0 20 15 0" x:Name="spLineBreak">
-                <!--Print Btn-->
-                <Button Style="{StaticResource MaterialDesignFlatMidBgButton}" x:Name="btnPrintLine"
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
+
+            </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+        <!--Line Num + Driver's Details -->
+        <StackPanel FlowDirection="RightToLeft" Margin="0 20 15 0" x:Name="spLineBreak" Grid.Column="0" Grid.ColumnSpan="3">
+            <!--Print Btn-->
+            <Button Style="{StaticResource MaterialDesignFlatMidBgButton}" x:Name="btnPrintLine"
                         materialDesign:ShadowAssist.ShadowDepth="Depth0" Click="btnPrintLine_Click"
                         Width="80" Content="הדפסה" HorizontalAlignment="Right" Margin="0 10 15 0"/>
-                <!--LineNum-->
-                <TextBlock Text="" x:Name="txtLineNum" FontSize="22" FontWeight="Bold" HorizontalAlignment="Center"/>
-                <!--Date-->
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="" x:Name="txtHebrewDate" FontSize="18" FontWeight="Bold"/>
-                    <TextBlock Text="" FontSize="18" Margin="25 0 0 0" FontWeight="Bold"/>
-                </StackPanel>
-                <!--Driver-->
-                <StackPanel Orientation="Horizontal" Margin="0 25 0 0">
-                    <TextBlock Text="נהג:" FontSize="18" FontWeight="Bold"/>
-                    <TextBlock Text="" x:Name="txtDriver" FontSize="18" Margin="25 0 0 0" FontWeight="Bold"/>
-                </StackPanel>
-                <!--Cages-->
-                <StackPanel Orientation="Horizontal" Margin="0 25 0 0">
-                    <TextBlock Text="כלובים:" FontSize="18" FontWeight="Bold"/>
-                    <TextBlock Text="" x:Name="txtCages" FontSize="18" Margin="25 0 0 0" FontWeight="Bold"/>
-                </StackPanel>
-                <!--Cx-->
-                
-                <StackPanel Orientation="Horizontal" Margin="0 25 0 0">
-                    <TextBlock Text="לקוחות:" FontSize="18" FontWeight="Bold"/>
-                    <TextBlock Text="" x:Name="txtCx" FontSize="18" Margin="25 0 0 10" FontWeight="Bold"/>
-                </StackPanel>
-                <TextBlock Text="*כמות הכלבים עלולה להיות שונה בעת ההעמסה!" FontSize="18" FontWeight="Bold"/>
-                <TextBlock Text="**באחריות הנהג לוודא תקינות וכמות כלובים מול הסדרן!" FontSize="18" FontWeight="Bold"/>
-                <ScrollViewer VerticalScrollBarVisibility="Visible">
-
-                        <ListBox x:Name="lbDeliveryLine" ScrollViewer.VerticalScrollBarVisibility="Visible" >
-
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-
-
-                                    <StackPanel>
-                                        <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="לקוח:" FontSize="16" Margin="5 0 0 0"/>
-                                        <TextBlock Text="{Binding Cx}" FontSize="16" Margin="5 0 0 0" FontWeight="Bold"/>
-                                        <TextBlock Text="כלובים:" FontSize="16"  Margin="5 0 0 0"/>
-                                        <TextBlock Text="{Binding CxCages}" FontSize="16" Margin="5 0 0 0" FontWeight="Bold"/>
-                                        <TextBlock Text="טלפון 1:" FontSize="16"  Margin="10 0 0 0"/>
-                                        <TextBlock Text="{Binding CxPhone1}" FontSize="16"  Margin="5 0 0 0" FontWeight="Bold"/>
-                                        <TextBlock Text="טלפון 2:" FontSize="16"  Margin="10 0 0 0"/>
-                                        <TextBlock Text="{Binding CxPhone2}" FontSize="16"  Margin="5 0 0 0" FontWeight="Bold"/>
-                                        <TextBlock Text="{Binding ErrorMessage}" FontSize="16"  Margin="5 0 0 0" FontWeight="Bold"/>
-                                    </StackPanel>
-
-                                        <syncfusion:SfDataGrid  x:Name="dataGrid"
-                                                        ItemsSource="{Binding InnerOrders}">
-                                            <syncfusion:SfDataGrid.Columns>
-                                                <syncfusion:GridDateTimeColumn  HeaderText="תאריך" IsHidden="False"  MappingName="Date"/>
-                                                <syncfusion:GridTextColumn  HeaderText="נהג/קו" IsHidden="True" MappingName="Driver"/>
-                                                <syncfusion:GridTextColumn  HeaderText="לקוח" IsHidden="False" MappingName="Cx"/>
-                                                <syncfusion:GridTextColumn  HeaderText="גידול" IsHidden="False" MappingName="Gidul"/>
-                                                <syncfusion:GridTextColumn  HeaderText="זן" IsHidden="False" MappingName="Zan"/>
-                                                <syncfusion:GridTextColumn  HeaderText="שתילים" IsHidden="True" MappingName="Plants"/>
-                                                <syncfusion:GridTextColumn  HeaderText="מגשים" IsHidden="False" MappingName="Magash" Width="50"/>
-                                                <syncfusion:GridTextColumn  HeaderText="פספורט" IsHidden="True" MappingName="Passport" Width="75"/>
-                                                <syncfusion:GridTextColumn  HeaderText="פספורט" IsHidden="True" MappingName="CxPhone1"/>
-                                                <syncfusion:GridTextColumn  HeaderText="פספורט" IsHidden="True" MappingName="CxPhone2"/>
-                                                <syncfusion:GridTextColumn  HeaderText="פספורט" IsHidden="True" MappingName="CreationDate"/>
-                                                <syncfusion:GridTextColumn  HeaderText="" IsHidden="True" MappingName="CxCages"/>
-                                                <syncfusion:GridTextColumn  HeaderText="" IsHidden="True" MappingName="Avarage"/>
-                                                <syncfusion:GridTextColumn  HeaderText="" IsHidden="True" MappingName="Status"/>
-                                                <syncfusion:GridTextColumn  HeaderText="" IsHidden="True" MappingName="Cages"/>
-                                                <syncfusion:GridTextColumn  HeaderText="הערות" IsHidden="False" ColumnSizer="AutoWithLastColumnFill" MappingName="Remarks"/>
-                                                <syncfusion:GridTextColumn  HeaderText="" IsHidden="True" MappingName="HasCertificate"/>
-                                                <syncfusion:GridTextColumn  HeaderText="" IsHidden="True" MappingName="SplitMagash"/>
-                                                <syncfusion:GridTextColumn  HeaderText="" IsHidden="True" MappingName="SplitCages"/>
-                                                <syncfusion:GridTextColumn  HeaderText="" IsHidden="True" MappingName="ErrorMessage"/>
-                                        </syncfusion:SfDataGrid.Columns>
-                                        </syncfusion:SfDataGrid>
-                                    </StackPanel>
-                                </DataTemplate>
-
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                    </ScrollViewer>
-
-
-                <TextBlock HorizontalAlignment="Center" Text="הופק ע&quot;י יעקב גיגי טכנולוגיות בע&quot;מ" FontSize="15" />
+            <!--LineNum-->
+            <TextBlock Text="" x:Name="txtLineNum" FontSize="22" FontWeight="Bold" HorizontalAlignment="Center"/>
+            <!--Date-->
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="" x:Name="txtHebrewDate" FontSize="18" FontWeight="Bold"/>
+                <TextBlock Text="" FontSize="18" Margin="25 0 0 0" FontWeight="Bold"/>
             </StackPanel>
-        </ScrollViewer>
+            <!--Driver-->
+            <StackPanel Orientation="Horizontal" Margin="0 25 0 0">
+                <TextBlock Text="נהג:" FontSize="18" FontWeight="Bold"/>
+                <TextBlock Text="" x:Name="txtDriver" FontSize="18" Margin="25 0 0 0" FontWeight="Bold"/>
+            </StackPanel>
+            <!--Cages-->
+            <StackPanel Orientation="Horizontal" Margin="0 25 0 0">
+                <TextBlock Text="כלובים:" FontSize="18" FontWeight="Bold"/>
+                <TextBlock Text="" x:Name="txtCages" FontSize="18" Margin="25 0 0 0" FontWeight="Bold"/>
+            </StackPanel>
+            <!--Cx-->
 
+            <StackPanel Orientation="Horizontal" Margin="0 25 0 0">
+                <TextBlock Text="לקוחות:" FontSize="18" FontWeight="Bold"/>
+                <TextBlock Text="" x:Name="txtCx" FontSize="18" Margin="25 0 0 10" FontWeight="Bold"/>
+            </StackPanel>
+            <TextBlock Text="*כמות הכלבים עלולה להיות שונה בעת ההעמסה!" FontSize="18" FontWeight="Bold"/>
+            <TextBlock Text="**באחריות הנהג לוודא תקינות וכמות כלובים מול הסדרן!" FontSize="18" FontWeight="Bold"/>
+
+        </StackPanel>
+            <!--List View Jobs Grid-->
+        <Grid Grid.Row="1" HorizontalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="3" FlowDirection="RightToLeft">
+            <ScrollViewer VerticalScrollBarVisibility="Visible">
+
+                <ListBox x:Name="lbDeliveryLine" ScrollViewer.VerticalScrollBarVisibility="Visible" >
+
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+
+
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="לקוח:" FontSize="16" Margin="5 0 0 0"/>
+                                    <TextBlock Text="{Binding Cx}" FontSize="16" Margin="5 0 0 0" FontWeight="Bold"/>
+                                    <TextBlock Text="כלובים:" FontSize="16"  Margin="5 0 0 0"/>
+                                    <TextBlock Text="{Binding CxCages}" FontSize="16" Margin="5 0 0 0" FontWeight="Bold"/>
+                                    <TextBlock Text="טלפון 1:" FontSize="16"  Margin="10 0 0 0"/>
+                                    <TextBlock Text="{Binding CxPhone1}" FontSize="16"  Margin="5 0 0 0" FontWeight="Bold"/>
+                                    <TextBlock Text="טלפון 2:" FontSize="16"  Margin="10 0 0 0"/>
+                                    <TextBlock Text="{Binding CxPhone2}" FontSize="16"  Margin="5 0 0 0" FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding ErrorMessage}" FontSize="16"  Margin="5 0 0 0" FontWeight="Bold"/>
+                                </StackPanel>
+
+                                <syncfusion:SfDataGrid  x:Name="dataGrid"
+                                                        ItemsSource="{Binding InnerOrders}">
+                                    <syncfusion:SfDataGrid.Columns>
+                                        <syncfusion:GridDateTimeColumn  HeaderText="תאריך" IsHidden="False"  MappingName="Date"/>
+                                        <syncfusion:GridTextColumn  HeaderText="נהג/קו" IsHidden="True" MappingName="Driver"/>
+                                        <syncfusion:GridTextColumn  HeaderText="לקוח" IsHidden="False" MappingName="Cx"/>
+                                        <syncfusion:GridTextColumn  HeaderText="גידול" IsHidden="False" MappingName="Gidul"/>
+                                        <syncfusion:GridTextColumn  HeaderText="זן" IsHidden="False" MappingName="Zan"/>
+                                        <syncfusion:GridTextColumn  HeaderText="שתילים" IsHidden="True" MappingName="Plants"/>
+                                        <syncfusion:GridTextColumn  HeaderText="מגשים" IsHidden="False" MappingName="Magash" Width="50"/>
+                                        <syncfusion:GridTextColumn  HeaderText="פספורט" IsHidden="True" MappingName="Passport" Width="75"/>
+                                        <syncfusion:GridTextColumn  HeaderText="פספורט" IsHidden="True" MappingName="CxPhone1"/>
+                                        <syncfusion:GridTextColumn  HeaderText="פספורט" IsHidden="True" MappingName="CxPhone2"/>
+                                        <syncfusion:GridTextColumn  HeaderText="פספורט" IsHidden="True" MappingName="CreationDate"/>
+                                        <syncfusion:GridTextColumn  HeaderText="" IsHidden="True" MappingName="CxCages"/>
+                                        <syncfusion:GridTextColumn  HeaderText="" IsHidden="True" MappingName="Avarage"/>
+                                        <syncfusion:GridTextColumn  HeaderText="" IsHidden="True" MappingName="Status"/>
+                                        <syncfusion:GridTextColumn  HeaderText="" IsHidden="True" MappingName="Cages"/>
+                                        <syncfusion:GridTextColumn  HeaderText="הערות" IsHidden="False" ColumnSizer="AutoWithLastColumnFill" MappingName="Remarks"/>
+                                        <syncfusion:GridTextColumn  HeaderText="" IsHidden="True" MappingName="HasCertificate"/>
+                                        <syncfusion:GridTextColumn  HeaderText="" IsHidden="True" MappingName="SplitMagash"/>
+                                        <syncfusion:GridTextColumn  HeaderText="" IsHidden="True" MappingName="SplitCages"/>
+                                        <syncfusion:GridTextColumn  HeaderText="" IsHidden="True" MappingName="ErrorMessage"/>
+                                    </syncfusion:SfDataGrid.Columns>
+                                </syncfusion:SfDataGrid>
+                            </StackPanel>
+                        </DataTemplate>
+
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </ScrollViewer>
+
+
+           
+        </Grid>
+            <!--Kobi Rights-->
+        <TextBlock HorizontalAlignment="Center" Text="הופק ע&quot;י יעקב גיגי טכנולוגיות בע&quot;מ" FontSize="15" Grid.Row="2" Grid.ColumnSpan="3"/>
     </Grid>
+    
+   
 </UserControl>

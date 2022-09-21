@@ -120,6 +120,9 @@ namespace Hashtil_Jobs_For_Drivers.UserControlScreens
                 CGNiddlePlants.Value = DashboardData.NumOfPlantsForTommorrow;
                 CGTexttreys.Text =  DashboardData.NumOfMagashForTommorrow.ToString("#,0");
                 CGTextplants.Text = $"{(Convert.ToDouble(DashboardData.NumOfPlantsForTommorrow)/1000000).ToString("N2")}M";
+                txtjobsforTommorrow.Text = DashboardData.NumOfOrdersForTommorrow.ToString();
+                txtcagesforTommorrw.Text = DashboardData.NumOfCagesForTommorrow.ToString();
+                txtfinishJobs.Text = DashboardData.FinishJobs.ToString();
 
                 // Total Treys Of Week Chart
                 LinechrtTotalJobs.ItemsSource = DashboardData.DailyJobsChartList;
