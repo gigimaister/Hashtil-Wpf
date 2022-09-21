@@ -37,6 +37,7 @@ namespace Hashtil_Jobs_For_Drivers
             public static string StillNoDriver = "עדיין לא שובץ";
             public static string ManySapMatch = "נמצאו התאמות רבות ב-SAP";
             public static string NoSapMatch = "לא נמצאו התאמות";
+            public static string NoLinesFound = "לא נמצאו קוים!\nנא לעדכן קוים בטבלת הוצאות ולבצע רענון לעמוד זה.";
 
         }
 

@@ -39,7 +39,14 @@ namespace Hashtil_Jobs_For_Drivers.UserControlScreens
 
             Drivers = await ApiHelper.GetDrivers();
             DeliveryLineControls = await GSheetsHelper.GetLinesSumUp(Orders, DeliveryLineStatuses, Drivers);
-
+            if(DeliveryLineControls.Count() == 0)
+            {
+                await this.Dispatcher.BeginInvoke(new ThreadStart(() =>
+                {
+                    txtNoLinesFound.Text = Constants.Hebrew.NoLinesFound;
+                }));
+                return;
+            }
            
             // Get cx From Orders By Group For List View
             foreach (var line in DeliveryLineControls)

@@ -23,7 +23,16 @@
     IsIndeterminate="True"
     Progress="50"
     ShowProgressValue="False" SecondaryProgressColor="#FF87EC79" ProgressColor="#FF34ED25" TrackColor="#FFAFAFAF" />
-      <!--Item Control-->
+        <StackPanel>
+            <!--No Lines Found Text-->
+            <TextBlock
+                x:Name="txtNoLinesFound"
+                FlowDirection="RightToLeft"  
+                Text="" 
+                FontSize="33" Background="White" Foreground="Red" Margin="0 50 0 0"/>
+          
+        </StackPanel>
+        <!--Item Control-->
         <ListBox Grid.Column="0" x:Name="icDeliveryLine" SelectionChanged="lbTodoList_SelectionChanged" Background="Transparent">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -68,28 +77,29 @@
                                 <TextBlock x:Name="txtCx" Text="{Binding NumOfCx}" Margin="10 0 0 0" FontSize="18" FontWeight="Bold"/>
                             </StackPanel>
                             <!--cx list view-->
-                            
-                                <StackPanel Orientation="Vertical" FlowDirection="RightToLeft" >
-                            
-                                    <ListBox ItemsSource="{Binding OrdersGroup}"  
+
+                            <StackPanel Orientation="Vertical" FlowDirection="RightToLeft" >
+
+                                <ListBox ItemsSource="{Binding OrdersGroup}"  
                                              HorizontalContentAlignment="Center"
                                              ScrollViewer.VerticalScrollBarVisibility="Visible">
-                                        <ListBox.ItemTemplate>
-                                            <DataTemplate>
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
 
-                                                <TextBlock Text="{Binding Cx}" FontSize="14" FontWeight="DemiBold" Width="auto"/>
+                                            <TextBlock Text="{Binding Cx}" FontSize="14" FontWeight="DemiBold" Width="auto"/>
 
-                                            </DataTemplate>
-                                        </ListBox.ItemTemplate>
-                                    </ListBox>
-                               
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+
                             </StackPanel>
-                           
+
                         </StackPanel>
                     </Border>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
         <ContentControl x:Name="CC"   Grid.ColumnSpan="2"/>
+
     </Grid>
 </UserControl>

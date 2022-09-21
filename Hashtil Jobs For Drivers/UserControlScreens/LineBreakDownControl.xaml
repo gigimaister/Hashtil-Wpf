@@ -52,7 +52,7 @@
                 <TextBlock Text="לקוחות:" FontSize="18" FontWeight="Bold"/>
                 <TextBlock Text="" x:Name="txtCx" FontSize="18" Margin="25 0 0 10" FontWeight="Bold"/>
             </StackPanel>
-            <TextBlock Text="*כמות הכלבים עלולה להיות שונה בעת ההעמסה!" FontSize="18" FontWeight="Bold"/>
+            <TextBlock Text="*כמות הכלובים עלולה להיות שונה בעת ההעמסה!" FontSize="18" FontWeight="Bold"/>
             <TextBlock Text="**באחריות הנהג לוודא תקינות וכמות כלובים מול הסדרן!" FontSize="18" FontWeight="Bold"/>
 
         </StackPanel>
