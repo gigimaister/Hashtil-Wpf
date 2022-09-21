@@ -59,6 +59,7 @@ namespace Hashtil_Jobs_For_Drivers
         // Login Btn
         private async void btnLogin_Click(object sender, RoutedEventArgs e)
         {
+            this.IsEnabled= false;
             try
             {
                 // Save To Properties
@@ -92,6 +93,11 @@ namespace Hashtil_Jobs_For_Drivers
             {
                 txtErrorMessage.Visibility = Visibility.Visible; 
             }
+            finally
+            {
+                this.IsEnabled= true;
+            }
+            
         }
     }
 }

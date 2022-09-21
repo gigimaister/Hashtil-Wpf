@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Printing;
+using System;
 
 namespace Hashtil_Jobs_For_Drivers.UserControlScreens
 {
@@ -36,8 +37,20 @@ namespace Hashtil_Jobs_For_Drivers.UserControlScreens
         // Print Line Btn
         private void btnPrintLine_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            PrintDialog printDlg = new PrintDialog();
-            printDlg.PrintVisual(ucLineBreak, "");
+            try
+            {
+                PrintDialog printDlg = new PrintDialog();
+                if (printDlg.ShowDialog() == true)
+                {
+                    printDlg.PrintVisual(svforprint, "");
+                }
+
+            }
+            catch(Exception ex)
+            {
+
+            }
+
 
         }
     }
