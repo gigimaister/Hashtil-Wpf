@@ -13,7 +13,7 @@ namespace Hashtil_Jobs_For_Drivers.Heplers
 
     public static class MsqlHeleper
     {
-        public static string? ConString = "Data Source = hashtil-sap1; Initial Catalog = Hashtil09; Integrated Security = true";
+        public static string? ConString = "Data Source = hashtil-sap1; Initial Catalog = Hashtil09; User ID=h2;Password=H2kobiApp;";
         static SqlConnection con = new SqlConnection(ConString);
         
         public static Task<List<SapCx>> GetCxPhonesFromSap(string cxName)

@@ -71,8 +71,12 @@ namespace Hashtil_Jobs_For_Drivers.Heplers
                             order.Passport = (string)(row[7]);
                             order.Avarage = Convert.ToDouble(row[8]);
                             order.Status = (string)row[9];
-                            // Prevent Exception When Len Of Row Is 9
-                            if (row.Count > 11)
+                            if ((string)row[2]=="סלוקי")
+                            {
+
+                            }
+                            // Prevent Exception Row Len
+                            if (row.Count > 10)
                             {
                                 if (!string.IsNullOrEmpty((string)row[10]))
                                 {
@@ -82,13 +86,21 @@ namespace Hashtil_Jobs_For_Drivers.Heplers
                                 {
                                     order.Cages = 0;
                                 }
+                               
                             }
                             else
                             {
                                 Orders.Add(order);
                                 continue;
                             }
-                            order.Remarks = (string)row[11];
+                            
+                         if(row.Count > 11)
+                            {
+                                if (!string.IsNullOrEmpty((string)row[11]))
+                                {
+                                    order.Remarks = (string)row[11];
+                                }
+                            }
 
                             // If Remarks Null
                             if (row.Count < 13)
@@ -100,26 +112,7 @@ namespace Hashtil_Jobs_For_Drivers.Heplers
                             {
                                 order.HasCertificate = (string)row[12];
                             }
-
-
-                            // If Timestamp Is Null
-                            if (row.Count < 18)
-                            {
-                                Orders.Add(order);
-                                continue;
-                            }
-                            else
-                            {
-                                if (!string.IsNullOrEmpty((string)row[18]))
-                                {
-                                    order.CreationDate = Convert.ToDateTime(row[18]);
-                                }
-                                else
-                                {
-                                    order.CreationDate = DateTime.Now.AddDays(1);
-                                }
-
-                            }
+                    
 
                             Orders.Add(order);
                         }
