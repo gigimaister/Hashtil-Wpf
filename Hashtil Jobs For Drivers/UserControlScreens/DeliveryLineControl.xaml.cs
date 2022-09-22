@@ -44,6 +44,7 @@ namespace Hashtil_Jobs_For_Drivers.UserControlScreens
                 await this.Dispatcher.BeginInvoke(new ThreadStart(() =>
                 {
                     txtNoLinesFound.Text = Constants.Hebrew.NoLinesFound;
+                    LSpinner.Visibility = System.Windows.Visibility.Hidden;
                 }));
                 return;
             }

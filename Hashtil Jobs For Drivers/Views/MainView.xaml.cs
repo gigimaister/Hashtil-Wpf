@@ -32,7 +32,7 @@ namespace Hashtil_Jobs_For_Drivers.Views
         // Timer 
         private void OnTimedEvent(object sender, ElapsedEventArgs e)
         {
-            Task.Run(() => CheckLoginSession());
+            Task.Run(() =>   CheckLoginSession());
         }
         // If User Left Screen Running Go Back To Login
         async Task CheckLoginSession()

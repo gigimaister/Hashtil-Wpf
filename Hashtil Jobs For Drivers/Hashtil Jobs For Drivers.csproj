@@ -6,6 +6,9 @@
     <RootNamespace>Hashtil_Jobs_For_Drivers</RootNamespace>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>HashtilERPR-logo_512x512.ico</ApplicationIcon>
+    <Copyright>Kobi Giigi 2022</Copyright>
+    <PackageIcon>HashtilERPR-logo.jpeg</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -37,9 +40,14 @@
     <Content Include="hashtil-job-table-wpf.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="HashtilERPR-logo_512x512.ico" />
     <Content Include="Resources\HashtilLoginVideoAndroid.mp4">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="..\..\..\..\..\Downloads\HashtilERPR-logo.jpeg">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
     <Resource Include="Resources\map.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>

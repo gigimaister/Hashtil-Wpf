@@ -297,7 +297,7 @@ namespace Hashtil_Jobs_For_Drivers.Heplers
             data.NumOfPlantsForTommorrow = (int)orders.Where(x => x.Date == DateTime.Today.AddDays(1)).Sum(x => x.Plants);
             data.NumOfCagesForTommorrow = (int)orders.Where(x => x.Date == DateTime.Today.AddDays(1)).Sum(x => x.Cages);
             data.NumOfOrdersForTommorrow = orders.Where(x => x.Date == DateTime.Today.AddDays(1)).Count();
-            data.FinishJobs = orders.Where(x => x.Status == "מ").Count();
+            data.FinishJobs = orders.Where(x => x.Status == "מ" && x.Date == DateTime.Today.AddDays(1)).Count();
 
             // Today
             data.NumOfMagashForToday = (int)orders.Where(x => x.Date == DateTime.Today).Sum(X => X.Magash);

@@ -29,7 +29,7 @@
                 x:Name="txtNoLinesFound"
                 FlowDirection="RightToLeft"  
                 Text="" 
-                FontSize="33" Background="White" Foreground="Red" Margin="0 50 0 0"/>
+                FontSize="33"  Foreground="Red" Margin="0 50 0 0"/>
           
         </StackPanel>
         <!--Item Control-->
