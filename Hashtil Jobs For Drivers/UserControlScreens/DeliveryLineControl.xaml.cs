@@ -59,7 +59,7 @@ namespace Hashtil_Jobs_For_Drivers.UserControlScreens
                     o.Cx = order.Key;
                     o.SapCxes = await MsqlHeleper.GetCxPhonesFromSap(o.Cx);
                     o.GetNumOfCxPhonesList();
-                    o.CxCages = Convert.ToInt32(Orders.Where(x => x.Cx == order.Key).Sum(x => x.Cages));
+                    o.CxCages = Convert.ToInt32(Orders.Where(x => x.Cx == order.Key && x.Date == DateTime.Today.AddDays(1)).Sum(x => x.Cages));
                     o.InnerOrders = line.Orders.Where(x => x.Cx == order.Key).ToList();
                     line.OrdersGroup.Add(o);
                     
